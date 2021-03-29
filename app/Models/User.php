@@ -16,6 +16,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
     protected $fillable = [
         'name',
         'email',
