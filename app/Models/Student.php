@@ -2,26 +2,34 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Student
+ * @package App\Models
+ * @mixin Builder
+ */
 
 class Student extends Model
 {
     use HasFactory;
+    protected $primaryKey = "student_id";
 
-    public function user(){
-        return $this->hasOne(Student::class);
+    public function userTable(){
+        return $this->hasOne(User::class,'id','student_id');
     }
 
-    public function status(){
-        return $this->hasMany(Status_student::class);
+    public function statusTable(){
+        return $this->hasMany(Status_student::class,'status_id','status_student');
     }
 
-    public function room(){
-        return $this->hasMany(Room::class);
+    public function roomTable(){
+        return $this->hasMany(Room::class,'room_id','room_id');
     }
 
-    public function group(){
-        return $this->hasMany(Group::class);
+    public function groupTable(){
+        return $this->hasMany(Group::class,'group_id','group');
     }
 }
