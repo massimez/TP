@@ -1,0 +1,64 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+html {
+    font-family: "Montserrat", sans-serif;
+    color: #ffffff;
+}
+body {
+    width: 100%;
+    min-height: 100%;
+    //background: radial-gradient( 68.62% 312.3% at 58.65% 53.06%, rgba(0, 90, 174, 0.88) 0%, rgba(48, 114, 214, 0) 100%);
+    background-color: #005aae;
+}
+h1 {
+    font-family: "Montserrat", sans-serif;
+    color: #ffffff;
+    line-height: 36px;
+    font-weight: 900;
+}
+
+.login-input {
+    color: #ffffff;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    width: 453px;
+    height: 73px;
+    text-indent: 4%;
+    font-size: medium;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.login-input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    position: absolute;
+    color: #ffffff;
+    opacity: 1;
+}
+.login-input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #ffffff;
+    opacity: 1;
+}
+.login-input:placeholder-shown {
+    //opacity: 20%;
+}
+.btn-login-submit {
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    line-height: 29px;
+    letter-spacing: 0.1em;
+    font-size: 24px;
+    background-color: #ffffff;
+    color: #005aae;
+    border-radius: 50px;
+    width: 453px;
+    height: 73px;
+}
