@@ -6,11 +6,12 @@
     width: 453px;
     height: 73px;
     text-indent: 4%;
-    font-size: medium;
+    font-size: large;
     margin-top: 2%;
     margin-bottom: 2%;
 }
 .login-input:placeholder-shown {
+    color: #ffffff;
 }
 .btn-login-submit {
     font-family: "Montserrat", sans-serif;
@@ -55,4 +56,9 @@
     letter-spacing: 0.2rem;
     text-indent: 3%;
     vertical-align: middle;
+}
+/* Firefox only: */
+.login-input:focus::placeholder {
+    text-align: right;
+    color: rgb(247, 144, 144);
 }

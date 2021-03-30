@@ -10011,9 +10011,21 @@ h3 {
   width: 453px;
   height: 73px;
   text-indent: 4%;
-  font-size: medium;
+  font-size: large;
   margin-top: 2%;
   margin-bottom: 2%;
+}
+
+.login-input:-moz-placeholder-shown {
+  color: #ffffff;
+}
+
+.login-input:-ms-input-placeholder {
+  color: #ffffff;
+}
+
+.login-input:placeholder-shown {
+  color: #ffffff;
 }
 
 .btn-login-submit {
@@ -10063,6 +10075,20 @@ h3 {
   letter-spacing: 0.2rem;
   text-indent: 3%;
   vertical-align: middle;
+}
+
+/* Firefox only: */
+.login-input:focus::-moz-placeholder {
+  text-align: right;
+  color: #f79090;
+}
+.login-input:focus:-ms-input-placeholder {
+  text-align: right;
+  color: #f79090;
+}
+.login-input:focus::placeholder {
+  text-align: right;
+  color: #f79090;
 }
 
 html {
