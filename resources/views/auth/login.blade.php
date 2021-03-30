@@ -25,7 +25,7 @@
 
 
                     <div class="col-md-6">
-                        <input id="password" type="password" class="login-input   @error('password') is-invalid @enderror"
+                        <input id="password" type="password" class="login-input form-control  @error('password') is-invalid @enderror"
                             name="password" placeholder="Пароль" required autocomplete="current-password">
 
                         @error('password')
