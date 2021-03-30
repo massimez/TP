@@ -1,0 +1,58 @@
+.login-input {
+    color: #ffffff;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    width: 453px;
+    height: 73px;
+    text-indent: 4%;
+    font-size: medium;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.login-input:placeholder-shown {
+}
+.btn-login-submit {
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    line-height: 29px;
+    letter-spacing: 0.1em;
+    font-size: 24px;
+    background-color: #ffffff;
+    color: #005aae;
+    border-radius: 50px;
+    width: 453px;
+    height: 73px;
+}
+.login-input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #ffffff;
+    opacity: 1;
+    letter-spacing: 0.2rem;
+    text-indent: 3%;
+    vertical-align: middle;
+}
+.login-input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #ffffff;
+    opacity: 1;
+    letter-spacing: 0.2rem;
+    text-indent: 3%;
+    vertical-align: middle;
+}
+.login-input:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #ffffff;
+    opacity: 1;
+    letter-spacing: 0.2rem;
+    text-indent: 3%;
+    vertical-align: middle;
+}
+.login-input :-moz-placeholder {
+    /* Firefox 18- */
+    color: #ffffff;
+    opacity: 1;
+    letter-spacing: 0.2rem;
+    text-indent: 3%;
+    vertical-align: middle;
+}

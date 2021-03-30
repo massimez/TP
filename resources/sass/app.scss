@@ -7,6 +7,9 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+//Form
+@import "forms";
+
 html {
     font-family: "Montserrat", sans-serif;
     color: #ffffff;
@@ -22,43 +25,4 @@ h1 {
     color: #ffffff;
     line-height: 36px;
     font-weight: 900;
-}
-
-.login-input {
-    color: #ffffff;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
-    width: 453px;
-    height: 73px;
-    text-indent: 4%;
-    font-size: medium;
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-.login-input::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
-    position: absolute;
-    color: #ffffff;
-    opacity: 1;
-}
-.login-input::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #ffffff;
-    opacity: 1;
-}
-.login-input:placeholder-shown {
-    //opacity: 20%;
-}
-.btn-login-submit {
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
-    line-height: 29px;
-    letter-spacing: 0.1em;
-    font-size: 24px;
-    background-color: #ffffff;
-    color: #005aae;
-    border-radius: 50px;
-    width: 453px;
-    height: 73px;
 }
