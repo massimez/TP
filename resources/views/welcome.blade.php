@@ -35,6 +35,7 @@
                     @endauth
                 </div>
             @endif
+            <div class="h1">Test</div>
             <div class="content">
                 <div id="test"></div>
         </div>
