@@ -10017,15 +10017,15 @@ h3 {
 }
 
 .login-input:-moz-placeholder-shown {
-  color: #ffffff;
+  color: black;
 }
 
 .login-input:-ms-input-placeholder {
-  color: #ffffff;
+  color: black;
 }
 
 .login-input:placeholder-shown {
-  color: #ffffff;
+  color: black;
 }
 
 .btn-login-submit {
