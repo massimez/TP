@@ -13,6 +13,7 @@ import { FaSun, FaMoon ,FaUserCircle} from "react-icons/fa";
 import Colormode from "./Colormode";
 import {AiFillSetting} from "react-icons/ai"
 import { Link } from "react-router-dom";
+import logo from '../../../../public/images/logo.png';
 
 
 function Header(props) {
@@ -30,15 +31,15 @@ function Header(props) {
     >
       <Link to="/">
         <Image
-        src={process.env.PUBLIC_URL + "./images/logo.png"}
+        src={logo}
         alt="Tusur logo" w="380px" h="39.22px"
       />
       </Link>
-      
+
       <Heading as="h3" size="md">{props.title}</Heading>
-      
+
       <Menu isLazy  alignSelf="flex-end" mx="max" size="sm" closeOnSelect={true} closeOnBlur={true} placement="right-start" >
-        <MenuButton 
+        <MenuButton
           _hover={{ color: "blue.900", stroke: "red" }}
           _focus={{ boxShadow: "outline" }}
           as={IconButton}
@@ -46,7 +47,7 @@ function Header(props) {
           aria-label="Options"
           icon={<FaUserCircle size="lg"/>}
           variant="none"
-          w="1" 
+          w="1"
           isRound="true"
         />
         <MenuList color="black">
@@ -60,7 +61,7 @@ function Header(props) {
             Помощь
           </MenuItem>
           <MenuItem icon={<FaUserCircle />} command="⌘O">
-            
+
           </MenuItem>
           <Colormode />
         </MenuList>
