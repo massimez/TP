@@ -10,6 +10,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { FaSun, FaMoon ,FaUserCircle} from "react-icons/fa";
+import {FiHelpCircle} from "react-icons/fi"
 import Colormode from "./Colormode";
 import {AiFillSetting} from "react-icons/ai"
 import { Link } from "react-router-dom";
@@ -54,10 +55,10 @@ function Header(props) {
           <MenuItem icon={<FaUserCircle />} command="⌘T">
             Профиль
           </MenuItem>
-          <MenuItem icon={<FaUserCircle />} command="⌘N">
+          <MenuItem icon={<AiFillSetting />} command="⌘N">
             Настройки
           </MenuItem>
-          <MenuItem icon={<AiFillSetting />} command="⌘⇧N">
+          <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
             Помощь
           </MenuItem>
           <MenuItem icon={<FaUserCircle />} command="⌘O">

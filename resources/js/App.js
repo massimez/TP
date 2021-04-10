@@ -14,10 +14,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route  exact path="/" component={MainMenuPage} />
-        <Route exact path="/students" component={StudentList} />
-        <Route exact path="/404" component={Error404}/>
-        <Redirect to="/404"/>
+        <Route  exact path="/app/" component={MainMenuPage} />
+        <Route exact path="/app/students" component={StudentList} />
+        <Route exact path="/app/404" component={Error404}/>
+        <Redirect to="/app/404"/>
       </Switch>
     </Router>
   );
