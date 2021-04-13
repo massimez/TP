@@ -30,7 +30,7 @@ function Header(props) {
       borderBottom="1px" borderColor="whiteAlpha.400"
       mb="8"
     >
-      <Link to="/">
+      <Link to="/app/">
         <Image
         src={logo}
         alt="Tusur logo" w="380px" h="39.22px"
@@ -62,7 +62,13 @@ function Header(props) {
             Помощь
           </MenuItem>
           <MenuItem icon={<FaUserCircle />} command="⌘O">
+          <a href="logout" onClick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+  <form id="logout-form" action="/logout" method="POST" class="d-none">
 
+            </form>
           </MenuItem>
           <Colormode />
         </MenuList>

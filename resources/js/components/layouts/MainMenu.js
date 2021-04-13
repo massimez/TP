@@ -40,7 +40,7 @@ const MainMenu = () => {
           </Link>
         </Box>
         <Box width={widthitems} height={heightitems} bg={bg} color={color} borderRadius="xl" >
-          <Link to="/students">
+          <Link to="/addresident">
             <Box
               justify="center"
               align="center"
