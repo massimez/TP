@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class RoomsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login','register']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +31,7 @@ class RoomsController extends Controller
      */
     public function create()
     {
+
     }
 
     /**
@@ -72,7 +79,7 @@ class RoomsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $room = Room::find($id);
+        $room = Room::find($id)->update($request->input());
         return response()->json(['message'=>'updated!']);
     }
 

@@ -22,16 +22,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('me', [\App\Http\Controllers\AuthController::class,'me']);
     Route::post('register', [\App\Http\Controllers\AuthController::class,'register']);
 });
-// get all students
-Route::get('/students',[\App\Http\Controllers\StudentController::class,'allStudent']);
-// get one student
-Route::get('/student/{id}',[\App\Http\Controllers\StudentController::class,'oneStudent']);
-// add student
-Route::post('/students/add',[\App\Http\Controllers\StudentController::class,'addStudent']);
-// update student
-Route::put('/student/{id}',[\App\Http\Controllers\StudentController::class,'updateStudent']);
-// delete student
-Route::delete('/student/{id}',[\App\Http\Controllers\StudentController::class,'deleteStudent']);
+Route::resource('student',\App\Http\Controllers\StudentController::class);
 
 Route::resource('room', \App\Http\Controllers\RoomsController::class);
 
