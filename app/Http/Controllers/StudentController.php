@@ -39,11 +39,30 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-//        $request->validate([
-//            ''
-//        ]);
+        $request->validate([
+            'room_id' => 'required|integer',
+            'name' => 'required|string',
+            'surname'=> 'required|string',
+            'patronymic'=>'required|string',
+            'status_student'=>'required|string',
+            'email'=>'required|email|unique:students',
+            'phone_number'=>'required|integer',
+            'group'=>'required|string',
+            'sex'=>'required|string',
+            'number_contract'=>'required|integer',
+            'date_of_conclusion'=>'required',
+            'date_of_ended_registration'=>'required',
+            'citizenship'=>'required|string',
+            'birthday'=>'required',
+            'place_of_birth'=>'required|string',
+            'number_passport'=>'required|string',
+            'info_passport'=>'required|string',
+            'registration'=>'required|string',
+            'note'=>'string',
+            "status_accommodation" => 'required'
+        ]);
         $student = Student::create($request->all());
-        return response($student,201);
+        return response()->json(["data"=>$student,'message'=>"Created!"]);
     }
 
     /**
@@ -58,7 +77,7 @@ class StudentController extends Controller
         if (is_null($student)){
             return response()->json(['message'=>'student not found'],404);
         }
-        return response()->json($student::find($id),200);
+        return response()->json(['data'=>$student::find($id),'message'=>"Success!"],201);
     }
 
     /**
@@ -69,7 +88,11 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::find("$id",'student_id');
+        if (is_null($student)){
+            return response()->json(['message'=>'student not found'],404);
+        }
+        return response()->json(['data'=>$student::find($id),'message'=>"Success!"],201);
     }
 
     /**
@@ -81,12 +104,34 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'room_id' => 'required|integer',
+            'name' => 'required|string',
+            'surname'=> 'required|string',
+            'patronymic'=>'required|string',
+            'status_student'=>'required|string',
+            'email'=>'required|email|unique:students',
+            'phone_number'=>'required|integer',
+            'group'=>'required|string',
+            'sex'=>'required|string',
+            'number_contract'=>'required|integer',
+            'date_of_conclusion'=>'required',
+            'date_of_ended_registration'=>'required',
+            'citizenship'=>'required|string',
+            'birthday'=>'required',
+            'place_of_birth'=>'required|string',
+            'number_passport'=>'required|string',
+            'info_passport'=>'required|string',
+            'registration'=>'required|string',
+            'note'=>'string',
+            "status_accommodation" => 'required'
+        ]);
         $student = Student::find("$id",'student_id');
         if (is_null($student)){
             return response()->json(['message'=>'student not found'],404);
         }
         $student->update($request->all());
-        return response($student,200);
+        return response()->json(['message'=>'updated!'],200);
     }
 
     /**
@@ -102,6 +147,6 @@ class StudentController extends Controller
             return response()->json(['message'=>'student not found'],404);
         }
         $student->delete();
-        return response(null,200);
+        return response()->json(['message'=>'deleted!'],200);
     }
 }
