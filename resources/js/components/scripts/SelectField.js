@@ -2,16 +2,21 @@ import React from "react";
 import { useField } from "formik";
 import { Select } from "@chakra-ui/select";
 
+
 function SelectField({ ...props }) {
     const [field, meta] = useField(props);
     return (
+      <div>
+  <Select   textAlign="center" {...props} {...field}  width="450px"fontWeight="600" height="60px" bg="bluet.900" opacity="20%" color="white" >
+  <option   style={{color: "blue"}} background="black" value="option1">Муж</option>
+<option  style={{color: "red"}} value="option2">Жен</option>
+  </Select>
+      </div>
 
-            <Select {...props} {...field}  width="450px"fontWeight="600" height="60px" bg="bluet.900" opacity="20%" color="white" >
-                <option  color="black" value="option1">Муж</option>
-                <option  value="option2">Жен</option>
-            </Select>
 
     );
 }
 
 export default SelectField;
+
+
