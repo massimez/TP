@@ -9,7 +9,7 @@ const Pagnation = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(20);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -31,9 +31,9 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <Box>
        <Students posts={currrentPosts} loading={loading} />
-       <PagiNext 
-      postsPerPage={postsPerPage} 
-      totalPosts={posts.length} 
+       <PagiNext
+      postsPerPage={postsPerPage}
+      totalPosts={posts.length}
       paginate={paginate} />
     </Box>
   );

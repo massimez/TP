@@ -10,6 +10,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { FaSun, FaMoon ,FaUserCircle} from "react-icons/fa";
+import {FiHelpCircle} from "react-icons/fi"
 import Colormode from "./Colormode";
 import {AiFillSetting} from "react-icons/ai"
 import { Link } from "react-router-dom";
@@ -29,7 +30,7 @@ function Header(props) {
       borderBottom="1px" borderColor="whiteAlpha.400"
       mb="8"
     >
-      <Link to="/">
+      <Link to="/app/">
         <Image
         src={logo}
         alt="Tusur logo" w="380px" h="39.22px"
@@ -54,14 +55,20 @@ function Header(props) {
           <MenuItem icon={<FaUserCircle />} command="⌘T">
             Профиль
           </MenuItem>
-          <MenuItem icon={<FaUserCircle />} command="⌘N">
+          <MenuItem icon={<AiFillSetting />} command="⌘N">
             Настройки
           </MenuItem>
-          <MenuItem icon={<AiFillSetting />} command="⌘⇧N">
+          <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
             Помощь
           </MenuItem>
           <MenuItem icon={<FaUserCircle />} command="⌘O">
+          <a href="logout" onClick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+  <form id="logout-form" action="/logout" method="POST" class="d-none">
 
+            </form>
           </MenuItem>
           <Colormode />
         </MenuList>

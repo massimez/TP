@@ -26,7 +26,7 @@ const MainMenu = () => {
         ml={[0, null, null, "21%", "21%"]}
         mr={[0, null, null, "21%", "21%"]}
         columns={[1, null, null, null, 2]}
-        opacity={useColorModeValue("100%","80%")} 
+        opacity={useColorModeValue("100%","80%")}
       >
         <Box width={widthitems} height={heightitems} bg={bg} color={color} borderRadius="xl" >
           <Link to="/students">
@@ -34,18 +34,18 @@ const MainMenu = () => {
               justify="center"
               align="center"
             >
-              <img src={studentsmenu} alt="Students logo" htmlWidth="357" htmlHeight="167"  borderRadius="5%"/>
+              <Image src={studentsmenu} alt="Students logo" htmlWidth="357px" htmlHeight="167px"  borderRadius="5%"/>
               <Heading as="h3">Список студентов</Heading>
             </Box>
           </Link>
         </Box>
         <Box width={widthitems} height={heightitems} bg={bg} color={color} borderRadius="xl" >
-          <Link to="/students">
+          <Link to="/addresident">
             <Box
               justify="center"
               align="center"
             >
-              <img src={newstudent} alt="Students logo" htmlWidth="357" htmlHeight="167" borderRadius="5%"/>
+              <Image src={newstudent} alt="Students logo" htmlWidth="357px" htmlHeight="167px" borderRadius="5%"/>
               <Heading as="h3">Новый студент</Heading>
             </Box>
           </Link>
@@ -56,8 +56,8 @@ const MainMenu = () => {
             justify="center"
             align="center"
           >
-            <img src={vesili} alt="Vicelinie" htmlWidth="357" htmlHeight="167" borderRadius="5%"/>
-            <Heading as="h3">Выселенные</Heading>
+            <Image src={vesili} alt="Vicelinie" htmlWidth="357" htmlHeight="167" borderRadius="5%"/>
+            <Heading   as="h3">Выселенные</Heading>
           </Box>
         </Box>
 
@@ -66,7 +66,7 @@ const MainMenu = () => {
             justify="center"
             align="center"
           >
-            <Image src={rooms} alt="Rooms" htmlWidth="357" htmlHeight="167" borderRadius="5%" />
+            <img src={rooms} alt="Rooms" width="357" height="167" />
             <Heading as="h3">Комнаты</Heading>
           </Box>
         </Box>

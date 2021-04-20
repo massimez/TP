@@ -12,13 +12,13 @@ import {
 
 export const Students = ({ posts, loading }) => {
   if (loading) {
-    
+
     return <h2>Loading...</h2>;
   }
   return (
 
   <Table variant="striped"  colorScheme="teal" >
-  <TableCaption>Students</TableCaption>
+
   <Thead bg="blue.300" color="white"  >
     <Tr >
       <Th  color="white">ФИО</Th>
@@ -33,7 +33,7 @@ export const Students = ({ posts, loading }) => {
   <Tbody color="black" bg="white" colorScheme="black">
       { posts.map(post => (
             <Tr key={post.id}>
-            <Th >{post.id}</Th> 
+            <Th >{post.id}</Th>
             <Th >{post.userId}</Th>
             <Th >{post.title}</Th>
             <Th >{post.title}</Th>
@@ -43,7 +43,7 @@ export const Students = ({ posts, loading }) => {
             </Tr>
       ))}
   </Tbody>
-  <Tfoot bg="blue.100" opacity="80%">
+  {/* <Tfoot bg="blue.100" opacity="80%">
     <Tr>
        <Th>ФИО</Th>
       <Th>Пол</Th>
@@ -53,7 +53,7 @@ export const Students = ({ posts, loading }) => {
       <Th >Статус студент</Th>
       <Th >Статус проживание</Th>
     </Tr>
-  </Tfoot>
+  </Tfoot> */}
 </Table>
   );
 };
