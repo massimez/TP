@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
@@ -19,21 +18,22 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
-    public function register(Request $request){
-        $request->validate( [
+    public function register(Request $request)
+    {
+        $request->validate([
             'email' => 'required|unique:users|email|max:255',
             'password' => 'required|min:8',
-            'name' => 'required'
+            'name' => 'required',
         ]);
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),//для безопасности хэшируем пароль
+            'password' => Hash::make($request->password), //для безопасности хэшируем пароль
         ]);
-        return response()->json(['message'=>'Registered!'],201);
+        return response()->json(['message' => 'Registered!'], 201);
     }
 
     /**
@@ -47,8 +47,8 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        $credentials = $request->only('email','password');
-        if (! $token = auth()->attempt($credentials)) {
+        $credentials = $request->only('email', 'password');
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
@@ -98,7 +98,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user(),
         ]);
     }
 }
