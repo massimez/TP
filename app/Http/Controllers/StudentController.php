@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use http\Env\Response;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller

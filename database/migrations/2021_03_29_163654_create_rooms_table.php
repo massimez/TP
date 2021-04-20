@@ -14,7 +14,7 @@ class CreateRoomsTable extends Migration
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->id('room_id');
+            $table->string('room_id');
             $table->string('status');
             $table->integer('number_of_living');
             $table->timestamps();
