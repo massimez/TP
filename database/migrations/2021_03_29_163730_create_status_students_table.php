@@ -14,8 +14,9 @@ class CreateStatusStudentsTable extends Migration
     public function up()
     {
         Schema::create('status_students', function (Blueprint $table) {
-            $table->string('status_id');
-            $table->integer('weight');
+            $table->increments('id');
+            $table->string('status_student');
+            $table->integer('neighbors');
             $table->timestamps();
         });
     }
