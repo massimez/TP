@@ -1,24 +1,97 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { ColorModeScript } from "@chakra-ui/react"
-import App from './App';
-import { ChakraProvider , CSSReset , extendTheme,ThemeProvider} from '@chakra-ui/react';
-import  "@fontsource/montserrat/cyrillic-ext-900.css";
-import {theme,config} from './theme/theme.js'
+import React from "react";
+import ReactDOM from "react-dom";
+import { ColorModeScript } from "@chakra-ui/react";
+import App from "./App";
+import {
+    ChakraProvider,
+    CSSReset,
+    extendTheme,
+    ThemeProvider,
+} from "@chakra-ui/react";
+import "@fontsource/montserrat/cyrillic-ext-900.css";
+import { theme, config } from "./theme/theme.js";
+import store from "./store/index";
+import { Provider } from "react-redux";
+import axios from "axios";
+import cookie from "js-cookie";
 
 
-ReactDOM.render(
-  <>
-  <React.StrictMode>
-    <ChakraProvider >
-    <ThemeProvider theme={theme}>
-     <CSSReset config={config}/>
-     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <App / >
-    </ThemeProvider>
-    </ChakraProvider>
-  </React.StrictMode>  </>,
-  document.getElementById('root')
-);
+let token = cookie.get("token");
+
+// const jwt_secret =
+//     "SZYN4eoLB5BigqJSzBjzefjc7eSohWd0KtgXgRvFqwyIC6LVBxdbFKTIszZYzKTJ";
+
+// const verifyTO = async () => {
+//     if (token) {
+//          console.log(token);
+//         const { payload, protectedHeader } = await jwtVerify(
+//             jwt_secret,
+//             token,
+//             {
+//                 issuer: "urn:example:issuer",
+//                 audience: "urn:example:audience",
+//             }
+//         );
+//     }
+//     console.log(protectedHeader);
+//     console.log(payload);
+
+// };
+
+// if (token) {
+//     jwt.verify(token, jwt_secret, (err, decoded) => {
+//       if (err) {
+//         cookie.remove("token");
+//         token = null;
+//       } else {
+//         if (decoded.iss !== "/api/auth/login") {
+//           cookie.remove("token");
+//           token = null;
+//         }
+//       }
+//     });
+//   }
+
+const render = () => {
+    ReactDOM.render(
+        <Provider store={store}>
+            <React.StrictMode>
+                <ChakraProvider>
+                    <ThemeProvider theme={theme}>
+                        <CSSReset config={config} />
+                        <ColorModeScript
+                            initialColorMode={theme.config.initialColorMode}
+                        />
+                        <App />
+                    </ThemeProvider>
+                </ChakraProvider>
+            </React.StrictMode>
+        </Provider>,
+        document.getElementById("root")
+    );
+};
+
+// if (token) {
+//     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+//     axios.defaults.baseURL = "http://127.0.0.1:8000/";
+//     axios.post("/api/auth/me").then((res) => {
+//         store.dispatch({ type: "SET_LOGIN" , payload: res.data });
+//         render();
+//     });
+// } else {
+//     render();
+// }
+axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+axios.defaults.baseURL = "http://127.0.0.1:8000/";
+    if (token) {
+        axios.post("/api/auth/me")
+            .then(res => {
+            store.dispatch({ type: "SET_LOGIN" , payload: res.data })
+        }).catch(err => {
+            cookie.remove('token');
+            store.dispatch( {type:"SET_LOGOUT"} )
+        });
+    }
 
 
+render();

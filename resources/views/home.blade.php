@@ -10,7 +10,8 @@
 
 <body style="background-color: #005AAE">
     <div id="root"></div>
+    <script type="text/javascript" src="http://127.0.0.1:8000/js/index.js"></script>
 </body>
-<script type="text/javascript" src="js/index.js"></script>
+
 
 </html>
