@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,12 +9,13 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+
  */
-Route::get('/', function () {
-    return view('welcome');
-});
 //Auth::routes();
 
-//Route::get('/{path?}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('app/{path?}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route::view('app/{path?}', 'home');
+Route::get('/{path?}', function () {
+    return view('home');
+});
