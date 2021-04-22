@@ -42,7 +42,16 @@ class RoomsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'room_id' => 'required|integer',
+            'status' => 'required|string',
+            'number_living' => 'required|string',
+            'floor' => 'required|integer',
+        ]);
         $room = Room::create($request->input());
+        if (is_null($room)) {
+            return response()->json(['message' => 'student not found'], 404);
+        }
         return response()->json(['data'=>$room]);
     }
 
@@ -54,6 +63,10 @@ class RoomsController extends Controller
      */
     public function show($id)
     {
+        $find = Room::find($id);
+        if (is_null($find)) {
+            return response()->json(['message' => 'student not found'], 404);
+        }
         $room = Room::select('room_id','status')->get();
         $student = Room::find($id)->studentTable()->select('name','surname','status_student','group')->get();
         return response()->json(['rooms'=>$room,'students'=>$student]);
@@ -79,7 +92,17 @@ class RoomsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $room = Room::find($id)->update($request->input());
+        $request->validate([
+            'room_id' => 'required|integer',
+            'status' => 'required|string',
+            'number_living' => 'required|string',
+            'floor' => 'required|integer',
+        ]);
+        $room = Room::find($id);
+        if (is_null($room)) {
+            return response()->json(['message' => 'student not found'], 404);
+        }
+        $room = $room->update($request->input());
         return response()->json(['message'=>'updated!']);
     }
 
@@ -91,6 +114,6 @@ class RoomsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
