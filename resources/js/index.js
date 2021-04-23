@@ -14,9 +14,11 @@ import store from "./store/index";
 import { Provider } from "react-redux";
 import axios from "axios";
 import cookie from "js-cookie";
-
+import { Redirect } from "react-router";
 
 let token = cookie.get("token");
+axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+axios.defaults.baseURL = "http://127.0.0.1:8000/";
 
 // const jwt_secret =
 //     "SZYN4eoLB5BigqJSzBjzefjc7eSohWd0KtgXgRvFqwyIC6LVBxdbFKTIszZYzKTJ";
@@ -71,27 +73,19 @@ const render = () => {
     );
 };
 
-// if (token) {
-//     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-//     axios.defaults.baseURL = "http://127.0.0.1:8000/";
-//     axios.post("/api/auth/me").then((res) => {
-//         store.dispatch({ type: "SET_LOGIN" , payload: res.data });
-//         render();
-//     });
-// } else {
-//     render();
-// }
-axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-axios.defaults.baseURL = "http://127.0.0.1:8000/";
-    if (token) {
-        axios.post("/api/auth/me")
-            .then(res => {
-            store.dispatch({ type: "SET_LOGIN" , payload: res.data })
-        }).catch(err => {
-            cookie.remove('token');
-            store.dispatch( {type:"SET_LOGOUT"} )
-        });
-    }
+if (token) {
+    axios
+        .post("/api/auth/me")
+        .then((res) => {
+            store.dispatch({ type: "SET_LOGIN", payload: res.data });
+            render();;
+        })
+        .catch((err) => {
+            cookie.remove("token");
+            window.location.href = "/app";
+        })
 
+} else {
+    render();
+}
 
-render();

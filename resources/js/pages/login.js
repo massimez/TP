@@ -61,7 +61,9 @@ const login = (props) => {
     }
 
 
-    const handlePasswordVisibility = () => setShowPassword(!showPassword);
+    const handlePasswordVisibility = (event) => {
+        event.preventDefault();
+        setShowPassword(!showPassword);}
 
     return (
         <>
@@ -117,6 +119,7 @@ const login = (props) => {
                         autoComplete="current-password" />
                       <InputRightElement width="3rem" my="auto">
                         <Button
+                        type="button"
                           h="1.5rem"
                           size="sm"
                           onClick={handlePasswordVisibility}
