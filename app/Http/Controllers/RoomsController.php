@@ -10,7 +10,7 @@ class RoomsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -20,8 +20,8 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        $room = Room::select('room_id','status')->get();
-        return response()->json(['rooms'=>$room]);
+        $room = Room::select('room_id', 'status', 'number_of_living', 'floor')->get();
+        return response()->json(['rooms' => $room]);
     }
 
     /**
@@ -52,7 +52,7 @@ class RoomsController extends Controller
         if (is_null($room)) {
             return response()->json(['message' => 'student not found'], 404);
         }
-        return response()->json(['data'=>$room]);
+        return response()->json(['data' => $room]);
     }
 
     /**
@@ -67,9 +67,9 @@ class RoomsController extends Controller
         if (is_null($find)) {
             return response()->json(['message' => 'student not found'], 404);
         }
-        $room = Room::select('room_id','status')->get();
-        $student = Room::find($id)->studentTable()->select('name','surname','status_student','group')->get();
-        return response()->json(['rooms'=>$room,'students'=>$student]);
+        $room = Room::select('room_id', 'status')->get();
+        $student = Room::find($id)->studentTable()->select('name', 'surname', 'status_student', 'group')->get();
+        return response()->json(['rooms' => $room, 'students' => $student]);
     }
 
     /**
@@ -103,7 +103,7 @@ class RoomsController extends Controller
             return response()->json(['message' => 'student not found'], 404);
         }
         $room = $room->update($request->input());
-        return response()->json(['message'=>'updated!']);
+        return response()->json(['message' => 'updated!']);
     }
 
     /**
