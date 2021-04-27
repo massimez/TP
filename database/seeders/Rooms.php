@@ -13,16 +13,12 @@ class Rooms extends Seeder
      */
     public function run()
     {
-
-        $city = ['Томск', "Москва", "Лондон", "Питер", "Каир", "Нью-Йорк", "Киев"];
         \App\Models\Room::truncate();
-        for ($i = 0; $i < 100; $i++) {
             \App\Models\Room::create([
-                'room_id' => rand(100, 999),
-                'status' => $city[array_rand($city, 1)],
+                'room_id' => '123',
+                'status' => 'Мужская',
                 'number_of_living' => rand(1, 4),
                 'floor' => rand(1, 10),
             ]);
         }
-    }
 }

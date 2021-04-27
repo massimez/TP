@@ -15,7 +15,7 @@ class CreateStatusStudentsTable extends Migration
     {
         Schema::create('status_students', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('status_student');
+            $table->string('status_student')->unique();
             $table->integer('neighbors');
             $table->timestamps();
         });

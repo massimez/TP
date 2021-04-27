@@ -20,21 +20,20 @@ class Student extends Seeder
         $patronymic = ['Иванович','Ильич','Андреевич',"Кириллович","Александрович","Олегович","Евгеньевич","Данилович","Леонидович"];
         $status_accommodation = ['Проживает',"Оформляется","Выселен"];
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-        $email = substr(str_shuffle($permitted_chars), 0, 10);
         $sex = ['Мужской',"Женский"];
         $citizenship = ['Российское',"Казахское","Американское","Украинское","Алжирское","Белорусское","Китайское"];
         $city = ['Томск',"Москва","Лондон","Питер","Каир","Нью-Йорк","Киев"];
-    for ($i=0;$i<100;$i++){
+    for ($i=0;$i<4;$i++){
 
         \App\Models\Student::create([
             'name' =>$name[array_rand($name,1)],
             'surname'=>$surname[array_rand($surname,1)],
             'patronymic'=>$patronymic[array_rand($patronymic,1)],
-            'status_student'=>rand(0,10),
+            'status_student'=>'Студент',
             'status_accommodation' => $status_accommodation[array_rand($status_accommodation,1)],
-            'email' => $email.'@gmail.com',
+            'email' => rand(10000000, 99999999).'@gmail.com',
             'phone_number' => '89'.rand(10000000, 99999999),
-            'group' => rand(100,999),
+            'group' => '222',
             'sex' => $sex[array_rand($sex,1)],
             'number_contract'=> rand(10000000, 99999999),
             'date_of_conclusion' => '2000-12-12',
@@ -46,8 +45,7 @@ class Student extends Seeder
             'info_passport' => 'nothing',
             'registration' => $city[array_rand($city,1)],
             'note' => '!!!',
-            'room_id' => rand(100,999)
-
+            'room_id' => '123'
         ]);
     }
     }

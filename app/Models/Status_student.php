@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
 class Status_student extends Model
 {
     use HasFactory;
-    protected $primaryKey = "status_id";
+    protected $fillable = ['status_student','neighbors'];
     public function student(){
-        return $this->belongsTo(Student::class,'status_student','status_id');
+        return $this->belongsTo(Student::class,'status_student','status_student');
     }
 }

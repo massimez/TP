@@ -8,15 +8,11 @@ use Illuminate\Http\Request;
 class RoomsController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -38,14 +34,14 @@ class RoomsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $request->validate([
-            'room_id' => 'required|integer',
+            'room_id' => 'required|string|unique:rooms',
             'status' => 'required|string',
-            'number_living' => 'required|string',
+            'number_of_living' => 'required|integer',
             'floor' => 'required|integer',
         ]);
         $room = Room::create($request->input());
@@ -59,17 +55,16 @@ class RoomsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        $find = Room::find($id);
-        if (is_null($find)) {
+        $room = Room::find($id);
+        if (is_null($room)) {
             return response()->json(['message' => 'student not found'], 404);
         }
-        $room = Room::select('room_id','status')->get();
-        $student = Room::find($id)->studentTable()->select('name','surname','status_student','group')->get();
-        return response()->json(['rooms'=>$room,'students'=>$student]);
+        $student = $room->studentTable()->select('name','surname','status_student','group')->get();
+        return response()->json(['rooms'=>$room->only('room_id','status','floor'),'students'=>$student]);
     }
 
     /**
@@ -88,21 +83,21 @@ class RoomsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'room_id' => 'required|integer',
+            'room_id' => 'required|string',
             'status' => 'required|string',
-            'number_living' => 'required|string',
+            'number_living' => 'required|string|min:1|max:4',
             'floor' => 'required|integer',
         ]);
         $room = Room::find($id);
         if (is_null($room)) {
             return response()->json(['message' => 'student not found'], 404);
         }
-        $room = $room->update($request->input());
+        $room->update($request->input());
         return response()->json(['message'=>'updated!']);
     }
 

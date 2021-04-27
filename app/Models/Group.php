@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use HasFactory;
-    protected $primaryKey = "group_id";
+    protected $fillable = ['group_name','faculty','course_of_study','form_of_education'];
     public function student(){
-        return $this->belongsTo(Student::class,'group','group_id');
+        return $this->belongsTo(Student::class,'group_name','group');
     }
 }

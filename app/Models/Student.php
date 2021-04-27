@@ -26,7 +26,7 @@ class Student extends Model
     }
 
     public function statusTable(){
-        return $this->hasMany(Status_student::class,'status_id','status_student');
+        return $this->hasMany(Status_student::class,'status_student','status_student');
     }
 
     public function roomTable(){
@@ -34,6 +34,6 @@ class Student extends Model
     }
 
     public function groupTable(){
-        return $this->hasMany(Group::class,'group_id','group');
+        return $this->hasMany(Group::class,'group_name','group');
     }
 }
