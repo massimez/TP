@@ -62,13 +62,14 @@ const MainMenu = () => {
         </Box>
 
         <Box width={widthitems} height={heightitems} bg={bg} color={color} borderRadius="xl" >
+          <Link to="/rooms">
           <Box
             justify="center"
             align="center"
           >
             <img src={rooms} alt="Rooms" width="357" height="167" />
             <Heading as="h3">Комнаты</Heading>
-          </Box>
+          </Box></Link>
         </Box>
       </SimpleGrid>
     </Box>

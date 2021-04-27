@@ -16,7 +16,7 @@ const AuthRoute = ({ component: Component, ...rest }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: "/tok",
+                            pathname: "/login",
                             state: { from: props.location },
                         }}
                     />
