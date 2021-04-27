@@ -14,7 +14,9 @@ const Pagnation = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
+      const res = await axios.get('/api/student').catch((err) => {
+       console.log(err);
+    });
       setPosts(res.data);
       setLoading(false);
     };

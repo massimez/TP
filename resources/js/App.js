@@ -14,6 +14,7 @@ import login from "./pages/login";
 import Error404 from "./pages/404";
 import GuestRoute from "./components/GuestRoute";
 import AuthRoute from "./components/AuthRoute";
+import Rooms from "./pages/Rooms";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
         <AuthRoute  exact path="/app" component={MainMenuPage} />
         <AuthRoute exact path="/students" component={StudentList} />
         <AuthRoute exact path="/addresident" component={AddNewResident} />
-        <GuestRoute exact path="/tok" component={login} />
+        <AuthRoute exact path="/rooms" component={Rooms} />
+        <GuestRoute exact path="/login" component={login} />
         <Route exact path="/404" component={Error404}/>
         <Redirect to="/404"/>
       </Switch>

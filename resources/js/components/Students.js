@@ -15,9 +15,13 @@ export const Students = ({ posts, loading }) => {
 
     return <h2>Loading...</h2>;
   }
+  const handle = (event) => {
+
+    let arg1 = event.target.getAttribute('key');
+      console.log("Work"+ arg1)}
   return (
 
-  <Table variant="striped"  colorScheme="teal" >
+  <Table variant="striped"   >
 
   <Thead bg="blue.300" color="white"  >
     <Tr >
@@ -30,16 +34,16 @@ export const Students = ({ posts, loading }) => {
       <Th color="white">Статус проживание</Th>
     </Tr>
   </Thead>
-  <Tbody color="black" bg="white" colorScheme="black">
+  <Tbody color="black" bg="white" >
       { posts.map(post => (
-            <Tr key={post.id}>
-            <Th >{post.id}</Th>
-            <Th >{post.userId}</Th>
-            <Th >{post.title}</Th>
-            <Th >{post.title}</Th>
-            <Th >{post.title}</Th>
-            <Th >{post.title}</Th>
-            <Th >{post.body}</Th>
+            <Tr key={post.student_id} onClick={handle} >
+            <Th  >{post.name} {post.surname} {post.patronymic}</Th>
+            <Th >{post.sex}</Th>
+            <Th >{post.citizenship}</Th>
+            <Th >{post.citizenship}</Th>
+            <Th >{post.citizenship}</Th>
+            <Th >{post.status_student}</Th>
+            <Th >{post.status_accommodation}</Th>
             </Tr>
       ))}
   </Tbody>
