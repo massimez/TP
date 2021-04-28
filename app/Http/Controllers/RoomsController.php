@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 class RoomsController extends Controller
 {
 
-<<<<<<< HEAD
-=======
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
->>>>>>> 1e9d16c0dedcbf7768085e2b7af0365730b77884
 
     /**
      * Display a listing of the resource.
@@ -53,7 +46,7 @@ class RoomsController extends Controller
         ]);
         $room = Room::create($request->input());
         if (is_null($room)) {
-            return response()->json(['message' => 'student not found'], 404);
+            return response()->json(['message' => 'room not found'], 404);
         }
         return response()->json(['data' => $room]);
     }
@@ -68,16 +61,12 @@ class RoomsController extends Controller
     {
         $room = Room::find($id);
         if (is_null($room)) {
-            return response()->json(['message' => 'student not found'], 404);
+            return response()->json(['message' => 'room not found'], 404);
         }
-<<<<<<< HEAD
+
         $student = $room->studentTable()->select('name','surname','status_student','group')->get();
         return response()->json(['rooms'=>$room->only('room_id','status','floor'),'students'=>$student]);
-=======
-        $room = Room::select('room_id', 'status')->get();
-        $student = Room::find($id)->studentTable()->select('name', 'surname', 'status_student', 'group')->get();
-        return response()->json(['rooms' => $room, 'students' => $student]);
->>>>>>> 1e9d16c0dedcbf7768085e2b7af0365730b77884
+
     }
 
     /**
@@ -108,15 +97,11 @@ class RoomsController extends Controller
         ]);
         $room = Room::find($id);
         if (is_null($room)) {
-            return response()->json(['message' => 'student not found'], 404);
+            return response()->json(['message' => 'room not found'], 404);
         }
-<<<<<<< HEAD
+
         $room->update($request->input());
         return response()->json(['message'=>'updated!']);
-=======
-        $room = $room->update($request->input());
-        return response()->json(['message' => 'updated!']);
->>>>>>> 1e9d16c0dedcbf7768085e2b7af0365730b77884
     }
 
     /**
