@@ -17,7 +17,8 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->string('room_id')->unique();
             $table->string('status');
-            $table->unsignedInteger('number_of_living');
+            $table->unsignedInteger('number_of_living')->default(0);
+            $table->unsignedInteger('max_living');
             $table->unsignedInteger('floor');
             $table->timestamps();
         });

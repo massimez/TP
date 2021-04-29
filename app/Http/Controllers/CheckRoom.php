@@ -19,8 +19,8 @@ class CheckRoom
 
     private function checkStatus(){
         $id = $this->request->input('room_id');
-        $student_now = Room::find($id)->studentTable()->count();
-        $student_max = Room::find($id)->number_of_living;
+        $student_now = Room::find($id)->number_of_living;
+        $student_max = Room::find($id)->max_living;
         if ($student_max - $student_now >= 1) $this->status=true;
     }
 

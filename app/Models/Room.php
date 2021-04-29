@@ -16,7 +16,7 @@ class Room extends Model
 {
     use HasFactory;
     protected $primaryKey = "room_id";
-    protected $fillable = ['status','number_of_living','room_id','floor'];
+    protected $fillable = ['status','max_living','room_id','floor','number_of_living'];
     public $incrementing = false;
     public function studentTable(){
         return $this->belongsTo(Student::class,'room_id','room_id');

@@ -16,5 +16,5 @@ class Rooms extends Seeder
     {
         \App\Models\Room::truncate();
         Room::factory()->count(20)->create();
-        }
+    }
 }

@@ -25,8 +25,8 @@ class CreateStudentsTable extends Migration
             $table->string('phone_number');
             $table->string('group')->nullable();
             $table->string('sex');
-            $table->string('number_contract')->unique();
-            $table->date('date_of_conclusion');
+            $table->string('number_contract')->unique()->nullable();
+            $table->date('date_of_conclusion')->nullable();
             $table->date('date_of_ended_registration');
             $table->string('citizenship');
             $table->date('birthday');

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Room;
+use App\Events\CountLivingRoomEvent;
+use App\Listeners\CountLivingRoomListener;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -65,6 +66,8 @@ class StudentController extends Controller
         if (!$check) {
             return response()->json(['message' => 'Нет свободных мест'], 405);
         }
+        $room_id = $request->only('room_id');
+        event(new CountLivingRoomEvent($room_id));
         $student = Student::create($request->input());
         return response()->json(["data" => $student, 'message' => "Created!"]);
     }
@@ -124,6 +127,8 @@ class StudentController extends Controller
         if (is_null($student) || !$check) {
             return response()->json(['message' => 'Error in request'], 405);
         }
+        $room_id = $request->only('room_id');
+        event(new CountLivingRoomEvent($room_id));
         $student->update($request->all());
         return response()->json(['message' => 'updated!'], 200);
     }
