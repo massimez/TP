@@ -60,7 +60,7 @@ class StudentController extends Controller
             'info_passport'              => 'required|string',
             'registration'               => 'required|string',
             'note'                       => 'string',
-            "status_accommodation"       => 'required'
+            "status_accommodation"       => 'string'
         ]);
         $check = (new CheckRoom($request))->getStatus();
         if (!$check) {
