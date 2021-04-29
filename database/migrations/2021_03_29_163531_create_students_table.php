@@ -22,12 +22,12 @@ class CreateStudentsTable extends Migration
             $table->string('status_student')->nullable();
             $table->string('status_accommodation');
             $table->string('email')->unique();
-            $table->string('phone_number');
+            $table->string('phone_number')->unique();;
             $table->string('group')->nullable();
             $table->string('sex');
             $table->string('number_contract')->unique()->nullable();
             $table->date('date_of_conclusion')->nullable();
-            $table->date('date_of_ended_registration');
+            $table->date('date_of_ended_registration')->nullable();;
             $table->string('citizenship');
             $table->date('birthday');
             $table->string('place_of_birth');
