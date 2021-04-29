@@ -15,6 +15,6 @@ class StudentSeed extends Seeder
     public function run()
     {
         \App\Models\Student::truncate();
-       Student::factory()->count(100)->create();
+       Student::factory()->count(80)->create();
     }
 }

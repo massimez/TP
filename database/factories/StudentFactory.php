@@ -29,7 +29,7 @@ class StudentFactory extends Factory
             'status_accommodation' => 'Проживает',
             'email' => $this->faker->unique()->email,
             'phone_number' => '89'.$this->faker->unique()->numberBetween(10000000, 99999999),
-            'group' => $this->faker->numberBetween(100,110),
+            'group' => $this->faker->numberBetween(1,10),
             'sex' => ['Мужской',"Женский"][array_rand(['Мужской',"Женский"],1)],
             'number_contract'=> $this->faker->unique()->numberBetween(100000000,999999999),
             'date_of_conclusion' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
@@ -41,7 +41,7 @@ class StudentFactory extends Factory
             'info_passport' => 'nothing',
             'registration' => $this->faker->state,
             'note' => '!!!',
-            'room_id' => $this->faker->numberBetween(100,111)
+            'room_id' => $this->faker->numberBetween(100,120)
         ];
     }
 }

@@ -64,8 +64,8 @@ class RoomsController extends Controller
             return response()->json(['message' => 'room not found'], 404);
         }
 
-        $student = $room->studentTable()->select('name','surname','status_student','group')->get();
-        return response()->json(['rooms'=>$room->only('room_id','status','floor'),'students'=>$student]);
+        $student = $room->studentTable()->select('name','surname','status_student','group','student_id')->get();
+        return response()->json(['rooms'=>$room->only('room_id','status','floor','number_of_living'),'students'=>$student]);
 
     }
 

@@ -14,6 +14,6 @@ class Group extends Seeder
     public function run()
     {
         \App\Models\Group::truncate();
-        \App\Models\Group::factory()->count(6)->create();
+        \App\Models\Group::factory()->count(10)->create();
     }
 }

@@ -15,6 +15,6 @@ class Rooms extends Seeder
     public function run()
     {
         \App\Models\Room::truncate();
-        Room::factory()->count(50)->create();
+        Room::factory()->count(20)->create();
         }
 }
