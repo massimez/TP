@@ -8,8 +8,8 @@ function SelectField({ ...props }) {
     return (
       <div>
   <Select   textAlign="center" {...props} {...field}  width="450px"fontWeight="600" height="60px" bg="bluet.900" opacity="20%" color="white" >
-  <option   style={{color: "blue"}} background="black" value="option1">Муж</option>
-<option  style={{color: "red"}} value="option2">Жен</option>
+  <option   style={{color: "blue"}} background="black" value="МУЖСКОЙ">МУЖСКОЙ</option>
+<option  style={{color: "red"}} value="ЖЕНСКИЙ">ЖЕНСКИЙ</option>
   </Select>
       </div>
 

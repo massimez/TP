@@ -26,22 +26,19 @@ import {
     ModalCloseButton,Radio,AdaptedRadioGroup,
 } from "@chakra-ui/react";
 import FreeroomDialog from "./FreeroomDialog";
+import ErrorMessage from "./ErrorMessage";
 
 
 
 function FormResident() {
     const bg = useColorModeValue("white", "blue.300");
     const color = useColorModeValue("bluet.900", "gray.800");
-    const [freeRooms, setFreeRooms] = useState([]);
+
     const [SelectedRoom, setSelectedRoom] = useState('');
-useEffect(() => {
-    const fetchRooms = async () => {
-        const res = await axios.get('/api/room')
-        setFreeRooms(res.data.rooms);
-    };
-    fetchRooms();
-    console.log(freeRooms)
-}, []);
+    const [succesAdd,setSuccesAdd] = useState(false);
+    const [errorAdd , setErrorAdd] = useState(false);
+    const [error, setError] = useState('');
+
     return (
         <>
             <Formik
@@ -56,30 +53,43 @@ useEffect(() => {
                     passportSerial: "",
                     number_passport: "",
                     passportIssuer: "",
-                    passportDateD: "",
-                    passportPrapiska: "",
+                    Dpassport:"",
+                    info_passport: "",
                     citizenship: "",
-                    birthday: "",
+                    place_of_birth: "",
+                    registration:"",
+                    status_student:"",
                     room:"",
+                    group:"",
                 }}
                 onSubmit={(values, actions) => {
-                    values.room=SelectedRoom;
+                    values.room= SelectedRoom.toString();
+                    values.info_passport =  values.passportIssuer + " " + values.Dpassport ;
                     axios
                         .post("/api/student", values)
                         .then((res) => {
                             console.log(res);
                         })
                         .catch((err) => {
+                            if (err.response) {
+      console.log(err.response.data);
+      console.log(err.response.status);
+      console.log(err.response.headers);
+    }
                             console.log(err);
+                            let toStringgg ="Error "+ err.response.status + " " + JSON.stringify(err.response.data.message) ;
+                                                        setError(toStringgg);
                         });
                     alert(JSON.stringify(values, null, 2));
                     actions.setSubmitting(false);
                     actions.resetForm();
                     console.log("dsds" + SelectedRoom);
+
                 }}
             >
                 {(formik) => (
                     <Form onSubmit={formik.handleSubmit}>
+
                         <Flex
                             bg={bg}
                             justify="center"
@@ -88,7 +98,9 @@ useEffect(() => {
                             borderRadius="1%"
                             flexWrap="wrap"
                         >
+
                             <Box px="5" mb="5">
+                            {error && <ErrorMessage message={error} />}
                                 <Heading as="h5" size="md" color="#8B8B8B">
                                     Общая информация
                                 </Heading>
@@ -127,7 +139,7 @@ useEffect(() => {
                                     />
                                     <Textfield
                                         type="tel"
-                                        name="telephone"
+                                        name="phone_number"
                                         placeholder="Номер телефон"
                                     />
                                     <Textfield
@@ -160,12 +172,12 @@ useEffect(() => {
                                     />
                                     <Textfield
                                         type="text"
-                                        name="?"
+                                        name="passportIssuer"
                                         placeholder="Кем выдан"
                                     />
                                     <Textfield
                                         type="text"
-                                        name="?"
+                                        name="Dpassport"
                                         placeholder="Дата выдачи ДД-ММ-ГГГГ"
                                     />
                                     <Textfield
@@ -180,7 +192,7 @@ useEffect(() => {
                                     />
                                     <Textfield
                                         type="text"
-                                        name="?"
+                                        name="place_of_birth"
                                         placeholder="Место рождения"
                                     />
                                 </Box>
@@ -198,22 +210,17 @@ useEffect(() => {
                                 >
                                     <Textfield
                                         type="text"
-                                        name="?"
-                                        placeholder="Место рождения"
+                                        name="group"
+                                        placeholder="Группа"
                                     />
                                     <Textfield
                                         type="text"
-                                        name="?"
-                                        placeholder="Место рождения"
-                                    />
-                                    <Textfield
-                                        type="text"
-                                        name="?"
-                                        placeholder="Место рождения"
+                                        name="status_student"
+                                        placeholder="Статус студента"
                                     />
                                 </Box>
                                 <Box py="2" justify="center" align="center">
-                                  <FreeroomDialog rooms={freeRooms} setSelectedRoom={setSelectedRoom} />
+                                  <FreeroomDialog  setSelectedRoom={setSelectedRoom}  formik={formik.handleSubmit}/>
                                 </Box>
                                 <Box py="2" justify="center" align="center">
                                     <Button

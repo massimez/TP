@@ -16,6 +16,12 @@ import {
     InputRightElement,
     CircularProgress,
 } from "@chakra-ui/react";
+import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+  } from "@chakra-ui/react"
 
 import ErrorMessage from "../components/ErrorMessage";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
@@ -135,6 +141,8 @@ const login = (props) => {
                   </FormControl>
                   <a  href="#">
                                     Забыли пароль?
+                                </a><a  href="/register">
+                                &nbsp;Регистрация
                                 </a>
                   <Button className="btn-login-submit "
                     variant="outline"

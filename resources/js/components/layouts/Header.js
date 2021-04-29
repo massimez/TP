@@ -89,10 +89,14 @@ const HandleLogout = (e) =>{
                         <MenuItem icon={<FaUserCircle />} onClick={HandleLogout} command="⌘O">
                             logout
                         </MenuItem></>
-                    ) : (
-                        <Link to="/tok/"> <MenuItem icon={<FaUserCircle />} command="⌘O">
-                            Login
+                    ) : (<>
+                        <Link to="/login/"> <MenuItem icon={<FaUserCircle />} command="⌘O">
+                        Авторизация
                         </MenuItem></Link>
+                        <Link to="/register/"> <MenuItem icon={<FaUserCircle />} command="⌘O">
+                        Регистрация
+                        </MenuItem></Link>
+                        </>
                     )}
                     <Colormode />
                 </MenuList>

@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useState , useEffect}  from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import {
     Box,
@@ -16,6 +16,7 @@ import {
     ModalBody,RadioGroup,Stack,VStack,
     ModalCloseButton,Radio,AdaptedRadioGroup,
 } from "@chakra-ui/react";
+import axios from 'axios'
 import {
     Table,
     Thead,
@@ -28,7 +29,25 @@ import {
   } from "@chakra-ui/react"
 const FreeroomDialog = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [freeRooms, setFreeRooms] = useState([]);
+    useEffect(() => {
+        const fetchRooms = async () => {
+            const res = await axios.get('/api/room')
+            setFreeRooms(res.data.rooms);
+        };
+        fetchRooms();
+        console.log(freeRooms)
+    }, []);
 
+   function  oonClick(event) {
+    event.preventDefault();
+        onOpen();
+     }
+     function  cancelClose(event) {
+        event.preventDefault();
+        onClose();
+        props.setSelectedRoom('');
+         }
     return (
         <div>
             <Button
@@ -36,8 +55,8 @@ const FreeroomDialog = (props) => {
                 color="whiteAlpha.900"
                 width="450px"
                 height="60px"
-                background-color="bluet.900"
-                onClick={onOpen}
+                bg="bluet.900"
+                onClick={oonClick}
             >
                 Добавить и выбрать комнату
             </Button>
@@ -55,7 +74,7 @@ const FreeroomDialog = (props) => {
                     <VStack spacing={4}>
             <RadioGroup>
               <Stack direction="column">
-              {props.rooms.slice(0, 20).filter(opt => opt.status === "Томск").map(room =>
+              {freeRooms.slice(0, 20).filter(opt => opt.number_of_living < 4).map(room =>
                 <Radio key={room.room_id} onClick={() => props.setSelectedRoom(room.room_id)}>{room.room_id}</Radio>
               )}
 
@@ -99,10 +118,10 @@ const FreeroomDialog = (props) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button  colorScheme="blue" mr={3} type="submit">
-                            Save
+                        <Button  colorScheme="blue" mr={3} onClick={props.formik} type="button">
+                            Ok
                         </Button>
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={cancelClose}>Отменить</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
