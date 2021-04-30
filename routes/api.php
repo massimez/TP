@@ -28,3 +28,4 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::resource('status', \App\Http\Controllers\StatusStudentsController::class);
     Route::resource('group', \App\Http\Controllers\GroupController::class);
 //});
+    Route::get('createDoc/{id}',[\App\Http\Controllers\CreateDocxController::class,'getDocument']);

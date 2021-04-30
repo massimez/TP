@@ -41,7 +41,8 @@ class StudentFactory extends Factory
             'info_passport'              => 'nothing',
             'registration'               => $this->faker->state,
             'note'                       => '!!!',
-            'room_id'                    => $room_id['room_id']
+            'room_id'                    => $room_id['room_id'],
+            'student_payment' => ['Бюджет', "Платник"][array_rand(['Бюджет', "Платник"], 1)]
         ];
         return $data;
     }

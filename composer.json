@@ -13,6 +13,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
+        "shadz3rg/php-stamp": "^0.2.3",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

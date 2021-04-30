@@ -19,8 +19,9 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('patronymic');
-            $table->string('status_student')->nullable();
-            $table->string('status_accommodation')->nullable();;
+            $table->string('student_payment')->nullable();
+            $table->string('status_student')->default('Студент');
+            $table->string('status_accommodation')->default('Оформление');
             $table->string('email')->unique();
             $table->string('phone_number')->unique();;
             $table->string('group')->nullable();
