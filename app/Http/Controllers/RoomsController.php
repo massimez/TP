@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 class RoomsController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('admin',['expect'=>'index','show']);
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -17,7 +22,7 @@ class RoomsController extends Controller
     public function index()
     {
         $room = Room::select('room_id', 'status', 'number_of_living', 'floor')->get();
-        return response()->json(['rooms' => $room]);
+        return response()->json(['rooms' => $room],200);
     }
 
     /**
@@ -27,7 +32,6 @@ class RoomsController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -48,7 +52,7 @@ class RoomsController extends Controller
         if (is_null($room)) {
             return response()->json(['message' => 'room not found'], 404);
         }
-        return response()->json(['data' => $room]);
+        return response()->json(['data' => $room],201);
     }
 
     /**
@@ -65,7 +69,7 @@ class RoomsController extends Controller
         }
 
         $student = $room->studentTable()->select('name','surname','status_student','group','student_id')->get();
-        return response()->json(['rooms'=>$room->only('room_id','status','floor','number_of_living'),'students'=>$student]);
+        return response()->json(['rooms'=>$room->only('room_id','status','floor','number_of_living'),'students'=>$student],200);
 
     }
 
@@ -77,7 +81,12 @@ class RoomsController extends Controller
      */
     public function edit($id)
     {
+        $room = Room::find($id);
+        if (is_null($room)) {
+            return response()->json(['message' => 'room not found'], 404);
+        }
 
+        return response()->json(['rooms'=>$room],200);
     }
 
     /**
@@ -101,7 +110,7 @@ class RoomsController extends Controller
         }
 
         $room->update($request->input());
-        return response()->json(['message'=>'updated!']);
+        return response()->json(['message'=>'updated!'],200);
     }
 
     /**
@@ -112,6 +121,7 @@ class RoomsController extends Controller
      */
     public function destroy($id)
     {
-
+        Room::find($id)->delete();
+        return response()->json(['message'=>'deleted!'],200);
     }
 }

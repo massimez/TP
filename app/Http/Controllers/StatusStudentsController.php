@@ -7,24 +7,21 @@ use Illuminate\Http\Request;
 
 class StatusStudentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('admin',['expect'=>'index','show']);
+
+    }
+
+
     public function index()
     {
         return response()->json(['data'=>Status_student::all(),'message'=>'success'],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
     }
 
     /**

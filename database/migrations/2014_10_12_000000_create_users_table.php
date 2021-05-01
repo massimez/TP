@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('patronymic')->nullable();
             $table->string('email')->unique();
             $table->string('position')->nullable();
-            $table->string('role')->nullable();
+            $table->string('role')->default('Не подтверждена');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

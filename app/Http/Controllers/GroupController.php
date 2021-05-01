@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 class GroupController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('admin',['expect'=>'index','show']);
+
+    }
+
     public function index()
     {
         $group = Group::all();
@@ -16,7 +22,6 @@ class GroupController extends Controller
 
     public function create()
     {
-        //
     }
 
 
