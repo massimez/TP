@@ -1,4 +1,4 @@
-import React , { useState , useEffect}  from "react";
+import React, { useState, useEffect } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import {
     Box,
@@ -13,10 +13,15 @@ import {
     ModalContent,
     ModalHeader,
     ModalFooter,
-    ModalBody,RadioGroup,Stack,VStack,
-    ModalCloseButton,Radio,AdaptedRadioGroup,
+    ModalBody,
+    RadioGroup,
+    Stack,
+    VStack,
+    ModalCloseButton,
+    Radio,
+    AdaptedRadioGroup,
 } from "@chakra-ui/react";
-import axios from 'axios'
+import axios from "axios";
 import {
     Table,
     Thead,
@@ -26,28 +31,33 @@ import {
     Th,
     Td,
     TableCaption,
-  } from "@chakra-ui/react"
+} from "@chakra-ui/react";
 const FreeroomDialog = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [freeRooms, setFreeRooms] = useState([]);
+    let maxliving = 4 ;
     useEffect(() => {
         const fetchRooms = async () => {
-            const res = await axios.get('/api/room')
+            const res = await axios.get("/api/room");
             setFreeRooms(res.data.rooms);
         };
         fetchRooms();
-        console.log(freeRooms)
+        console.log(freeRooms);
     }, []);
 
-   function  oonClick(event) {
-    event.preventDefault();
+    function oonClick(event) {
+        event.preventDefault();
         onOpen();
-     }
-     function  cancelClose(event) {
+    }
+    function cancelClose(event) {
         event.preventDefault();
         onClose();
-        props.setSelectedRoom('');
-         }
+        props.setSelectedRoom("");
+    }
+    function submitClose (event) {
+        props.formik(event);
+        onClose();
+    }
     return (
         <div>
             <Button
@@ -61,64 +71,60 @@ const FreeroomDialog = (props) => {
                 Добавить и выбрать комнату
             </Button>
 
-            <Modal
-
-                isOpen={isOpen}
-                onClose={onClose}
-            >
+            <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Доступные комнаты</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
-                    <VStack spacing={4}>
-            <RadioGroup>
-              <Stack direction="column">
-              {freeRooms.slice(0, 20).filter(opt => opt.number_of_living < 4).map(room =>
-                <Radio key={room.room_id} onClick={() => props.setSelectedRoom(room.room_id)}>{room.room_id}</Radio>
-              )}
-
-              </Stack>
-            </RadioGroup>
-          </VStack>
-          <Table variant="simple">
-  <TableCaption>Imperial to metric conversion factors</TableCaption>
-  <Thead>
-    <Tr>
-      <Th>To convert</Th>
-      <Th>into</Th>
-      <Th isNumeric>multiply by</Th>
-    </Tr>
-  </Thead>
-  <Tbody>
-    <Tr>
-      <Td>inches</Td>
-      <Td>millimetres (mm)</Td>
-      <Td isNumeric>25.4</Td>
-    </Tr>
-    <Tr>
-      <Td>feet</Td>
-      <Td>centimetres (cm)</Td>
-      <Td isNumeric>30.48</Td>
-    </Tr>
-    <Tr>
-      <Td>yards</Td>
-      <Td>metres (m)</Td>
-      <Td isNumeric>0.91444</Td>
-    </Tr>
-  </Tbody>
-  <Tfoot>
-    <Tr>
-      <Th>To convert</Th>
-      <Th>into</Th>
-      <Th isNumeric>multiply by</Th>
-    </Tr>
-  </Tfoot>
-</Table>
+                        <Table variant="simple">
+                            <TableCaption></TableCaption>
+                            <Thead>
+                                <Tr>
+                                    <Th>N°комнаты</Th>
+                                    <Th></Th>
+                                    <Th></Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                            <RadioGroup onChange={e => props.setSelectedRoom(e.target.value)} value={props.SelectedRoom}>
+                                {freeRooms
+                                    .slice(0, 20)
+                                    .filter((opt) => opt.number_of_living < 4)
+                                    .map((room) => (
+                                        <Tr key={room.room_id}>{maxliving}
+                                            <Th>
+                                                <Radio
+                                                    key={room.room_id}
+                                                    onClick={() => {
+                                                        props.setSelectedRoom(
+                                                            room.room_id
+                                                        );
+                                                        console.log(
+                                                            room.room_id
+                                                        );
+                                                    }}
+                                                >
+                                                    {room.room_id}
+                                                </Radio>
+                                            </Th>
+                                            <Th key={room.room_id}>
+                                                {room.number_of_living} /  {maxliving}
+                                            </Th>
+                                        </Tr>
+                                    ))}
+                                    </RadioGroup>
+                            </Tbody>
+                        </Table>
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button  colorScheme="blue" mr={3} onClick={props.formik} type="button">
+                        <Button
+                            colorScheme="blue"
+                            mr={3}
+                            onClick={submitClose}
+                            type="button"
+                        >
                             Ok
                         </Button>
                         <Button onClick={cancelClose}>Отменить</Button>

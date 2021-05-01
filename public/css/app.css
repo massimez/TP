@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap);
 @charset "UTF-8";
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
@@ -10003,6 +10004,14 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.h1-m {
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  color: #ffffff;
+  line-height: 36px;
+  font-weight: 900;
+}
+
 .login-input {
   color: #ffffff;
   font-weight: 600;
@@ -10039,6 +10048,11 @@ h3 {
   border-radius: 50px;
   width: 453px;
   height: 73px;
+  margin-top: 10px;
+}
+
+.btn-login-submit:hover {
+  box-shadow: 2px 2px 2px 2px rgb(155, 142, 142);
 }
 
 .login-input::-webkit-input-placeholder {
@@ -10080,15 +10094,15 @@ h3 {
 /* Firefox only: */
 .login-input:focus::-moz-placeholder {
   text-align: right;
-  color: #f79090;
+  color: rgb(247, 144, 144);
 }
 .login-input:focus:-ms-input-placeholder {
   text-align: right;
-  color: #f79090;
+  color: rgb(247, 144, 144);
 }
 .login-input:focus::placeholder {
   text-align: right;
-  color: #f79090;
+  color: rgb(247, 144, 144);
 }
 
 html {

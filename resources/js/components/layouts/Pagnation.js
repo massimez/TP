@@ -18,6 +18,7 @@ const Pagnation = () => {
        console.log(err);
     });
       setPosts(res.data);
+      console.log(res.data);
       setLoading(false);
     };
     fetchPosts();

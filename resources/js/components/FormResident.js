@@ -2,6 +2,7 @@ import React, { useState , useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import { Textfield } from "./scripts/Textfield";
 import SelectField from "./scripts/SelectField";
+import SelectGroup from "./scripts/SelectGroup";
 import axios from "axios";
 import {
     useColorModeValue,
@@ -27,6 +28,7 @@ import {
 } from "@chakra-ui/react";
 import FreeroomDialog from "./FreeroomDialog";
 import ErrorMessage from "./ErrorMessage";
+import SuccesMessage from "./SuccesMessage";
 
 
 
@@ -37,7 +39,21 @@ function FormResident() {
     const [SelectedRoom, setSelectedRoom] = useState('');
     const [succesAdd,setSuccesAdd] = useState(false);
     const [errorAdd , setErrorAdd] = useState(false);
+    const [freeRooms, setFreeRooms] = useState([]);
+    const [groups, Setgroups] = useState([]);
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchGroup = async () => {
+          const res = await axios.get('/api/group').then((ress)=>{
+            Setgroups(ress.data.data);
+          }).catch((err) => {
+           console.log(err);
+        });
+
+        };
+        fetchGroup();
+      }, []);
 
     return (
         <>
@@ -59,16 +75,21 @@ function FormResident() {
                     place_of_birth: "",
                     registration:"",
                     status_student:"",
-                    room:"",
+                    room_id:"",
                     group:"",
+                    note:"default",
+
                 }}
                 onSubmit={(values, actions) => {
-                    values.room= SelectedRoom.toString();
+                    values.room_id= SelectedRoom;
                     values.info_passport =  values.passportIssuer + " " + values.Dpassport ;
                     axios
                         .post("/api/student", values)
                         .then((res) => {
+
                             console.log(res);
+                            setSuccesAdd("Операция успешна " + res.data.name + " " + JSON.stringify(res.data.message ) )
+
                         })
                         .catch((err) => {
                             if (err.response) {
@@ -101,6 +122,7 @@ function FormResident() {
 
                             <Box px="5" mb="5">
                             {error && <ErrorMessage message={error} />}
+                            {succesAdd && <SuccesMessage message={succesAdd} />}
                                 <Heading as="h5" size="md" color="#8B8B8B">
                                     Общая информация
                                 </Heading>
@@ -136,6 +158,7 @@ function FormResident() {
                                         name="sex"
                                         placeholder="Пол"
                                         textAlign="center"
+
                                     />
                                     <Textfield
                                         type="tel"
@@ -208,6 +231,13 @@ function FormResident() {
                                     borderColor="rgba(139,139,139,0.5)"
                                     p="10px"
                                 >
+
+                                <SelectGroup
+                                        name="group"
+                                        placeholder="Группа"
+                                        textAlign="center"
+                                        groups={groups}
+                                    />
                                     <Textfield
                                         type="text"
                                         name="group"
@@ -220,7 +250,7 @@ function FormResident() {
                                     />
                                 </Box>
                                 <Box py="2" justify="center" align="center">
-                                  <FreeroomDialog  setSelectedRoom={setSelectedRoom}  formik={formik.handleSubmit}/>
+                                  <FreeroomDialog  setSelectedRoom={setSelectedRoom} SelectedRoom={SelectedRoom} formik={formik.handleSubmit}/>
                                 </Box>
                                 <Box py="2" justify="center" align="center">
                                     <Button

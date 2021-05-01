@@ -5,7 +5,7 @@ export default function ErrorMessage({ message }) {
     <Box my={4}>
       <Alert status="error" borderRadius={4}>
         <AlertIcon />
-        <AlertDescription>{message}</AlertDescription>
+        <AlertDescription maxWidth="500">{message}</AlertDescription>
       </Alert>
     </Box>
   );
