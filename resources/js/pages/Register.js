@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import './../../sass/forms.css'
 import axios from 'axios'
 import cookie from "js-cookie";
 
@@ -81,9 +81,7 @@ const Register = (props) => {
         <Box
           p={8}
           maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
+
         >
           {isLoggedIn ? (
               <>
@@ -104,14 +102,15 @@ const Register = (props) => {
           ) : (
             <>
               <Box textAlign="center">
-                <Heading as="h1">Регистрация</Heading>
+                <h1 className="h1-m">Регистрация</h1>
               </Box>
               <Box my={4} textAlign="left">
                 <form onSubmit={handleSubmit}>
                   {error && <ErrorMessage message={error} />}
                   <FormControl isRequired>
 
-                    <Input
+                    <input
+                    className="login-input "
                       type="text"
                       placeholder="Имя"
                       size="lg"
@@ -119,7 +118,8 @@ const Register = (props) => {
                     autoComplete="true"/>
                   </FormControl>
                   <FormControl isRequired>
-                  <Input
+                  <input
+                        className="login-input "
                       type="email"
                       placeholder="Электронная почта"
                       size="lg"
@@ -127,14 +127,15 @@ const Register = (props) => {
                     autoComplete="true"/>
                   </FormControl>
                   <FormControl isRequired mt={6}>
-                    <InputGroup>
-                      <Input
+                    <InputGroup width= "453px"
+                        >
+                      <input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Пароль"
-                        size="lg"
+                        className="login-input "
                         onChange={event => setPassword(event.currentTarget.value)}
                         autoComplete="current-password" />
-                      <InputRightElement width="3rem" my="auto">
+                      <InputRightElement width="3rem" mt="20px" >
                         <Button
                         type="button"
                           h="1.5rem"
@@ -149,18 +150,20 @@ const Register = (props) => {
                         </Button>
                       </InputRightElement>
                     </InputGroup>
-                    <Input
+                  </FormControl>
+                    <input
+                    className="login-input "
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Подтверждение пароля"
                         size="lg"
                         onChange={event => setPasswordConfirmation(event.currentTarget.value)}
                         autoComplete="current-password" />
-                  </FormControl>
 
 
 
-                  <Button className="btn-login-submit "
-                    variant="outline"
+
+                  <button className="btn-login-submit "
+
                     type="submit"
                     width="full"
                     mt={4}
@@ -174,7 +177,7 @@ const Register = (props) => {
                     ) : (
                       'Завершить регистрацию'
                     )}
-                  </Button>
+                  </button>
                 </form>
               </Box>
             </>

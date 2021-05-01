@@ -4,7 +4,7 @@ import React from 'react'
 
 export const PagiNext = ({postsPerPage,totalPosts,paginate}) => {
    const pageNumbers = [];
-   for(let i = 1; i <= totalPosts / postsPerPage;i++){
+   for(let i = 1; i <= (totalPosts / postsPerPage )+1;i++){
        pageNumbers.push(i);
    }
     return (
@@ -19,7 +19,7 @@ export const PagiNext = ({postsPerPage,totalPosts,paginate}) => {
         borderBottom="1px" borderColor="whiteAlpha.400"
       >
                 {pageNumbers.map(number => (
-                      
+
                       <Button  key={number}  colorScheme="blue" size="sm" onClick={() => paginate(number)}>
                             {number}
                         </Button>

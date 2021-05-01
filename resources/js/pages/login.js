@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import './../../sass/forms.css'
 import axios from 'axios'
 import cookie from "js-cookie";
 
@@ -78,9 +78,6 @@ const login = (props) => {
         <Box
           p={8}
           maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
         >
           {isLoggedIn ? (
               <>
@@ -91,7 +88,7 @@ const login = (props) => {
 
                 variant="outline"
                 width="full"
-                mt={4}
+
                 onClick={() => setIsLoggedIn(false)}
               >
                 Sign out
@@ -101,29 +98,31 @@ const login = (props) => {
           ) : (
             <>
               <Box textAlign="center">
-                <Heading as="h1">Авторизация</Heading>
+                <h1 className="h1-m">Авторизация</h1>
               </Box>
               <Box my={4} textAlign="left">
                 <form onSubmit={handleSubmit}>
                   {error && <ErrorMessage message={error} />}
                   <FormControl isRequired>
 
-                    <Input
+                    <input
+                    className="login-input "
                       type="email"
                       placeholder="Email"
-                      size="lg"
+                      autoComplete="Email"
                       onChange={event => setEmail(event.currentTarget.value)}
-                    autoComplete="true"/>
+                    />
                   </FormControl>
                   <FormControl isRequired mt={6}>
-                    <InputGroup>
-                      <Input
+                    <InputGroup width= "453px"
+                        >
+                      <input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Пароль"
-                        size="lg"
+                        className="login-input "
                         onChange={event => setPassword(event.currentTarget.value)}
                         autoComplete="current-password" />
-                      <InputRightElement width="3rem" my="auto">
+                      <InputRightElement width="3rem" mt="20px" >
                         <Button
                         type="button"
                           h="1.5rem"
@@ -141,14 +140,10 @@ const login = (props) => {
                   </FormControl>
                   <a  href="#">
                                     Забыли пароль?
-                                </a><a  href="/register">
-                                &nbsp;Регистрация
                                 </a>
-                  <Button className="btn-login-submit "
-                    variant="outline"
+
+                  <button className="btn-login-submit "
                     type="submit"
-                    width="full"
-                    mt={4}
                   >
                     {isLoading ? (
                       <CircularProgress
@@ -157,9 +152,14 @@ const login = (props) => {
                         color="teal"
                       />
                     ) : (
-                      'Sign In'
+                      'Войти'
                     )}
-                  </Button>
+                  </button>
+                  <Flex justifyContent="space-between">
+                      <a  href="/register" >
+                                &nbsp;Регистрация
+                                </a>
+                  </Flex>
                 </form>
               </Box>
             </>
