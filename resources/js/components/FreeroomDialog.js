@@ -32,17 +32,18 @@ import {
     Td,
     TableCaption,
 } from "@chakra-ui/react";
+import RoomNext from "./RoomNext";
 const FreeroomDialog = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [freeRooms, setFreeRooms] = useState([]);
     let maxliving = 4;
+    const [floorPage, setFloorPage] = useState(1);
     useEffect(() => {
         const fetchRooms = async () => {
             const res = await axios.get("/api/room");
             setFreeRooms(res.data.rooms);
         };
         fetchRooms();
-        console.log(freeRooms);
     }, []);
 
     function oonClick(event) {
@@ -58,6 +59,7 @@ const FreeroomDialog = (props) => {
         props.formik(event);
         onClose();
     }
+
     return (
         <div>
             <Button
@@ -86,10 +88,12 @@ const FreeroomDialog = (props) => {
                                     <Th></Th>
                                 </Tr>
                             </Thead>
+
                             <Tbody>
+
                                 {freeRooms
                                     .slice(0, 20)
-                                    .filter((opt) => opt.number_of_living < 4)
+                                    .filter((opt) => opt.number_of_living < 4 && opt.floor === floorPage)
                                     .map((room) => (
                                         <Tr key={room.room_id}>
                                             <Th>
@@ -125,8 +129,11 @@ const FreeroomDialog = (props) => {
                             </Tbody>
                         </Table>
                     </ModalBody>
-
+ <RoomNext rooms={freeRooms} size={"sm"} setFloorPage={setFloorPage} />
                     <ModalFooter>
+
+
+
                         <Button
                             colorScheme="blue"
                             mr={3}
@@ -136,6 +143,7 @@ const FreeroomDialog = (props) => {
                             Ok
                         </Button>
                         <Button onClick={cancelClose}>Отменить</Button>
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>
