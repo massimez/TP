@@ -35,7 +35,7 @@ import {
 const FreeroomDialog = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [freeRooms, setFreeRooms] = useState([]);
-    let maxliving = 4 ;
+    let maxliving = 4;
     useEffect(() => {
         const fetchRooms = async () => {
             const res = await axios.get("/api/room");
@@ -54,7 +54,7 @@ const FreeroomDialog = (props) => {
         onClose();
         props.setSelectedRoom("");
     }
-    function submitClose (event) {
+    function submitClose(event) {
         props.formik(event);
         onClose();
     }
@@ -87,12 +87,11 @@ const FreeroomDialog = (props) => {
                                 </Tr>
                             </Thead>
                             <Tbody>
-                            <RadioGroup onChange={e => props.setSelectedRoom(e.target.value)} value={props.SelectedRoom}>
                                 {freeRooms
                                     .slice(0, 20)
                                     .filter((opt) => opt.number_of_living < 4)
                                     .map((room) => (
-                                        <Tr key={room.room_id}>{maxliving}
+                                        <Tr key={room.room_id}>
                                             <Th>
                                                 <Radio
                                                     key={room.room_id}
@@ -104,16 +103,25 @@ const FreeroomDialog = (props) => {
                                                             room.room_id
                                                         );
                                                     }}
+                                                    _checked={{
+
+                                                    }}
+                                                    _focus={{
+                                                        bg: "teal.600",
+                                                        color: "white",
+                                                        borderColor: "teal.600",
+                                                        boxShadow: "outline",
+                                                    }}
                                                 >
                                                     {room.room_id}
                                                 </Radio>
                                             </Th>
                                             <Th key={room.room_id}>
-                                                {room.number_of_living} /  {maxliving}
+                                                {room.number_of_living} /{" "}
+                                                {maxliving}
                                             </Th>
                                         </Tr>
                                     ))}
-                                    </RadioGroup>
                             </Tbody>
                         </Table>
                     </ModalBody>
