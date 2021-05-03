@@ -81,8 +81,7 @@ if (token) {
             render();;
         })
         .catch((err) => {
-            cookie.remove("token");
-            window.location.href = "/app";
+            render();
         })
 
 } else {

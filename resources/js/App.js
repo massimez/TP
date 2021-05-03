@@ -16,15 +16,26 @@ import GuestRoute from "./components/GuestRoute";
 import AuthRoute from "./components/AuthRoute";
 import Rooms from "./pages/Rooms";
 import Register from "./pages/Register";
+import Admin from "./pages/Admin";
+
 
 function App() {
   return (
           <Router>
       <Switch>
+        <AuthRoute  exact path="/" component={MainMenuPage} />
         <AuthRoute  exact path="/app" component={MainMenuPage} />
         <AuthRoute exact path="/students" component={StudentList} />
         <AuthRoute exact path="/addresident" component={AddNewResident} />
         <AuthRoute exact path="/rooms" component={Rooms} />
+        <AuthRoute exact path="/admin" component={Admin} />
+        <AuthRoute
+          exact
+          path="/admin/edit/:id"
+          render={props => {
+            return <UserEditForm {...props} editMode={true} />;
+          }}
+        />
         <GuestRoute exact path="/login" component={login} />
         <GuestRoute exact path="/register" component={Register} />
         <Route exact path="/404" component={Error404}/>

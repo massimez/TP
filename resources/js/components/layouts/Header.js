@@ -74,17 +74,14 @@ const HandleLogout = (e) =>{
                     isRound="true"
                 />
                 <MenuList color="black">
-
-                    <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
-                        Помощь
-                    </MenuItem>
-
+                    {props.role==="admin" ? (
+                        <Link to="/admin/"> <MenuItem icon={<AiFillSetting />} command="⌘O">
+                        Администрация
+                        </MenuItem></Link>):(<div></div>)
+                        }
                     {props.loggedIn ? ( <>
                         <MenuItem icon={<FaUserCircle />} command="⌘T">
                         Профиль
-                    </MenuItem>
-                    <MenuItem icon={<AiFillSetting />} command="⌘N">
-                        Настройки
                     </MenuItem>
                         <MenuItem icon={<FaUserCircle />} onClick={HandleLogout} command="⌘O">
                             logout
@@ -98,6 +95,9 @@ const HandleLogout = (e) =>{
                         </MenuItem></Link>
                         </>
                     )}
+                    <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
+                        Помощь
+                    </MenuItem>
                     <Colormode />
                 </MenuList>
             </Menu>
@@ -107,7 +107,8 @@ const HandleLogout = (e) =>{
 
 const mapStateToProps = state => {
     return {
-        loggedIn: state.auth.loggedIn
+        loggedIn: state.auth.loggedIn,
+        role : state.auth.user.role
     };
   };
   const mapDispatchToProps = dispatch => {
