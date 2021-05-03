@@ -18,7 +18,7 @@ import { Redirect } from "react-router";
 
 let token = cookie.get("token");
 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-axios.defaults.baseURL = "http://127.0.0.1:8000/";
+axios.defaults.baseURL = "/";
 
 // const jwt_secret =
 //     "SZYN4eoLB5BigqJSzBjzefjc7eSohWd0KtgXgRvFqwyIC6LVBxdbFKTIszZYzKTJ";
