@@ -61,8 +61,7 @@ const Register = (props) => {
         }).catch(err => {
             setError('Invalid email or password');
             setIsLoading(false);
-            setEmail('');
-            setPassword('');
+
             setShowPassword(false);
             console.log(err.response.data.errors );
         })
