@@ -87,7 +87,7 @@ const login = (props) => {
                             <Box textAlign="center">
                                 <h1 className="h1-m">Авторизация</h1>
                             </Box>
-                            <Box my={4} textAlign="left">
+                            <Flex align="center" justify="center" my={4} textAlign="left">
                                 <form onSubmit={handleSubmit}>
                                     {error && <ErrorMessage message={error} />}
                                     <FormControl isRequired>
@@ -104,7 +104,7 @@ const login = (props) => {
                                         />
                                     </FormControl>
                                     <FormControl isRequired mt={6}>
-                                        <InputGroup width="453px">
+                                        <InputGroup >
                                             <input
                                                 type={
                                                     showPassword
@@ -142,7 +142,10 @@ const login = (props) => {
                                             </InputRightElement>
                                         </InputGroup>
                                     </FormControl>
-                                    <a href="#">Забыли пароль?</a>
+                                    <div>
+                                        <a href="#">Забыли пароль?</a>
+                                    </div>
+
 
                                     <button
                                         className="btn-login-submit "
@@ -164,7 +167,7 @@ const login = (props) => {
                                         </a>
                                     </Flex>
                                 </form>
-                            </Box>
+                            </Flex>
                         </>
                     )}
                 </Box>

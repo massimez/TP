@@ -31,6 +31,7 @@ import {
 import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
 import SuccesMessage from "./SuccesMessage";
+import PageLoader from "./PageLoader"
 import { useDisclosure } from "@chakra-ui/react";
 
 export const UsersTable = ({ users, loading ,setChange}) => {
@@ -38,7 +39,6 @@ export const UsersTable = ({ users, loading ,setChange}) => {
     const [Error, setError] = useState("");
     const [succes, setSucces] = useState("");
     const [userFocus, setUserFocus] = useState("");
-
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [patname, setPatname] = useState("");
@@ -48,7 +48,7 @@ export const UsersTable = ({ users, loading ,setChange}) => {
     const [userss, setUsers] = useState([]);
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <PageLoader />;
     }
     const handle = (event) => {
         let arg1 = event.target.getAttribute("key");
