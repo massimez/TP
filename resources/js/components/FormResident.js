@@ -32,6 +32,7 @@ import FreeroomDialog from "./FreeroomDialog";
 import ErrorMessage from "./ErrorMessage";
 import SuccesMessage from "./SuccesMessage";
 import * as Yup from "yup";
+import { values } from "lodash";
 
 function FormResident() {
     const bg = useColorModeValue("white", "blue.300");
@@ -43,6 +44,7 @@ function FormResident() {
     const [freeRooms, setFreeRooms] = useState([]);
     const [groups, Setgroups] = useState([]);
     const [error, setError] = useState("");
+    const [sex,setSex] = useState("");
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const validationSchema = Yup.object({
         name: Yup.string()
@@ -201,12 +203,12 @@ function FormResident() {
                                     <Textfield
                                         type="text"
                                         name="birthday"
-                                        placeholder="Дата рождения  ДД-ММ-ГГГГ"
+                                        placeholder="Дата рождения  ГГГГ-ММ-ДД"
                                     />
                                     <SelectField
                                         name="sex"
                                         placeholder="Пол"
-                                        textAlign="center"
+                                        textAlign="center" setSex={setSex}
                                     />
                                     <Textfield
                                         type="tel"
@@ -249,7 +251,7 @@ function FormResident() {
                                     <Textfield
                                         type="text"
                                         name="Dpassport"
-                                        placeholder="Дата выдачи ДД-ММ-ГГГГ"
+                                        placeholder="Дата выдачи ГГГГ-ММ-ДД"
                                     />
                                     <Textfield
                                         type="text"
@@ -300,7 +302,7 @@ function FormResident() {
                                     <FreeroomDialog
                                         setSelectedRoom={setSelectedRoom}
                                         SelectedRoom={SelectedRoom}
-                                        formik={formik.handleSubmit}
+                                        formik={formik.handleSubmit} sex={sex}
                                     />
                                 </Box>
                                 <Box py="2" justify="center" align="center">

@@ -59,7 +59,7 @@ const FreeroomDialog = (props) => {
         props.formik(event);
         onClose();
     }
-
+    console.log(props.sex)
     return (
         <div>
             <Button
@@ -80,7 +80,7 @@ const FreeroomDialog = (props) => {
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <Table variant="simple">
-                            <TableCaption></TableCaption>
+                            <TableCaption>{props.sex}</TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>

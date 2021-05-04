@@ -1,8 +1,9 @@
 import React from "react";
-import { Flex, Spinner } from "@chakra-ui/";
-const PageLoader = () => {
-  return (
-    <Flex
+import { Flex, Spinner } from "@chakra-ui/react";
+
+ const PageLoader = () => {
+    return (
+        <Flex
       position="fixed"
       left={0}
       right={0}
@@ -13,9 +14,8 @@ const PageLoader = () => {
       bg="white"
       zIndex={999}
     >
-      <Spinner thickness="4px" color="gray.400" />
+      <Spinner thickness="8px" color="gray.400" />
     </Flex>
-  );
-};
-
+    )
+}
 export default PageLoader;

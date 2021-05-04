@@ -33,7 +33,7 @@ import ErrorMessage from "./ErrorMessage";
 import SuccesMessage from "./SuccesMessage";
 import { useDisclosure } from "@chakra-ui/react";
 
-export const UsersTable = ({ users, loading }) => {
+export const UsersTable = ({ users, loading ,setChange}) => {
     const { onOpen, onClose, isOpen } = useDisclosure();
     const [Error, setError] = useState("");
     const [succes, setSucces] = useState("");
