@@ -66,7 +66,7 @@ function FormResident() {
         phone_number: Yup.string().matches(
             phoneRegExp,
             "Phone number is not valid"
-        ),
+        ),sex:Yup.string().required("Required"),
 
         passportIssuer: Yup.string()
             .max(20, "Must be 15 characters")
@@ -131,7 +131,7 @@ function FormResident() {
                     axios
                         .post("/api/student", values)
                         .then((res) => {
-                            console.log(res);
+                            //console.log(res);
                             setSuccesAdd(
                                 "Операция успешна " +
                                     res.data.name +
@@ -207,7 +207,7 @@ function FormResident() {
                                     />
                                     <SelectField
                                         name="sex"
-                                        placeholder="Пол"
+                                        placeholder={sex?sex:"ПОЛ"}
                                         textAlign="center" setSex={setSex}
                                     />
                                     <Textfield

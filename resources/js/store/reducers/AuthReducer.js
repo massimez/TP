@@ -1,5 +1,10 @@
+const intialStates = {
 
-const AuthReducer = (state= {}, actions) => {
+        loggedIn: false,
+        user: {}
+
+}
+const AuthReducer = (state = intialStates, actions) => {
     switch (actions.type) {
         case "SET_LOGIN":
 

@@ -9,7 +9,10 @@ import {
     FormLabel,
     Input,
     Select,
+    HStack,
+    Button,Wrap, useToast
 } from "@chakra-ui/react";
+import axios from 'axios'
 
 const ResidentProfile = (props) => {
     console.log(props.residentFocus);
@@ -22,19 +25,69 @@ const ResidentProfile = (props) => {
     const [phone, setPhone] = useState(resident.phone_number);
     const [email, setEmail] = useState(resident.email);
     const [room, setRoom] = useState(resident.room_id);
-    const  [passportNumber,setPassportNumber] = useState(resident.number_passport);
-    const  [infoPassport,setInfoPassport] = useState(resident.info_passport);
-    const  [registration,setRegistration] = useState(resident.registration);
-    const  [citizenship,setCitizenship] = useState(resident.citizenship);
-    const  [birthPlace,setBirthPlace] = useState(resident.place_of_birth);
+    const [passportNumber, setPassportNumber] = useState(
+        resident.number_passport
+    );
+    const [infoPassport, setInfoPassport] = useState(resident.info_passport);
+    const [registration, setRegistration] = useState(resident.registration);
+    const [citizenship, setCitizenship] = useState(resident.citizenship);
+    const [birthPlace, setBirthPlace] = useState(resident.place_of_birth);
 
-    const  [statusStudent,setStatusStudent] = useState(resident.status_student);
-    const  [statusAccommodation,setAccommodation] = useState(resident.status_accommodation);
-    const  [group,setGroup] = useState(resident.group);
-
-
-    console.log(sex);
+    const [statusStudent, setStatusStudent] = useState(resident.status_student);
+    const [statusAccommodation, setAccommodation] = useState(
+        resident.status_accommodation
+    );
+    const [group, setGroup] = useState(resident.group);
+    const toast = useToast();
     const editmode = !props.editmode;
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        //
+        const data = {
+            name: name,
+            email: email,
+            birthday: birthday,
+            citizenship: citizenship,
+            email: email,
+            group: group,
+            info_passport: infoPassport,
+            name: name,
+            number_passport: passportNumber,
+            patronymic: patname,
+            phone_number: phone,
+            place_of_birth: birthPlace,
+            registration: registration,
+            room_id: room,
+            sex: sex,
+            status_student: statusStudent,
+            status_accommodation: statusAccommodation,
+            surname: surname,
+        };
+        setTimeout(() => {
+            axios
+                .put(`/api/student/${resident.student_id}`, data)
+                .then((res) => {
+                    console.log(res);
+                    toast({
+                        title: `success `,
+                        position:"top",
+                        status: "success",
+                        isClosable: true,
+                      })
+                })
+                .catch((err) => {
+                    toast({
+                        title: `Error`,
+                        position:"top",
+                        status: "error",
+                        isClosable: true,
+                      })
+                    console.log(err.response.data.errors);
+                });
+        }, 1000);
+    };
+
     return (
         <div>
             <Tabs variant="enclosed" colorScheme="blue" orientation="vertical">
@@ -50,107 +103,117 @@ const ResidentProfile = (props) => {
                             <Input
                                 type="text"
                                 value={surname}
-                                size="lg"
                                 onChange={(event) =>
                                     setSurname(event.currentTarget.value)
                                 }
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Имя:</FormLabel>
                             <Input
                                 type="text"
                                 value={name}
-                                size="lg"
+                                size="md"
                                 onChange={(event) =>
                                     setName(event.currentTarget.value)
                                 }
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Отчество:</FormLabel>
                             <Input
                                 type="text"
                                 value={patname}
-                                size="lg"
+                                size="md"
                                 onChange={(event) =>
                                     setPatname(event.currentTarget.value)
                                 }
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Дата рождения:</FormLabel>
                             <Input
                                 type="text"
                                 value={birthday}
-                                size="lg"
+                                size="md"
                                 onChange={(event) =>
                                     setBirthday(event.currentTarget.value)
                                 }
                                 isDisabled={editmode}
                             />
                         </FormControl>
+                        <HStack>
+                            <FormLabel>Пол:</FormLabel>
+                            <Select
+                                placeholder={sex}
+                                value={sex}
+                                size="md"
+                                onChange={(event) =>
+                                    setSex(event.currentTarget.value)
+                                }
+                                isDisabled={editmode}
+                            >
+                                <option
+                                    style={{ color: "blue" }}
+                                    value="МУЖСКОЙ"
+                                >
+                                    МУЖСКОЙ
+                                </option>
+                                <option
+                                    style={{ color: "red" }}
+                                    value="ЖЕНСКИЙ"
+                                >
+                                    ЖЕНСКИЙ
+                                </option>
+                            </Select>
+                        </HStack>
 
-                        <FormLabel>Пол:</FormLabel>
-                        <Select
-                            placeholder={sex}
-                            value={sex}
-                            size="lg"
-                            onChange={(event) =>
-                                setSex(event.currentTarget.value)
-                            }
-                            isDisabled={editmode}
-                        >
-                            <option style={{ color: "blue" }} value="МУЖСКОЙ">
-                                МУЖСКОЙ
-                            </option>
-                            <option style={{ color: "red" }} value="ЖЕНСКИЙ">
-                                ЖЕНСКИЙ
-                            </option>
-                        </Select>
-
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Номер телефона:</FormLabel>
                             <Input
                                 type="tel"
                                 value={phone}
-                                size="lg"
+                                size="md"
                                 onChange={(event) =>
                                     setPhone(event.currentTarget.value)
                                 }
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
-                            <FormLabel>E-mail:</FormLabel>
-                            <Input
-                                type="email"
-                                value={email}
-                                size="lg"
-                                onChange={(event) =>
-                                    setEmail(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                        <FormControl mt={1}>
+                            <HStack>
+                                <FormLabel>E-mail:</FormLabel>
+                                <Input
+                                    type="email"
+                                    value={email}
+                                    size="md"
+                                    onChange={(event) =>
+                                        setEmail(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
-                        <FormControl mt={4}>
-                            <FormLabel>№ комнаты:</FormLabel>
-                            <Input
-                                type="text"
-                                value={room}
-                                size="lg"
-                                onChange={(event) =>
-                                    setRoom(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                        <FormControl mt={1}>
+                            <HStack>
+                                <FormLabel>№ комнаты:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={room}
+                                    size="md"
+                                    onChange={(event) =>
+                                        setRoom(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
                     </TabPanel>
                     <TabPanel>
-                    <FormControl>
+                        <FormControl>
                             <FormLabel>Серия и номер паспорта:</FormLabel>
                             <Input
                                 type="text"
@@ -162,7 +225,7 @@ const ResidentProfile = (props) => {
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Кем выдан и Дата выдачи:</FormLabel>
                             <Input
                                 type="text"
@@ -174,7 +237,7 @@ const ResidentProfile = (props) => {
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Прописка:</FormLabel>
                             <Input
                                 type="text"
@@ -186,7 +249,7 @@ const ResidentProfile = (props) => {
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Гражданство:</FormLabel>
                             <Input
                                 type="text"
@@ -198,7 +261,7 @@ const ResidentProfile = (props) => {
                                 isDisabled={editmode}
                             />
                         </FormControl>
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Место рождения:</FormLabel>
                             <Input
                                 type="text"
@@ -213,7 +276,7 @@ const ResidentProfile = (props) => {
                     </TabPanel>
                     <TabPanel>
                         {/* Third part panel */}
-                        <FormControl mt={4}>
+                        <FormControl mt={1}>
                             <FormLabel>Тип специальности:</FormLabel>
                             <Input
                                 type="text"
@@ -224,8 +287,8 @@ const ResidentProfile = (props) => {
                                 }
                                 isDisabled={editmode}
                             />
-                            </FormControl>
-                            <FormControl mt={4}>
+                        </FormControl>
+                        <FormControl mt={1}>
                             <FormLabel>Факультет:</FormLabel>
                             <Input
                                 type="text"
@@ -236,8 +299,8 @@ const ResidentProfile = (props) => {
                                 }
                                 isDisabled={editmode}
                             />
-                            </FormControl>
-                            <FormControl mt={4}>
+                        </FormControl>
+                        <FormControl mt={1}>
                             <FormLabel>Форма обучения:</FormLabel>
                             <Input
                                 type="text"
@@ -248,8 +311,8 @@ const ResidentProfile = (props) => {
                                 }
                                 isDisabled={editmode}
                             />
-                            </FormControl>
-                            <FormControl mt={4}>
+                        </FormControl>
+                        <FormControl mt={1}>
                             <FormLabel>Группа:</FormLabel>
                             <Input
                                 type="text"
@@ -260,8 +323,8 @@ const ResidentProfile = (props) => {
                                 }
                                 isDisabled={editmode}
                             />
-                            </FormControl>
-                            <FormControl mt={4}>
+                        </FormControl>
+                        <FormControl mt={1}>
                             <FormLabel>Статус студента:</FormLabel>
                             <Input
                                 type="text"
@@ -272,8 +335,8 @@ const ResidentProfile = (props) => {
                                 }
                                 isDisabled={editmode}
                             />
-                            </FormControl>
-                            <FormControl mt={4}>
+                        </FormControl>
+                        <FormControl mt={1}>
                             <FormLabel>Статус проживания:</FormLabel>
                             <Input
                                 type="text"
@@ -284,10 +347,11 @@ const ResidentProfile = (props) => {
                                 }
                                 isDisabled={editmode}
                             />
-                            </FormControl>
+                        </FormControl>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
+            {!editmode && <Button css={{float:"right"}}  onClick={handleSubmit} colorScheme="blue">Подтвердить и сохранить</Button>}
         </div>
     );
 };

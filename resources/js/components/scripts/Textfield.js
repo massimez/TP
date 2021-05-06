@@ -13,7 +13,7 @@ export const Textfield = ({  ...props }) => {
             <InputGroup>
                 <Input name={props.name} isRequired={props.isRequired} width="450px" height="60px"
                 fontWeight="600"
-                color="black" bg="#005aae" opacity="20%"
+                color="black" backgroundColor="rgba(0,90,174,0.2)"
                 borderRadius="6%"
                 type={props.type}
                 textAlign="center"

@@ -1,0 +1,4 @@
+export const ActionTypes = {
+    SET_RESIDENTS : "SET_RESIDENTS",
+    SET_RESIDENTS_FILTER: "SET_RESIDENTS_FILTER",
+}
