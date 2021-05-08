@@ -21,8 +21,10 @@ export const Textfield = ({  ...props }) => {
                 placeholder={props.placeholder}  {...field}  _placeholder={{ color: "white" }} />
                 {meta.touched && meta.error &&  <WarningIcon w={6} h={6} color="red.500" />}
             </InputGroup>
-            <Ferrmsg component="div" style={{color:'red'}} name={field.name} />
+            <Box maxWidth="300px">
+                <Ferrmsg  component="div" style={{color:'red'}} name={field.name} />
 
+            </Box>
         </Box>
     );
 };

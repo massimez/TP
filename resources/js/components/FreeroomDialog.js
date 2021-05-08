@@ -55,13 +55,15 @@ const FreeroomDialog = (props) => {
         onClose();
         props.setSelectedRoom("");
     }
-    function submitClose(event) {
-        props.formik(event);
+    function submitClose() {
+        console.log("yaw test")
+        props.formik();
         onClose();
     }
-    console.log(props.sex)
+
+
     return (
-        <div>
+        <>
             <Button
                 type="button"
                 color="whiteAlpha.900"
@@ -84,16 +86,18 @@ const FreeroomDialog = (props) => {
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>
+                                    <Th>ПОЛ</Th>
                                     <Th></Th>
+
                                     <Th></Th>
                                 </Tr>
                             </Thead>
 
                             <Tbody>
-
-                                {freeRooms
+                                {
+                                    freeRooms
                                     .slice(0, 20)
-                                    .filter((opt) => opt.number_of_living < 4 && opt.floor === floorPage)
+                                    .filter((opt) => opt.number_of_living < maxliving && opt.floor === floorPage  )
                                     .map((room) => (
                                         <Tr key={room.room_id}>
                                             <Th>
@@ -120,9 +124,11 @@ const FreeroomDialog = (props) => {
                                                     {room.room_id}
                                                 </Radio>
                                             </Th>
-                                            <Th key={room.room_id}>
-                                                {room.number_of_living} /{" "}
-                                                {maxliving}
+                                            <Th >
+                                                {room.number_of_living} / {" "}{maxliving}
+                                            </Th>
+                                            <Th >
+                                                {room.status}
                                             </Th>
                                         </Tr>
                                     ))}
@@ -131,23 +137,19 @@ const FreeroomDialog = (props) => {
                     </ModalBody>
  <RoomNext rooms={freeRooms} size={"sm"} setFloorPage={setFloorPage} />
                     <ModalFooter>
-
-
-
                         <Button
                             colorScheme="blue"
                             mr={3}
                             onClick={submitClose}
-                            type="button"
+                            type="submit"
                         >
                             Ok
                         </Button>
                         <Button onClick={cancelClose}>Отменить</Button>
-
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-        </div>
+        </>
     );
 };
 
