@@ -75,3 +75,13 @@
     text-align: right;
     color: rgb(247, 144, 144);
 }
+@media (max-width: 500px) {
+    .login-input {
+        width: 250px;
+        height: 50px;
+    }
+    .btn-login-submit {
+        width: 250px;
+        height: 50px;
+    }
+}

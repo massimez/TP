@@ -1,5 +1,5 @@
-import React, { useState , useEffect } from "react";
-import { Formik, Form, Field } from "formik";
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field  } from "formik";
 import { Textfield } from "./scripts/Textfield";
 import SelectField from "./scripts/SelectField";
 import SelectGroup from "./scripts/SelectGroup";
@@ -24,36 +24,81 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,Radio,AdaptedRadioGroup,
+    ModalCloseButton,
+    Radio,
+    AdaptedRadioGroup,
 } from "@chakra-ui/react";
 import FreeroomDialog from "./FreeroomDialog";
 import ErrorMessage from "./ErrorMessage";
 import SuccesMessage from "./SuccesMessage";
-
-
+import * as Yup from "yup";
+import { values } from "lodash";
 
 function FormResident() {
     const bg = useColorModeValue("white", "blue.300");
     const color = useColorModeValue("bluet.900", "gray.800");
 
-    const [SelectedRoom, setSelectedRoom] = useState('');
-    const [succesAdd,setSuccesAdd] = useState(false);
-    const [errorAdd , setErrorAdd] = useState(false);
+    const [SelectedRoom, setSelectedRoom] = useState("");
+    const [succesAdd, setSuccesAdd] = useState(false);
+    const [errorAdd, setErrorAdd] = useState(false);
     const [freeRooms, setFreeRooms] = useState([]);
     const [groups, Setgroups] = useState([]);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
+    const [sex,setSex] = useState("");
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    const validationSchema = Yup.object({
+        name: Yup.string()
+            .max(20, "Must be 15 characters")
+            .min(2, "Too Short!")
+            .required("Required"),
+        surname: Yup.string()
+            .max(20, "Must be 15 characters")
+            .min(2, "Too Short!")
+            .required("Required"),
+        patronymic: Yup.string()
+            .max(20, "Must be 15 characters")
+            .min(2, "Too Short!")
+            .required("Required"),
+        birthday: Yup.date(
+            "Format date invalid should be YYYY-MM-DD"
+        ).required(),
+        email: Yup.string().email("Email is invalid").required("Required"),
+        phone_number: Yup.string().matches(
+            phoneRegExp,
+            "Phone number is not valid"
+        ),
 
+        passportIssuer: Yup.string()
+            .max(20, "Must be 15 characters")
+            .min(2, "Too Short!")
+            .required("Required"),
+
+        citizenship: Yup.string()
+            .max(20, "Must be 15 characters")
+            .min(2, "Too Short!")
+            .required("Required"),
+        place_of_birth: Yup.string()
+            .max(20, "Must be 15 characters")
+            .min(2, "Too Short!")
+            .required("Required"),
+        registration: Yup.string()
+            .max(20, "Must be 15 characters")
+            .min(2, "Too Short!")
+            .required("Required"),
+    });
     useEffect(() => {
         const fetchGroup = async () => {
-          const res = await axios.get('/api/group').then((ress)=>{
-            Setgroups(ress.data.data);
-          }).catch((err) => {
-           console.log(err);
-        });
-
+            const res = await axios
+                .get("/api/group")
+                .then((ress) => {
+                    Setgroups(ress.data.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         };
         fetchGroup();
-      }, []);
+    }, []);
 
     return (
         <>
@@ -69,48 +114,53 @@ function FormResident() {
                     passportSerial: "",
                     number_passport: "",
                     passportIssuer: "",
-                    Dpassport:"",
+                    Dpassport: "",
                     info_passport: "",
                     citizenship: "",
                     place_of_birth: "",
-                    registration:"",
-                    status_student:"",
-                    room_id:"",
-                    group:"",
-                    note:"default",
-
+                    registration: "",
+                    status_student: "",
+                    room_id: "",
+                    group: "",
+                    note: "default",
                 }}
                 onSubmit={(values, actions) => {
-                    values.room_id= SelectedRoom;
-                    values.info_passport =  values.passportIssuer + " " + values.Dpassport ;
+                    values.room_id = SelectedRoom;
+                    values.info_passport =
+                        values.passportIssuer + " " + values.Dpassport;
                     axios
                         .post("/api/student", values)
                         .then((res) => {
-
                             console.log(res);
-                            setSuccesAdd("Операция успешна " + res.data.name + " " + JSON.stringify(res.data.message ) )
-
+                            setSuccesAdd(
+                                "Операция успешна " +
+                                    res.data.name +
+                                    " " +
+                                    JSON.stringify(res.data.message)
+                            );
+                            actions.resetForm();
                         })
                         .catch((err) => {
                             if (err.response) {
-      console.log(err.response.data);
-      console.log(err.response.status);
-      console.log(err.response.headers);
-    }
+                                console.log(err.response.data);
+                                console.log(err.response.status);
+                                console.log(err.response.headers);
+                            }
                             console.log(err);
-                            let toStringgg ="Error "+ err.response.status + " " + JSON.stringify(err.response.data.message) ;
-                                                        setError(toStringgg);
+                            let toStringgg =
+                                "Error " +
+                                err.response.status +
+                                " " +
+                                JSON.stringify(err.response.data.message);
+                            setError(toStringgg);
                         });
                     alert(JSON.stringify(values, null, 2));
                     actions.setSubmitting(false);
-                    actions.resetForm();
-                    console.log("dsds" + SelectedRoom);
-
                 }}
+                validationSchema={validationSchema}
             >
                 {(formik) => (
                     <Form onSubmit={formik.handleSubmit}>
-
                         <Flex
                             bg={bg}
                             justify="center"
@@ -119,10 +169,11 @@ function FormResident() {
                             borderRadius="1%"
                             flexWrap="wrap"
                         >
-
                             <Box px="5" mb="5">
-                            {error && <ErrorMessage message={error} />}
-                            {succesAdd && <SuccesMessage message={succesAdd} />}
+                                {error && <ErrorMessage message={error} />}
+                                {succesAdd && (
+                                    <SuccesMessage message={succesAdd} />
+                                )}
                                 <Heading as="h5" size="md" color="#8B8B8B">
                                     Общая информация
                                 </Heading>
@@ -152,13 +203,12 @@ function FormResident() {
                                     <Textfield
                                         type="text"
                                         name="birthday"
-                                        placeholder="Дата рождения  ДД-ММ-ГГГГ"
+                                        placeholder="Дата рождения  ГГГГ-ММ-ДД"
                                     />
                                     <SelectField
                                         name="sex"
                                         placeholder="Пол"
-                                        textAlign="center"
-
+                                        textAlign="center" setSex={setSex}
                                     />
                                     <Textfield
                                         type="tel"
@@ -172,7 +222,7 @@ function FormResident() {
                                     />
                                     {formik.errors.name && (
                                         <div id="feedback">
-                                            {formik.errors.name}
+
                                         </div>
                                     )}
                                 </Box>
@@ -201,7 +251,7 @@ function FormResident() {
                                     <Textfield
                                         type="text"
                                         name="Dpassport"
-                                        placeholder="Дата выдачи ДД-ММ-ГГГГ"
+                                        placeholder="Дата выдачи ГГГГ-ММ-ДД"
                                     />
                                     <Textfield
                                         type="text"
@@ -231,8 +281,7 @@ function FormResident() {
                                     borderColor="rgba(139,139,139,0.5)"
                                     p="10px"
                                 >
-
-                                <SelectGroup
+                                    <SelectGroup
                                         name="group"
                                         placeholder="Группа"
                                         textAlign="center"
@@ -250,7 +299,11 @@ function FormResident() {
                                     />
                                 </Box>
                                 <Box py="2" justify="center" align="center">
-                                  <FreeroomDialog  setSelectedRoom={setSelectedRoom} SelectedRoom={SelectedRoom} formik={formik.handleSubmit}/>
+                                    <FreeroomDialog
+                                        setSelectedRoom={setSelectedRoom}
+                                        SelectedRoom={SelectedRoom}
+                                        formik={formik.handleSubmit} sex={sex}
+                                    />
                                 </Box>
                                 <Box py="2" justify="center" align="center">
                                     <Button

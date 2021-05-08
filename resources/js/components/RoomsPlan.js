@@ -4,7 +4,7 @@ import SquareRoom from "./SquareRoom";
 import axios from 'axios'
 
 const RoomsPlan = () => {
-    const [rooms, setRooms] = useState(['']);
+    const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 

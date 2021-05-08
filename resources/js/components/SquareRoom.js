@@ -18,12 +18,11 @@ const SquareRoom = (rooms) => {
 
     return (
         <>
-        <RoomNext rooms={rooms} setFloorPage={setFloorPage} />
+        <RoomNext rooms={rooms.rooms} setFloorPage={setFloorPage} />
         <Box p={2}>
             <Flex alignItems="center" justify="center" direction="row"  border="2px" >
                 <SquareFree ass={MdAccessibility} />
-                {rooms.rooms
-                    .filter((opt) => opt.floor === floorPage)
+                {rooms.rooms.filter((opt) => opt.floor === floorPage)
                     .slice(0, 25)
                     .map((room) => (
                         <>
