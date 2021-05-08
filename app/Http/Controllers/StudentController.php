@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\CountLivingRoomEvent;
 use App\Listeners\CountLivingRoomListener;
+use App\Models\Group;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,17 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $filter_student_table = (new FilterStudent($request))->apply()->get();
-        return response()->json( $filter_student_table,200);
+        $fuil_info_student = [];
+        foreach ($filter_student_table as $ket => $value){
+            $group_table = $value->groupTable();
+            $faculty = $group_table->pluck('faculty');
+            $course = $group_table->pluck('course_of_study');
+            $form_education = $group_table->pluck('form_of_education');
+            $student = collect($value)->put('faculty', $faculty[0])
+                ->put('course_of_study', $course[0])->put('form_of_education',$form_education[0]);
+            $fuil_info_student[]=$student;
+        }
+        return response()->json( $fuil_info_student,200);
     }
 
     /**
@@ -84,8 +95,9 @@ class StudentController extends Controller
         $student = Student::find($id);
         $faculty = $student->groupTable()->pluck('faculty');
         $course = $student->groupTable()->pluck('course_of_study');
+        $form_education = $student->groupTable()->pluck('form_of_education');
         $student = collect($student)->put('faculty', $faculty[0])
-            ->put('course_of_study', $course[0]);
+            ->put('course_of_study', $course[0])->put('form_of_education',$form_education[0]);
 
         if (is_null($student)) {
             return response()->json(['message' => 'student not found'], 422);

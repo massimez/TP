@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class RoomsController extends Controller
@@ -10,7 +11,7 @@ class RoomsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin',['expect'=>'index','show']);
+//        $this->middleware('admin',['expect'=>'index','show']);
 
     }
 
@@ -21,8 +22,17 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        $room = Room::select('room_id', 'status', 'number_of_living', 'floor')->get();
-        return response()->json(['rooms' => $room],200);
+        //'room_id', 'status', 'number_of_living','max_living','floor'
+        $rooms = Room::select('room_id','status','number_of_living','max_living','floor')->get();
+        $students = Student::all();
+        $full_info_for_room = [];
+        foreach ($rooms as $key => $value){
+            $room = $value;
+            $student = $students->where('room_id','=',$value->room_id);
+            $full_info_for_room[]=[$room,$student];
+        }
+
+        return response()->json(['rooms' => $full_info_for_room],200);
     }
 
     /**
