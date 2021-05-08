@@ -14,14 +14,15 @@ const RoomsPlan = () => {
             const res = await axios.get("/api/room").catch((err) => {
                 console.log(err);
             });
-            setRooms(res.data.rooms);
+            setRooms(res.data);
             setLoading(false);
         };
         fetchPosts();
+        console.log(rooms)
     }, []);
     return (
         <Box  width="95%" bg="white" mx="auto" borderRadius="2%">
-        <SquareRoom  rooms={rooms} />
+        {/* <SquareRoom  rooms={rooms} /> */}
         </Box>
     );
 };

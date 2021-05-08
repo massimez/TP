@@ -67,7 +67,6 @@ function FormResident() {
             phoneRegExp,
             "Phone number is not valid"
         ),
-
         passportIssuer: Yup.string()
             .max(20, "Must be 15 characters")
             .min(2, "Too Short!")
@@ -201,7 +200,7 @@ function FormResident() {
                                         placeholder="Отчество (при наличии)"
                                     />
                                     <Textfield
-                                        type="text"
+                                        type="date"
                                         name="birthday"
                                         placeholder="Дата рождения  ГГГГ-ММ-ДД"
                                     />
@@ -321,23 +320,3 @@ function FormResident() {
 
 export default FormResident;
 
-// const [emailAddress, setEmailAdress] = useState('');
-// const [familyName,setFamilyName] = useState('');
-// const [firstName,setFristName] = useState('');
-// const [patronymicName,setPatronymicName] = useState('');
-// const [bDay,setBday] = useState('');
-// const [gender,setGender] = useState('');
-// const [email,setEmail] = useState('');
-
-// const [passportSerial,setPassportSerial] = useState('');
-// const [passportNumber,setPassportNumber] = useState('');
-// const [passportIssuer,setPassportIssuer] = useState('');
-// const [passportDateD,setPassportDateD] = useState('');
-// const [passportPrapiska,setPassportPrapiska] = useState('');
-// const [nationality,setNationality] = useState('');
-// const [bPlace,setBPlace] = useState('');
-
-// const [speciality,setSpeciality] = useState('');
-// const [faculty,setFaculty] = useState('');
-// const [groupe,setGroupe] = useState('');
-// const [studentStatus,setStudentStatus] = useState('');

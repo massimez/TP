@@ -100,7 +100,7 @@ export const Students = ({ posts, loading }) => {
     </Tr>
   </Tfoot> */}
             </Table>
-            <Modal isOpen={isOpen} onClose={onClose} size="xl">
+            <Modal isOpen={isOpen} onClose={onClose} size="lg">
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Профиль</ModalHeader>

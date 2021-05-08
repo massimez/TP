@@ -21,6 +21,7 @@ import {
     Radio,
     AdaptedRadioGroup,
 } from "@chakra-ui/react";
+import { ViewIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import {
     Table,
@@ -42,6 +43,7 @@ const FreeroomDialog = (props) => {
         const fetchRooms = async () => {
             const res = await axios.get("/api/room");
             setFreeRooms(res.data.rooms);
+            console.log(freeRooms)
         };
         fetchRooms();
     }, []);
@@ -56,11 +58,10 @@ const FreeroomDialog = (props) => {
         props.setSelectedRoom("");
     }
     function submitClose() {
-        console.log("yaw test")
+        console.log("yaw test");
         props.formik();
         onClose();
     }
-
 
     return (
         <>
@@ -86,18 +87,22 @@ const FreeroomDialog = (props) => {
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>
+                                    <Th>Проживает</Th>
                                     <Th>ПОЛ</Th>
-                                    <Th></Th>
+                                    <Th>Соседи</Th>
 
                                     <Th></Th>
                                 </Tr>
                             </Thead>
 
                             <Tbody>
-                                {
-                                    freeRooms
+                                {freeRooms
                                     .slice(0, 20)
-                                    .filter((opt) => opt.number_of_living < maxliving && opt.floor === floorPage  )
+                                    .filter(
+                                        (opt) =>
+                                            opt.number_of_living < maxliving &&
+                                            opt.floor === floorPage
+                                    )
                                     .map((room) => (
                                         <Tr key={room.room_id}>
                                             <Th>
@@ -111,9 +116,7 @@ const FreeroomDialog = (props) => {
                                                             room.room_id
                                                         );
                                                     }}
-                                                    _checked={{
-
-                                                    }}
+                                                    _checked={{}}
                                                     _focus={{
                                                         bg: "teal.600",
                                                         color: "white",
@@ -124,18 +127,29 @@ const FreeroomDialog = (props) => {
                                                     {room.room_id}
                                                 </Radio>
                                             </Th>
-                                            <Th >
-                                                {room.number_of_living} / {" "}{maxliving}
+                                            <Th>
+                                                {room.number_of_living} /{" "}
+                                                {maxliving}
                                             </Th>
-                                            <Th >
-                                                {room.status}
-                                            </Th>
+                                            <Th>{room.status}</Th>
+                                            <th>
+                                                <Tooltip
+                                                    label="Просмотр соседей"
+                                                    fontSize="md"
+                                                >
+                                                     <ViewIcon />
+                                                </Tooltip>
+                                            </th>
                                         </Tr>
                                     ))}
                             </Tbody>
                         </Table>
                     </ModalBody>
- <RoomNext rooms={freeRooms} size={"sm"} setFloorPage={setFloorPage} />
+                    <RoomNext
+                        rooms={freeRooms}
+                        size={"sm"}
+                        setFloorPage={setFloorPage}
+                    />
                     <ModalFooter>
                         <Button
                             colorScheme="blue"
