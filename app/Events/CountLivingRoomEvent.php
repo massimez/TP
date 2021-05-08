@@ -19,10 +19,12 @@ class CountLivingRoomEvent
      *
      * @return void
      */
-    public $room_id;
-    public function __construct($room_id)
+    public $room_id_new;
+    public $room_id_old;
+    public function __construct($room_id_new,$room_id_old=['room_id'=>0])
     {
-        $this->room_id=$room_id['room_id'];
+        $this->room_id_new=$room_id_new['room_id'];
+        $this->room_id_old=$room_id_old['room_id'];
 
     }
 

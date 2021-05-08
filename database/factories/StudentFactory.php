@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Events\CountLivingRoomEvent;
+use App\Http\Controllers\CheckRoom;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use mysql_xdevapi\Exception;
@@ -19,7 +20,10 @@ class StudentFactory extends Factory
 
     public function definition()
     {
-        $room_id['room_id'] = $this->faker->numberBetween(100, 119);
+        do{
+            $room_id['room_id'] = $this->faker->numberBetween(100, 129);
+            $check_room = (new CheckRoom($room_id['room_id']))->getStatus();
+        } while (!$check_room);
         event(new CountLivingRoomEvent($room_id));
         $data = [
             'name'                       => $this->faker->firstName($gender = 'male' | 'female'),
