@@ -6,11 +6,8 @@ import Pagination from '../components/layouts/Pagnation'
 
 function StudentList() {
     return (
-
-
         <Box mx="2%">
             <Header title="Список студентов"/>
-            <Filtermenu/>
             <Pagination />
         </Box>
     )

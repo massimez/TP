@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Formik, Form, Field  } from "formik";
+import { Formik, Form, Field } from "formik";
 import { Textfield } from "./scripts/Textfield";
 import SelectField from "./scripts/SelectField";
 import SelectGroup from "./scripts/SelectGroup";
@@ -44,7 +44,7 @@ function FormResident() {
     const [freeRooms, setFreeRooms] = useState([]);
     const [groups, Setgroups] = useState([]);
     const [error, setError] = useState("");
-    const [sex,setSex] = useState("");
+    const [sex, setSex] = useState("");
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const validationSchema = Yup.object({
         name: Yup.string()
@@ -72,7 +72,6 @@ function FormResident() {
             .max(20, "Must be 15 characters")
             .min(2, "Too Short!")
             .required("Required"),
-
         citizenship: Yup.string()
             .max(20, "Must be 15 characters")
             .min(2, "Too Short!")
@@ -88,7 +87,7 @@ function FormResident() {
     });
     useEffect(() => {
         const fetchGroup = async () => {
-            const res = await axios
+            await axios
                 .get("/api/group")
                 .then((ress) => {
                     Setgroups(ress.data.data);
@@ -125,13 +124,14 @@ function FormResident() {
                     note: "default",
                 }}
                 onSubmit={(values, actions) => {
+                    console.log("handle On submit");
                     values.room_id = SelectedRoom;
                     values.info_passport =
                         values.passportIssuer + " " + values.Dpassport;
                     axios
                         .post("/api/student", values)
                         .then((res) => {
-                            console.log(res);
+                            //console.log(res);
                             setSuccesAdd(
                                 "Операция успешна " +
                                     res.data.name +
@@ -207,8 +207,9 @@ function FormResident() {
                                     />
                                     <SelectField
                                         name="sex"
-                                        placeholder="Пол"
-                                        textAlign="center" setSex={setSex}
+                                        placeholder={sex ? sex : "ПОЛ"}
+                                        textAlign="center"
+                                        setSex={setSex}
                                     />
                                     <Textfield
                                         type="tel"
@@ -220,11 +221,6 @@ function FormResident() {
                                         name="email"
                                         placeholder="Е-mail"
                                     />
-                                    {formik.errors.name && (
-                                        <div id="feedback">
-
-                                        </div>
-                                    )}
                                 </Box>
                             </Box>
 
@@ -289,11 +285,6 @@ function FormResident() {
                                     />
                                     <Textfield
                                         type="text"
-                                        name="group"
-                                        placeholder="Группа"
-                                    />
-                                    <Textfield
-                                        type="text"
                                         name="status_student"
                                         placeholder="Статус студента"
                                     />
@@ -302,10 +293,11 @@ function FormResident() {
                                     <FreeroomDialog
                                         setSelectedRoom={setSelectedRoom}
                                         SelectedRoom={SelectedRoom}
-                                        formik={formik.handleSubmit} sex={sex}
+                                        formik={formik.handleSubmit}
+                                        sex={sex}
                                     />
                                 </Box>
-                                <Box py="2" justify="center" align="center">
+                                {/* <Box py="2" justify="center" align="center">
                                     <Button
                                         color="whiteAlpha.900"
                                         width="450px"
@@ -315,8 +307,8 @@ function FormResident() {
                                     >
                                         Добавить студента
                                     </Button>
-                                </Box>
-
+                                </Box> */}
+                                <button type="submit">Submit</button>
                                 <Button type="reset">Reset</Button>
                             </Box>
                         </Flex>

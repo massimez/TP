@@ -16,8 +16,7 @@ function SelectGroup(props) {
                 width="450px"
                 fontWeight="600"
                 height="60px"
-                bg="bluet.900"
-                opacity="20%"
+                backgroundColor="rgba(0,90,174,0.2)"
                 color="white"
             >
                  { props.groups.map(group => (

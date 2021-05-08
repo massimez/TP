@@ -38,7 +38,7 @@ const login = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleSubmit =  (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         setIsLoading(true);
@@ -55,14 +55,18 @@ const login = (props) => {
                     setIsLoading(false);
                     setIsLoggedIn(true);
                     props.setLogin(res.data.user);
+                    let token = cookie.get("token");
+                    axios.defaults.headers.common[
+                        "Authorization"
+                    ] = `Bearer ${token}`;
+                    axios.defaults.baseURL = "/";
                 })
                 .catch((err) => {
                     setError("Неверный адрес электронной почты или пароль");
                     setIsLoading(false);
                     setShowPassword(false);
                     console.log(err.response.data.errors);
-                })
-
+                });
         }, 1000);
     };
 
@@ -75,19 +79,22 @@ const login = (props) => {
         <>
             <Header />
             <Flex width="full" align="center" justifyContent="center">
-                <Box p={8} maxWidth="500px">
+                <Box p={8}>
                     {isLoggedIn ? (
                         <>
-
                             <Redirect to="/app" />
-
                         </>
                     ) : (
                         <>
                             <Box textAlign="center">
                                 <h1 className="h1-m">Авторизация</h1>
                             </Box>
-                            <Flex align="center" justify="center" my={4} textAlign="left">
+                            <Flex
+                                align="center"
+                                justify="center"
+                                my={4}
+                                textAlign="left"
+                            >
                                 <form onSubmit={handleSubmit}>
                                     {error && <ErrorMessage message={error} />}
                                     <FormControl isRequired>
@@ -104,7 +111,7 @@ const login = (props) => {
                                         />
                                     </FormControl>
                                     <FormControl isRequired mt={6}>
-                                        <InputGroup >
+                                        <InputGroup>
                                             <input
                                                 type={
                                                     showPassword
@@ -145,7 +152,6 @@ const login = (props) => {
                                     <div>
                                         <a href="#">Забыли пароль?</a>
                                     </div>
-
 
                                     <button
                                         className="btn-login-submit "

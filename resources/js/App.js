@@ -17,6 +17,7 @@ import AuthRoute from "./components/AuthRoute";
 import Rooms from "./pages/Rooms";
 import Register from "./pages/Register";
 import Admin from "./pages/Admin";
+import Viseleni from "./pages/Viseleni";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <AuthRoute exact path="/addresident" component={AddNewResident} />
         <AuthRoute exact path="/rooms" component={Rooms} />
         <AuthRoute exact path="/admin" component={Admin} />
+        <AuthRoute exact path="/viseleni" component={Viseleni} />
         <AuthRoute
           exact
           path="/admin/edit/:id"

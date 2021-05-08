@@ -13,7 +13,7 @@ export const Textfield = ({  ...props }) => {
             <InputGroup>
                 <Input name={props.name} isRequired={props.isRequired} width="450px" height="60px"
                 fontWeight="600"
-                color="black" bg="#005aae" opacity="20%"
+                color="black" backgroundColor="rgba(0,90,174,0.2)"
                 borderRadius="6%"
                 type={props.type}
                 textAlign="center"
@@ -21,8 +21,10 @@ export const Textfield = ({  ...props }) => {
                 placeholder={props.placeholder}  {...field}  _placeholder={{ color: "white" }} />
                 {meta.touched && meta.error &&  <WarningIcon w={6} h={6} color="red.500" />}
             </InputGroup>
-            <Ferrmsg component="div" style={{color:'red'}} name={field.name} />
+            <Box maxWidth="300px">
+                <Ferrmsg  component="div" style={{color:'red'}} name={field.name} />
 
+            </Box>
         </Box>
     );
 };
