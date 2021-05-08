@@ -22,11 +22,11 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('me', [\App\Http\Controllers\AuthController::class,'me']);
     Route::post('register', [\App\Http\Controllers\AuthController::class,'register']);
 });
-Route::group(['middleware' => 'auth:api'], function () {
+//Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('student', \App\Http\Controllers\StudentController::class);
     Route::resource('room', \App\Http\Controllers\RoomsController::class);
     Route::resource('status', \App\Http\Controllers\StatusStudentsController::class);
     Route::resource('group', \App\Http\Controllers\GroupController::class);
-});
+//});
 Route::get('createDoc/{id}',[\App\Http\Controllers\CreateDocxController::class,'getDocument']);
 Route::resource('admin',\App\Http\Controllers\AdminController::class)->middleware(['api','admin']);
