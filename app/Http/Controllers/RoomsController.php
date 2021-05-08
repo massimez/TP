@@ -22,17 +22,26 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        //'room_id', 'status', 'number_of_living','max_living','floor'
         $rooms = Room::select('room_id','status','number_of_living','max_living','floor')->get();
         $students = Student::all();
-        $full_info_for_room = [];
+        $full_info_for_room = collect();
         foreach ($rooms as $key => $value){
-            $room = $value;
-            $student = $students->where('room_id','=',$value->room_id);
-            $full_info_for_room[]=[$room,$student];
+            $student = $students->where('room_id','=',$value->room_id)->toArray();
+            $student = $this->collectToArray($student);
+            $room = collect($value);
+            $room->put('student',$student);
+            $full_info_for_room->put($key,$room);
         }
 
         return response()->json(['rooms' => $full_info_for_room],200);
+    }
+
+    private function collectToArray($collect){
+        $students = [];
+        foreach ($collect as $item){
+            $students[]=$item;
+        }
+        return $students;
     }
 
     /**
