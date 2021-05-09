@@ -13,7 +13,13 @@ import {
     TableCaption,
     Button,
     useDisclosure,
-    Box,
+    Box,Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
 } from "@chakra-ui/react";
 import {
     Modal,
@@ -100,18 +106,18 @@ export const Students = ({ posts, loading }) => {
     </Tr>
   </Tfoot> */}
             </Table>
-            <Modal isOpen={isOpen} onClose={onClose} size="lg">
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Профиль</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={3}>
+            <Drawer placement="bottom" size="full" isOpen={isOpen} onClose={onClose} >
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerHeader>Профиль</DrawerHeader>
+                    <DrawerCloseButton />
+                    <DrawerBody pb={3}>
                         <ResidentProfile
                             residentFocus={residentFocus}
                             editmode={editmode}
                         />
-                    </ModalBody>
-                    <ModalFooter>
+                    </DrawerBody>
+                    <DrawerFooter>
 
                         {!editmode && (
                             <Button colorScheme="blue" mr={3} onClick={()=> handleDownl(residentFocus.student_id) }>
@@ -125,9 +131,9 @@ export const Students = ({ posts, loading }) => {
                         >
                             {editmode ? "Отменить " : "Редактировать данные"}
                         </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
         </Box>
     );
 };

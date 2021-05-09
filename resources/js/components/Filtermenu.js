@@ -15,7 +15,13 @@ import {
     leftIcon,
     useDisclosure,
     HStack,
-    Select,
+    Select,Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
 } from "@chakra-ui/react";
 import { FiFilter } from "react-icons/fi";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -122,12 +128,12 @@ const Filtermenu = () => {
                 )}
             </HStack>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader color={"blue.700"}>Фильтрация</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
+            <Drawer placement="top" my="auto" isOpen={isOpen} onClose={onClose}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerHeader color={"blue.700"}>Фильтрация</DrawerHeader>
+
+                    <DrawerBody pb={6}>
                         <FormControl>
                             <FormLabel>Поиск по ФИО</FormLabel>
                             <Input
@@ -241,7 +247,7 @@ const Filtermenu = () => {
                                 </Select>
                             </FormControl>
                         </HStack>
-                    </ModalBody>
+                    </DrawerBody>
 
                     <ModalFooter>
                         <Button onClick={() => {
@@ -262,8 +268,8 @@ const Filtermenu = () => {
                             Отмена
                         </Button>
                     </ModalFooter>
-                </ModalContent>
-            </Modal>
+                </DrawerContent>
+            </Drawer>
         </>
     );
 };

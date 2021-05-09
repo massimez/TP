@@ -19,7 +19,13 @@ import {
     VStack,
     ModalCloseButton,
     Radio,
-    AdaptedRadioGroup,
+    AdaptedRadioGroup,Tooltip,Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -76,12 +82,12 @@ const FreeroomDialog = (props) => {
                 Добавить и выбрать комнату
             </Button>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Доступные комнаты</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
+            <Drawer placement="bottom" isOpen={isOpen} onClose={onClose}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerHeader>Доступные комнаты</DrawerHeader>
+                    <DrawerCloseButton />
+                    <DrawerBody pb={6}>
                         <Table variant="simple">
                             <TableCaption>{props.sex}</TableCaption>
                             <Thead>
@@ -144,7 +150,7 @@ const FreeroomDialog = (props) => {
                                     ))}
                             </Tbody>
                         </Table>
-                    </ModalBody>
+                    </DrawerBody>
                     <RoomNext
                         rooms={freeRooms}
                         size={"sm"}
@@ -161,8 +167,8 @@ const FreeroomDialog = (props) => {
                         </Button>
                         <Button onClick={cancelClose}>Отменить</Button>
                     </ModalFooter>
-                </ModalContent>
-            </Modal>
+                </DrawerContent>
+            </Drawer>
         </>
     );
 };
