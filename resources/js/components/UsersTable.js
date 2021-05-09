@@ -25,7 +25,13 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,
+    ModalCloseButton,Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
 } from "@chakra-ui/react";
 
 import axios from "axios";
@@ -34,7 +40,7 @@ import SuccesMessage from "./SuccesMessage";
 import PageLoader from "./PageLoader"
 import { useDisclosure } from "@chakra-ui/react";
 
-export const UsersTable = ({ users, loading ,setChange}) => {
+export const UsersTable = ({ users, loading ,setChange},props) => {
     const { onOpen, onClose, isOpen } = useDisclosure();
     const [Error, setError] = useState("");
     const [succes, setSucces] = useState("");
@@ -78,6 +84,7 @@ export const UsersTable = ({ users, loading ,setChange}) => {
         axios
             .put(`/api/admin/${userFocus}`, data)
             .then((res) => {
+                setChange(data);
                 setSucces(res.data.message);
                 onClose();
             })
@@ -139,12 +146,12 @@ export const UsersTable = ({ users, loading ,setChange}) => {
                     ))}
                 </Tbody>
             </Table>
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Update User Informations</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
+            <Drawer isOpen={isOpen} onClose={onClose}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerHeader>Update User Informations</DrawerHeader>
+                    <DrawerCloseButton />
+                    <DrawerBody pb={6}>
                         <FormControl>
                             <FormLabel>Имя</FormLabel>
                             <Input
@@ -212,7 +219,7 @@ export const UsersTable = ({ users, loading ,setChange}) => {
                                 }
                             />
                         </FormControl>
-                    </ModalBody>
+                    </DrawerBody>
 
                     <ModalFooter>
                         <Button
@@ -224,8 +231,8 @@ export const UsersTable = ({ users, loading ,setChange}) => {
                         </Button>
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
-                </ModalContent>
-            </Modal>
+                </DrawerContent>
+            </Drawer>
         </>
     );
 };

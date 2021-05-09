@@ -11,7 +11,7 @@ const Users = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(20);
-  const [Change,setChange] = useState(false);
+  const [Change,setChange] = useState('');
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -36,7 +36,7 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Box>
-       <UsersTable users={currrentPosts} loading={loading} setChange={setChange}/>
+       <UsersTable users={currrentPosts} loading={loading} setChange={setChange} Change={Change}/>
        <PagiNext
       postsPerPage={postsPerPage}
       totalPosts={posts.length}
