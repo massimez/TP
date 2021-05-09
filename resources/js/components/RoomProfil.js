@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Modal,
     ModalOverlay,
@@ -7,7 +7,13 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    Button,
+    Button,Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
     Box,
 } from "@chakra-ui/react";
 import {
@@ -20,51 +26,54 @@ import {
     Td,
     TableCaption,
 } from "@chakra-ui/react";
+
 const RoomProfil = (props) => {
+    const [room, setRoom] = useState([]);
+    let n=5;
+
     return (
-        <div>
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Room</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody pb={6}>
+            <Drawer isOpen={props.isOpen} onClose={props.onClose}  placement="top">
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerHeader>Комната №{props.roomFocus} </DrawerHeader>
+                    <DrawerCloseButton />
+                    <DrawerBody pb={6}>
                         <Table variant="striped" colorScheme="teal">
                             <Thead>
                                 <Tr>
                                     <Th>ФИО</Th>
                                     <Th>Факультет</Th>
-                                    <Th >Курс</Th>
+                                    <Th>Курс</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                <Tr>
-                                    <Td></Td>
-                                    <Td></Td>
-                                    <Td></Td>
-                                </Tr>
-                                <Tr>
-                                    <Td></Td>
-                                    <Td></Td>
-                                    <Td ></Td>
-                                </Tr>
-                                <Tr>
-                                    <Td></Td>
-                                    <Td></Td>
-                                    <Td></Td>
-                                </Tr>
+                                {props.rooms &&
+                                    props.rooms.map((rm, index) => (
+                                        <Tr key={index}>
+                                            <Th>
+                                                {rm.name} {rm.surname}
+                                            </Th>
+                                            <Th>Факультет</Th>
+                                            <Th>Курс</Th>
+                                        </Tr>
+                                    ))}
+
+                                {props.rooms && [...Array(n)].map((e, i) =>
+                                    {
+                                        <Tr key={i}>
+                                            <Th></Th>
+                                            <Th>Свободное место</Th>
+                                            <Th></Th>
+                                        </Tr>;
+                                    })}
                             </Tbody>
                         </Table>
-                    </ModalBody>
+                    </DrawerBody>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3}>
-                            Save
-                        </Button>
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={props.onClose}>Close</Button>
                     </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </div>
+                </DrawerContent>
+            </Drawer>
     );
 };
 

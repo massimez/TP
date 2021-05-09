@@ -125,6 +125,7 @@ function FormResident() {
                 onSubmit={(values, actions) => {
                     console.log("handle On submit");
                     values.room_id = SelectedRoom;
+                    values.sex = sex;
                     values.info_passport =
                         values.passportIssuer + " " + values.Dpassport;
                     axios
@@ -202,6 +203,7 @@ function FormResident() {
                                     <Textfield
                                         type="date"
                                         name="birthday"
+                                        step="360"
                                         placeholder="Дата рождения  ГГГГ-ММ-ДД"
                                     />
                                     <SelectField
