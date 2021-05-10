@@ -69,12 +69,16 @@ const ResidentProfile = (props) => {
                 .put(`/api/student/${resident.student_id}`, data)
                 .then((res) => {
                     console.log(res);
+                    props.setRerenderChange(res);
                     toast({
                         title: `success `,
                         position:"top",
                         status: "success",
                         isClosable: true,
                       })
+                    props.setEditMode(!editmode)
+                    props.onClose()
+
                 })
                 .catch((err) => {
                     toast({
