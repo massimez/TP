@@ -38,8 +38,8 @@ const RoomProfil = (props) => {
                     <DrawerHeader>Комната №{props.roomFocus} </DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
-                        <Table variant="striped" colorScheme="teal">
-                            <Thead>
+                        <Table variant="striped" colorScheme="teal" border="1px  solid">
+                            <Thead bg="blue.300" border="1px  solid" borderColor="blue.300" borderRadius="md" >
                                 <Tr>
                                     <Th>ФИО</Th>
                                     <Th>Факультет</Th>

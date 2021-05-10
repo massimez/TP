@@ -33,7 +33,7 @@ import {
 import ResidentProfile from "./ResidentProfile";
 import PageLoader from "./PageLoader";
 import axios from "axios";
-export const Students = ({ posts, loading }) => {
+export const Students = ({ posts, loading , setRerenderChange} ) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [editmode, setEditMode] = useState(false);
     const [residentFocus, setResidentFocus] = useState("");
@@ -81,6 +81,7 @@ export const Students = ({ posts, loading }) => {
                                 onOpen();
                             }}
                             _hover={{cursor:"pointer"}}
+
                         >
                             <Th>
                                {post.surname} {post.name}  {post.patronymic}
@@ -94,17 +95,6 @@ export const Students = ({ posts, loading }) => {
                         </Tr>
                     ))}
                 </Tbody>
-                {/* <Tfoot bg="blue.100" opacity="80%">
-    <Tr>
-       <Th>ФИО</Th>
-      <Th>Пол</Th>
-      <Th >Грожданство</Th>
-      <Th >Факультет</Th>
-      <Th >Тип специальности</Th>
-      <Th >Статус студент</Th>
-      <Th >Статус проживание</Th>
-    </Tr>
-  </Tfoot> */}
             </Table>
             <Drawer placement="bottom" size="full" isOpen={isOpen} onClose={onClose} >
                 <DrawerOverlay />
@@ -115,6 +105,10 @@ export const Students = ({ posts, loading }) => {
                         <ResidentProfile
                             residentFocus={residentFocus}
                             editmode={editmode}
+                            setRerenderChange={setRerenderChange}
+                            setEditMode={setEditMode}
+                            onClose={onClose}
+                            onOpen={onOpen}
                         />
                     </DrawerBody>
                     <DrawerFooter>

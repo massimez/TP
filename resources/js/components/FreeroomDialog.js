@@ -43,6 +43,8 @@ import RoomNext from "./RoomNext";
 const FreeroomDialog = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [freeRooms, setFreeRooms] = useState([]);
+    const [selectedToView, setSelectedToView] = useState('');
+    const [selectedToViewID, setSelectedToViewID] = useState('');
     let maxliving = 4;
     const [floorPage, setFloorPage] = useState(1);
     useEffect(() => {
@@ -64,10 +66,72 @@ const FreeroomDialog = (props) => {
         props.setSelectedRoom("");
     }
     function submitClose() {
-        console.log("yaw test");
         props.formik();
         onClose();
     }
+
+    useEffect(() => {
+        const fetchroom = async () => {
+            await axios
+                .get(`/api/room/${selectedToViewID}`)
+                .then((ress) => {
+                    setSelectedToView(ress.data.students);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        fetchroom();
+    }, [selectedToViewID]);
+
+    const CustomDrawer = (props) => {
+        const { isOpen, onOpen, onClose } = useDisclosure();
+        return (
+          <>
+            <Tooltip
+                                                    label="Просмотр соседей"
+                                                    fontSize="md"
+                                                >
+                                                     <ViewIcon w={6} h={6} onClick={() => {
+                                                         onOpen() }} />
+                                                </Tooltip>
+            <Drawer isOpen={isOpen} onClose={onClose} placement="top">
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerHeader>Комната №{props.id}</DrawerHeader>
+                <DrawerCloseButton />
+                <DrawerBody>
+                <Table variant="striped" colorScheme="teal" border="1px  solid">
+                            <Thead bg="blue.300" border="1px  solid" borderColor="blue.300" borderRadius="md" >
+                                <Tr>
+                                    <Th>ФИО</Th>
+                                    <Th>Факультет</Th>
+                                    <Th>Курс</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {selectedToView &&
+                                    selectedToView.map((rm, index) => (
+                                        <Tr key={index}>
+                                            <Th>
+                                                {rm.name} {rm.surname}
+                                            </Th>
+                                            <Th>Факультет</Th>
+                                            <Th>Курс</Th>
+                                        </Tr>
+                                    ))}
+                            </Tbody>
+                        </Table>
+                </DrawerBody>
+
+                <DrawerFooter>
+
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+          </>
+        );
+      };
 
     return (
         <>
@@ -106,10 +170,10 @@ const FreeroomDialog = (props) => {
                                     .slice(0, 20)
                                     .filter(
                                         (opt) =>
-                                            opt.number_of_living < maxliving &&
+                                            opt.number_of_living < opt.max_living &&
                                             opt.floor === floorPage
                                     )
-                                    .map((room) => (
+                                    .map((room ,index) => (
                                         <Tr key={room.room_id}>
                                             <Th>
                                                 <Radio
@@ -135,17 +199,13 @@ const FreeroomDialog = (props) => {
                                             </Th>
                                             <Th>
                                                 {room.number_of_living} /{" "}
-                                                {maxliving}
+                                                {room.max_living}
                                             </Th>
                                             <Th>{room.status}</Th>
-                                            <th>
-                                                <Tooltip
-                                                    label="Просмотр соседей"
-                                                    fontSize="md"
-                                                >
-                                                     <ViewIcon />
-                                                </Tooltip>
-                                            </th>
+                                            <Th _hover={{ cursor: "pointer" }} onClick ={ () => {setSelectedToViewID(room.room_id)}}>
+
+                                                <CustomDrawer roomIndex={index} id={room.room_id}   />
+                                            </Th>
                                         </Tr>
                                     ))}
                             </Tbody>
@@ -169,6 +229,7 @@ const FreeroomDialog = (props) => {
                     </ModalFooter>
                 </DrawerContent>
             </Drawer>
+
         </>
     );
 };

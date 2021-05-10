@@ -8,7 +8,7 @@ function SelectGroup(props) {
     return (
         <div>
             <Select
-                textAlign="center"
+
                 placeholder={props.placeholder}
                 type={props.type}
                 name={props.name}
@@ -20,7 +20,7 @@ function SelectGroup(props) {
                 color="white"
             >
                  { props.groups.map(group => (
-            <option textAlign="center"  style={{color: "black"}} key={group.id} value={group.group_name} >{group.group_name}</option>
+            <option   style={{color: "black"}} key={group.id} value={group.group_name} >{group.group_name}</option>
       ))}
 
 
