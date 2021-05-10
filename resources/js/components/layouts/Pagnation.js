@@ -13,6 +13,10 @@ const Pagnation = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(20);
     const dispatch = useDispatch();
+    let residents = useSelector((state) => state.residents.residents);
+    console.log(residents)
+    const filter  = useSelector(state => state.residents.filter )
+    const [rerenderChange,setRerenderChange] = useState();
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -25,20 +29,18 @@ const Pagnation = () => {
             setLoading(false);
         };
         fetchPosts();
-    }, []);
+    }, [rerenderChange]);
 
-    let residents = useSelector((state) => state.residents.residents);
-    console.log(residents)
-    const filter  = useSelector(state => state.residents.filter )
     const search = (residents) => {
-        const FIO = filter.FIO;
+        const FIO = filter.FamilyName;
+        const name = filter.Name;
         const citizenship = filter.citizenship;
         const sex = filter.sex;
         const status_accommodation = filter.statusAccommodation;
-        return residents.filter((row)=> row.citizenship.toString().toLowerCase().indexOf(citizenship.toLowerCase()) > -1
-         &&  row.surname.toString().toLowerCase().indexOf(FIO.toLowerCase()) > -1
-         &&  row.name.toString().toLowerCase().indexOf(FIO.toLowerCase()) > -1
-         &&  row.patronymic.toString().toLowerCase().indexOf(FIO.toLowerCase()) > -1
+        console.log(FIO)
+        return residents.filter((row)=>  row.surname.toString().toLowerCase().indexOf(FIO.toLowerCase()) > -1
+        && row.name.toString().toLowerCase().indexOf(name.toLowerCase()) > -1
+         && row.citizenship.toString().toLowerCase().indexOf(citizenship.toLowerCase()) > -1
          &&  row.sex.toString().toLowerCase().indexOf(sex.toLowerCase()) > -1
          &&  row.status_accommodation.toString().toLowerCase().indexOf(status_accommodation.toLowerCase()) > -1
          );}
@@ -57,7 +59,7 @@ const Pagnation = () => {
     return (
         <Box>
             <Filtermenu/>
-            <Students posts={currrentPosts} loading={loading} />
+            <Students posts={currrentPosts} loading={loading} setRerenderChange={setRerenderChange} />
             <PagiNext
                 postsPerPage={postsPerPage}
                 totalPosts={residents.length}

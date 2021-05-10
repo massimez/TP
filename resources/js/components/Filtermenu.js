@@ -37,18 +37,19 @@ const Filtermenu = () => {
     const [isFiltred, setIsFiltred] = useState(false);
     const dispatch = useDispatch();
 
-
     const handleFilter = () => {
+        const arr = FIO.split(' ')
         const Data = {
             isFiltred: isFiltred,
-            FIO: FIO,
+            FamilyName: arr[0]? arr[0] : "" ,
+            Name:  arr[1]? arr[1] : "" ,
+            Patronymic :  arr[2]? arr[2] : "" ,
             citizenship: citizenship,
             sex: sex,
             statusAccommodation: statusAccommodation,
         };
         dispatch(setResidentsFilter(Data));
-        console.log(Data)
-        console.log("Handle")
+
     };
 
     return (
@@ -95,7 +96,8 @@ const Filtermenu = () => {
                         leftIcon={<CloseIcon />}
                         onClick={() => {
                             setCitizenship("");
-                            setTimeout(handleFilter(),1000)
+                            setTimeout(handleFilter(),1000);
+                            handleFilter();
                         }}
                     >
                         {citizenship}
@@ -107,7 +109,6 @@ const Filtermenu = () => {
                         leftIcon={<CloseIcon />}
                         onClick={() => {
                             setSex("");
-                            handleFilter();
                             handleFilter();
                         }}
                     >
