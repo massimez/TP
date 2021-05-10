@@ -21,7 +21,7 @@ class StudentController extends Controller
     {
         $filter_student_table = (new FilterStudent($request))->apply()->get();
         $fuil_info_student = [];
-        foreach ($filter_student_table as $ket => $value) {
+        foreach ($filter_student_table as $key => $value) {
             $group_table = $value->groupTable();
             $faculty = $group_table->pluck('faculty');
             $course = $group_table->pluck('course_of_study');

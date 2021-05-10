@@ -18,6 +18,9 @@ class ForgeinKeys extends Migration
             $table->foreign('room_id')->references('room_id')->on('rooms')->onDelete('set null');
             $table->foreign('group')->references('group_name')->on('groups')->onDelete('set null');
         });
+        Schema::table('rooms',function (Blueprint $table){
+           $table->foreign('floor')->references('id')->on('countRoomFloor')->onDelete('set null');
+        });
     }
 
     /**
@@ -32,5 +35,9 @@ class ForgeinKeys extends Migration
             $table->dropForeign(['room_id']);
             $table->dropForeign(['group']);
         });
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->dropForeign(['floor']);
+        });
+
     }
 }

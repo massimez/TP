@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Events\CountLivingRoomEvent;
+use App\Events\CountRoomFloorEvent;
 use App\Models\Room;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,11 +23,13 @@ class RoomFactory extends Factory
      */
     public function definition()
     {
+        $floor = rand(1,10);
+        event(new CountRoomFloorEvent($floor));
         return [
-            'room_id' => $this->faker->unique()->numberBetween(100,129),
+            'room_id' => $this->faker->unique()->numberBetween(10,39),
             'status' => 'Мужская',
             'max_living' => 4,
-            'floor' => rand(1, 10),
+            'floor' => $floor
         ];
     }
 }

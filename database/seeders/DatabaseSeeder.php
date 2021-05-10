@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $this->call(Floor::class);
         $this->call(Rooms::class);
         $this->call(Status::class);
         $this->call(Group::class);

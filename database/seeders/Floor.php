@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class Group extends Seeder
+class Floor extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class Group extends Seeder
      */
     public function run()
     {
-        \App\Models\Group::truncate();
-        \App\Models\Group::factory()->count(5)->create();
+        \App\Models\Floor::truncate();
+        \App\Models\Floor::factory()->count(10)->create();
     }
 }

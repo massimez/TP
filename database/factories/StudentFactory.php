@@ -21,7 +21,7 @@ class StudentFactory extends Factory
     public function definition()
     {
         do{
-            $room_id['room_id'] = $this->faker->numberBetween(100, 129);
+            $room_id['room_id'] = $this->faker->numberBetween(10, 39);
             $check_room = (new CheckRoom($room_id['room_id']))->getStatus();
         } while (!$check_room);
         event(new CountLivingRoomEvent($room_id));
@@ -33,7 +33,7 @@ class StudentFactory extends Factory
             'status_accommodation'       => 'Проживает',
             'email'                      => $this->faker->unique()->email,
             'phone_number'               => '89'.$this->faker->unique()->numberBetween(10000000, 99999999),
-            'group'                      => $this->faker->numberBetween(1, 10),
+            'group'                      => $this->faker->numberBetween(1, 5),
             'sex'                        => ['Мужской', "Женский"][array_rand(['Мужской', "Женский"], 1)],
             'number_contract'            => $this->faker->unique()->numberBetween(100000000, 999999999),
             'date_of_conclusion'         => $this->faker->date($format = 'Y-m-d', $max = 'now'),

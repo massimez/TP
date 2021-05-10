@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CountRoomFloorEvent;
+use App\Models\Floor;
 use App\Models\Room;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -68,9 +70,7 @@ class RoomsController extends Controller
             'floor' => 'required|integer',
         ]);
         $room = Room::create($request->input());
-        if (is_null($room)) {
-            return response()->json(['message' => 'room not found'], 404);
-        }
+        event(new CountRoomFloorEvent($request->floor));
         return response()->json(['data' => $room],201);
     }
 
@@ -86,18 +86,25 @@ class RoomsController extends Controller
         if (is_null($room)) {
             return response()->json(['message' => 'room not found'], 404);
         }
+        $students = $room->studentTable()->get(       );
+        foreach ($students as $key =>$student){
+            $faculty = $student->groupTable()->pluck('faculty');
+            $course = $student->groupTable()->pluck('course_of_study');
+            $form_education = $student->groupTable()->pluck('form_of_education');
+            $students[$key] = collect($student)->put('faculty', $faculty[0])
+                ->put('course_of_study', $course[0])
+                ->put('form_of_education', $form_education[0]);
+        }
 
-        $student = $room->studentTable()->select('name','surname','status_student','group','student_id')->get();
-        return response()->json(['rooms'=>$room->only('room_id','status','floor','number_of_living'),'students'=>$student],200);
-
+        return response()->json(['rooms'=>$room->only('room_id','status','floor','number_of_living'),'students'=>$students],200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function getCountRoomAllFloor(){
+        $count_room_on_all_floor = Floor::all();
+        return response()->json(['floors'=>$count_room_on_all_floor],200);
+    }
+
+
     public function edit($id)
     {
         $room = Room::find($id);
@@ -132,15 +139,15 @@ class RoomsController extends Controller
         return response()->json(['message'=>'updated!'],200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        Room::find($id)->delete();
+        $room = Room::find($id);
+        if (is_null($room)) {
+            return response()->json(['message' => 'room not found'], 404);
+        }
+        event(new CountRoomFloorEvent($room->floor,0));
+        $room->delete();
         return response()->json(['message'=>'deleted!'],200);
     }
 }

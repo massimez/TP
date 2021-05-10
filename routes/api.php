@@ -27,6 +27,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('student', \App\Http\Controllers\StudentController::class);
     Route::resource('room', \App\Http\Controllers\RoomsController::class);
+    Route::get('floor',[\App\Http\Controllers\RoomsController::class,'getCountRoomAllFloor']);
     Route::resource('status', \App\Http\Controllers\StatusStudentsController::class);
     Route::resource('group', \App\Http\Controllers\GroupController::class);
 });

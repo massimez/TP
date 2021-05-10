@@ -50,8 +50,9 @@ class AuthController extends Controller
             'email'    => 'required|email',
             'password' => 'required',
         ]);
+        $role = User::where('email','=',$request->email)->get('role')[0]['role'];
         $credentials = $request->only('email', 'password');
-        if (!$token = auth()->attempt($credentials)) {
+        if ((!$token = auth()->attempt($credentials)) || $role=='Не подтверждена') {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
