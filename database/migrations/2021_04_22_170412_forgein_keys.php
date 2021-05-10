@@ -14,7 +14,7 @@ class ForgeinKeys extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->foreign('status_student')->references('status_student')->on('status_students')->onDelete('set null');
+            $table->foreign('status_student')->references('status_student')->on('status_students');
             $table->foreign('room_id')->references('room_id')->on('rooms')->onDelete('set null');
             $table->foreign('group')->references('group_name')->on('groups')->onDelete('set null');
         });
