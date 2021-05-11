@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, SimpleGrid } from "@chakra-ui/layout";
+import { Box, Divider, Flex, Heading, SimpleGrid } from "@chakra-ui/layout";
 import { Image, useColorModeValue, useColorMode } from "@chakra-ui/react";
 import React from "react";
 import studentsmenu from "../../svg/studentsmenu.svg";
@@ -24,8 +24,9 @@ const MainMenu = () => {
                 spacing="3%"
                 ml={[0, null, null, "21%", "21%"]}
                 mr={[0, null, null, "21%", "21%"]}
-                columns={[1, null, null, null, 2]}
+                columns={[1, null, 2, 2, 3]}
                 opacity={useColorModeValue("100%", "80%")}
+
             >
                 <Box
                     width={widthitems}
@@ -108,8 +109,86 @@ const MainMenu = () => {
                         </Box>
                     </Link>
                 </Box>
+                <Box
+                    width={widthitems}
+                    height={heightitems}
+                    bg={bg}
+                    color={color}
+                    borderRadius="xl"
+                >
+                    <Link to="/rooms">
+                        <Box justify="center" align="center">
+                            <img
+                                src={rooms}
+                                alt="Rooms"
+                                width="357"
+                                height="167"
+                            />
+                            <Heading as="h3">Пользователи</Heading>
+                        </Box>
+                    </Link>
+                </Box>
+                <Box
+                    width={widthitems}
+                    height={heightitems}
+                    bg={bg}
+                    color={color}
+                    borderRadius="xl"
+                >
+                    <Link to="/rooms">
+                        <Box justify="center" align="center">
+                            <img
+                                src={rooms}
+                                alt="Rooms"
+                                width="357"
+                                height="167"
+                            />
+                            <Heading as="h3">Управлять комнатами</Heading>
+                        </Box>
+                    </Link>
+                </Box>
+                <Box
+                    width={widthitems}
+                    height={heightitems}
+                    bg={bg}
+                    color={color}
+                    borderRadius="xl"
+                >
+                    <Link to="/rooms">
+                        <Box justify="center" align="center">
+                            <img
+                                src={rooms}
+                                alt="Rooms"
+                                width="357"
+                                height="167"
+                            />
+                            <Heading as="h3">Управлять комнатами</Heading>
+                        </Box>
+                    </Link>
+                </Box>
+                <Box
+                    width={widthitems}
+                    height={heightitems}
+                    bg={bg}
+                    color={color}
+                    borderRadius="xl"
+                >
+                    <Link to="/rooms">
+                        <Box justify="center" align="center">
+                            <img
+                                src={rooms}
+                                alt="Rooms"
+                                width="357"
+                                height="167"
+                            />
+                            <Heading as="h3">Управлять комнатами</Heading>
+                        </Box>
+                    </Link>
+                </Box>
             </SimpleGrid>
+
         </Box>
+
     );
 };
 

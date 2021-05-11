@@ -1,7 +1,7 @@
 import { Redirect, Route } from "react-router";
 import React from "react";
 import cookie from "js-cookie";
-import login from "../pages/login";
+import login from "../pages/auth/login";
 import { connect } from "react-redux";
 import axios from 'axios'
 

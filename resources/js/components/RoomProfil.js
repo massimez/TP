@@ -53,8 +53,8 @@ const RoomProfil = (props) => {
                                             <Th>
                                                 {rm.name} {rm.surname}
                                             </Th>
-                                            <Th>Факультет</Th>
-                                            <Th>Курс</Th>
+                                            <Th>{rm.faculty}</Th>
+                                            <Th>{rm.course_of_study}</Th>
                                         </Tr>
                                     ))}
 

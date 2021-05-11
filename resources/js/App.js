@@ -10,14 +10,16 @@ import {
 import MainMenuPage from "./pages/MainMenuPage";
 import StudentList from "./pages/StudentList";
 import AddNewResident from "./pages/AddNewResident";
-import login from "./pages/login";
+import login from "./pages/auth/login";
 import Error404 from "./pages/404";
 import GuestRoute from "./components/GuestRoute";
 import AuthRoute from "./components/AuthRoute";
 import Rooms from "./pages/Rooms";
-import Register from "./pages/Register";
-import Admin from "./pages/Admin";
+import Register from "./pages/auth/Register";
+import Admin from "./pages/admin/Admin";
 import Viseleni from "./pages/Viseleni";
+import ResetPassword from "./pages/auth/ResetPassword";
+import ForgetPassword from "./pages/auth/ForgetPassword";
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
         <AuthRoute exact path="/rooms" component={Rooms} />
         <AuthRoute exact path="/admin" component={Admin} />
         <AuthRoute exact path="/viseleni" component={Viseleni} />
+
         <AuthRoute
           exact
           path="/admin/edit/:id"
@@ -40,6 +43,8 @@ function App() {
         />
         <GuestRoute exact path="/login" component={login} />
         <GuestRoute exact path="/register" component={Register} />
+        <GuestRoute exact path="/forget" component={ForgetPassword} />
+        <AuthRoute exact path="/passwordReset" component={ResetPassword} />
         <Route exact path="/404" component={Error404}/>
         <Redirect to="/404"/>
       </Switch>

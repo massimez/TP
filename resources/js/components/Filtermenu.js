@@ -58,7 +58,7 @@ const Filtermenu = () => {
                 <Button
                     mr={2}
                     width="164px"
-                    height="59px"
+                    height="50px"
                     onClick={onOpen}
                     leftIcon={<Icon as={FiFilter} />}
                 >
