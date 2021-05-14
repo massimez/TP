@@ -8,7 +8,6 @@ export const PagiNext = ({postsPerPage,totalPosts,paginate}) => {
    for(; i <= (totalPosts / postsPerPage )+1;i++){
        pageNumbers.push(i);
    }
-   console.log(i)
    const [selectedPage,setSelectedPage]=useState(1)
 
     return (

@@ -20,6 +20,9 @@ import Admin from "./pages/admin/Admin";
 import Viseleni from "./pages/Viseleni";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ForgetPassword from "./pages/auth/ForgetPassword";
+import RoomsAdmin from "./pages/admin/RoomsAdmin";
+import GroupAdmin from "./pages/admin/GroupAdmin";
+import Users from "./pages/admin/Users";
 
 
 function App() {
@@ -32,7 +35,10 @@ function App() {
         <AuthRoute exact path="/addresident" component={AddNewResident} />
         <AuthRoute exact path="/rooms" component={Rooms} />
         <AuthRoute exact path="/admin" component={Admin} />
+        <AuthRoute exact path="/roomsAdmin" component={RoomsAdmin} />
+        <AuthRoute exact path="/groupsAdmin" component={GroupAdmin} />
         <AuthRoute exact path="/viseleni" component={Viseleni} />
+        <AuthRoute exact path="/users" component={Users} />
 
         <AuthRoute
           exact
