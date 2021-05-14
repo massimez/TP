@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\CountLivingRoomEvent;
-use App\Listeners\CountLivingRoomListener;
-use App\Models\Group;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Exception;
 
 class StudentController extends Controller
 {

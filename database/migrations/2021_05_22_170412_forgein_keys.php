@@ -14,12 +14,12 @@ class ForgeinKeys extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->foreign('status_student')->references('status_student')->on('status_students');
-            $table->foreign('room_id')->references('room_id')->on('rooms')->onDelete('set null');
-            $table->foreign('group')->references('group_name')->on('groups')->onDelete('set null');
+            $table->foreign('status_student')->references('status_student')->on('status_students')->onUpdate('cascade')->onDelete('set default');
+            $table->foreign('room_id')->references('room_id')->on('rooms')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('group')->references('group_name')->on('groups')->onDelete('set null')->onUpdate('cascade');
         });
         Schema::table('rooms',function (Blueprint $table){
-           $table->foreign('floor')->references('id')->on('countRoomFloor')->onDelete('set null');
+           $table->foreign('floor')->references('id')->on('countRoomFloor')->onDelete('set null')->onUpdate('cascade');
         });
     }
 

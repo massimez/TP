@@ -66,7 +66,7 @@ class RoomsController extends Controller
         $request->validate([
             'room_id' => 'required|string|unique:rooms',
             'status' => 'required|string',
-            'number_of_living' => 'required|integer',
+            'max_living' => 'required|integer|max:4',
             'floor' => 'required|integer',
         ]);
         $room = Room::create($request->input());
@@ -129,6 +129,7 @@ class RoomsController extends Controller
             'status' => 'required|string',
             'number_living' => 'required|string|min:1|max:4',
             'floor' => 'required|integer',
+            'form_of_education' => 'required|string'
         ]);
         $room = Room::find($id);
         if (is_null($room)) {

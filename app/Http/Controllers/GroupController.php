@@ -56,7 +56,7 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'group_name'=>'required|integer|unique:groups',
+            'group_name'=>'required|integer',
             'faculty'=>'required|string',
             'course_of_study'=>'required|string',
             'form_of_education'=>'required|string'
