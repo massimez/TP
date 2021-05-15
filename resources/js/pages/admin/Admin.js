@@ -33,7 +33,7 @@ const Admin = () => {
         // </>
         <>
         <Box>
-        <Helmet><title>Меню администратора</title></Helmet>
+        <Hemlet><title>Меню администратора</title></Hemlet>
         <Header />
         <SimpleGrid
             color="bluet.100"
