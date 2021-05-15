@@ -222,7 +222,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                                 }
                                 value={formEducation ? formEducation : "Очная"}
                             >
-                                <option value="Очная" >----Форма обучения----</option>
+                                <option value="" >----Форма обучения----</option>
                                 <option value="Очная" >Очная</option>
                                 <option value="Очно-заочная">
                                     Очно-заочная
