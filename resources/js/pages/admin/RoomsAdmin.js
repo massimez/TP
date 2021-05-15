@@ -39,7 +39,7 @@ const RoomsAdmin = () => {
     return (
         <>
             <Header />
-            <Box>
+            <Box mx="2%" mt={2}>
                 <RoomsTable
                     rooms={currrentrooms}
                     loading={loading}

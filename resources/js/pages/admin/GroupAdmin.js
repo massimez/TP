@@ -38,7 +38,7 @@ const GroupAdmin = () => {
     return (
         <>
             <Header />
-            <Box>
+            <Box mx="2%" mt={2}>
                 <GroupsTable
                     groups={currrentgroup}
                     loading={loading}

@@ -57,10 +57,6 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
     if (loading) {
         return <PageLoader />;
     }
-    const handle = (event) => {
-        let arg1 = event.target.getAttribute("key");
-        console.log("Work" + arg1);
-    };
     const handleDelete = async (id) => {
         await axios
             .delete(`/api/room/${id}`)
@@ -133,7 +129,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
             </Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
-            <Table variant="striped">
+            <Table variant="striped" mt={2}>
                 <Thead bg="blue.300" color="white">
                     <Tr>
                         <Th color="white">ID</Th>
@@ -144,7 +140,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                 </Thead>
                 <Tbody color="black" bg="white">
                     {rooms.map((room, index) => (
-                        <Tr key={room.room_id} onClick={handle}>
+                        <Tr key={room.room_id} >
                             <Th>{room.room_id} </Th>
                             <Th>
                                 {room.number_of_living}/{room.max_living}

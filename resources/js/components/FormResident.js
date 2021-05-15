@@ -203,7 +203,7 @@ function FormResident() {
                                     <Textfield
                                         type="date"
                                         name="birthday"
-                                        step="360"
+
                                         placeholder="Дата рождения  ГГГГ-ММ-ДД"
                                     />
                                     <SelectField

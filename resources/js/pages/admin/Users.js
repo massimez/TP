@@ -38,7 +38,7 @@ const Users = () => {
     return (
         <>
             <Header />
-            <Box>
+            <Box mx="2%" mt={2}>
                 <UsersTable
                     users={currrentPosts}
                     loading={loading}

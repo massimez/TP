@@ -23,6 +23,7 @@ import ForgetPassword from "./pages/auth/ForgetPassword";
 import RoomsAdmin from "./pages/admin/RoomsAdmin";
 import GroupAdmin from "./pages/admin/GroupAdmin";
 import Users from "./pages/admin/Users";
+import StudentStatus from "./pages/admin/StudentStatus";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <AuthRoute exact path="/admin" component={Admin} />
         <AuthRoute exact path="/roomsAdmin" component={RoomsAdmin} />
         <AuthRoute exact path="/groupsAdmin" component={GroupAdmin} />
+        <AuthRoute exact path="/studentStatus" component={StudentStatus} />
         <AuthRoute exact path="/viseleni" component={Viseleni} />
         <AuthRoute exact path="/users" component={Users} />
 

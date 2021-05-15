@@ -49,7 +49,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
     const [groupFocus, setgroupFocus] = useState("");
     const [groupName, setGroupName] = useState("");
     const [facultyName, setFacultyName] = useState("");
-    const [formEducation, setFormEducation] = useState("");
+    const [formEducation, setFormEducation] = useState();
     const [yearStudy, setYearStudy] = useState("");
     const [groupss, setgroups] = useState([]);
     const [addgroup, setAddgroup] = useState(false);
@@ -70,11 +70,12 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
             .catch((err) => {
                 setError(err.message);
             });
+            setChange("");
     };
     function handleUpdate() {
         //
         const data = {
-            group_name: groupName,
+            group_name: parseInt(groupName) ,
             faculty: facultyName,
             course_of_study: yearStudy,
             form_of_education: formEducation,
@@ -112,7 +113,6 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
             .catch((err) => {
                 setError("Invalid");
                 console.log(err.response.data.errors);
-                setAddgroup(false);
             });
     };
     return (
@@ -128,7 +128,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
             </Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
-            <Table variant="striped">
+            <Table variant="striped" mt={2}>
                 <Thead bg="blue.300" color="white">
                     <Tr>
                         <Th color="white">ID</Th>
@@ -214,15 +214,16 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Form of education</FormLabel>
+                            <FormLabel>Форма обучения</FormLabel>
 
                             <Select
                                 onChange={(event) =>
                                     setFormEducation(event.currentTarget.value)
                                 }
-                                value={formEducation ? formEducation : "Поль"}
+                                value={formEducation ? formEducation : "Очная"}
                             >
-                                <option value="Очная">Очная</option>
+                                <option value="Очная" >----Форма обучения----</option>
+                                <option value="Очная" >Очная</option>
                                 <option value="Очно-заочная">
                                     Очно-заочная
                                 </option>

@@ -114,7 +114,7 @@ const Admin = () => {
                 color={color}
                 borderRadius="xl"
             >
-                <Link to="/rooms">
+                <Link to="/studentStatus">
                     <Box justify="center" align="center">
                         <img
                             src={newstudent}

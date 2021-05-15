@@ -98,7 +98,7 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
             <Table variant="striped">
-                <Thead bg="blue.300" color="white">
+                <Thead bg="blue.300" mt={2} color="white">
                     <Tr>
                         <Th color="white">ID</Th>
                         <Th color="white">ФИО</Th>
