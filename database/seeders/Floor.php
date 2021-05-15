@@ -13,7 +13,6 @@ class Floor extends Seeder
      */
     public function run()
     {
-        \App\Models\Floor::truncate();
         \App\Models\Floor::factory()->count(10)->create();
     }
 }

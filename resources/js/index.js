@@ -19,7 +19,11 @@ import {  HelmetProvider } from 'react-helmet-async';
 
 let token = cookie.get("token");
 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+<<<<<<< HEAD
 axios.defaults.baseURL = "http://apple-sundae-02076.herokuapp.com/";
+=======
+axios.defaults.baseURL = "https://apple-sundae-02076.herokuapp.com/";
+>>>>>>> 20c816ca894fa6888e0b8bf923971dead9d87be3
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 // const jwt_secret =
