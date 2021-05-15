@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/layout";
 import { PagiNext } from "../../components/PagiNext";
 import { RoomsTable } from "./RoomsTable";
 import Header from "../../components/layouts/Header";
+import { Helmet } from 'react-helmet-async';
 
 const RoomsAdmin = () => {
     const [rooms, setrooms] = useState([]);
@@ -39,6 +40,7 @@ const RoomsAdmin = () => {
     return (
         <>
             <Header />
+            <Helmet><title>Админ | Комнаты</title></Helmet>
             <Box mx="2%" mt={2}>
                 <RoomsTable
                     rooms={currrentrooms}

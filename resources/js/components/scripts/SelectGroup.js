@@ -20,7 +20,7 @@ function SelectGroup(props) {
                 color="white"
             >
                  { props.groups.map(group => (
-            <option   style={{color: "black"}} key={group.id} value={group.group_name} >{group.group_name}</option>
+            <option   style={{color: "black"}} key={group.id} value={group.group_name?group.group_name:group.status_student} >{group.group_name?group.group_name:group.status_student}</option>
       ))}
 
 

@@ -43,6 +43,7 @@ function FormResident() {
     const [errorAdd, setErrorAdd] = useState(false);
     const [freeRooms, setFreeRooms] = useState([]);
     const [groups, Setgroups] = useState([]);
+    const [status, setStatus] = useState([]);
     const [error, setError] = useState("");
     const [sex, setSex] = useState("");
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -96,6 +97,19 @@ function FormResident() {
                 });
         };
         fetchGroup();
+    }, []);
+    useEffect(() => {
+        const fetchStatus = async () => {
+            await axios
+                .get("/api/status")
+                .then((ress) => {
+                    setStatus(ress.data.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        fetchStatus();
     }, []);
 
     return (
@@ -284,11 +298,13 @@ function FormResident() {
                                         textAlign="center"
                                         groups={groups}
                                     />
-                                    <Textfield
-                                        type="text"
+                                    <SelectGroup
                                         name="status_student"
                                         placeholder="Статус студента"
+                                        textAlign="center"
+                                        groups={status}
                                     />
+
                                 </Box>
                                 <Box py="2" justify="center" align="center">
                                     <FreeroomDialog

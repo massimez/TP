@@ -9,6 +9,7 @@ import RoomsAdmin from './RoomsAdmin';
 import Users from './Users'
 import { Link } from "react-router-dom";
 import newstudent from "../../svg/newstudent.svg";
+import { Helmet } from 'react-helmet-async';
 
 const Admin = () => {
     const [showUsers,SetShowUsers] = useState(false);
@@ -32,6 +33,7 @@ const Admin = () => {
         // </>
         <>
         <Box>
+        <Hemlet><title>Меню администратора</title></Hemlet>
         <Header />
         <SimpleGrid
             color="bluet.100"

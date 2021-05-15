@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./../../../sass/forms.css";
 import axios from "axios";
 import cookie from "js-cookie";
+import { Helmet } from 'react-helmet-async';
 
 import {
     Flex,
@@ -79,6 +80,7 @@ const login = (props) => {
     return (
         <>
             <Header />
+            <Helmet><title>Login</title></Helmet>
             <Flex width="full" align="center" justifyContent="center">
                 <Box p={8}>
                     {isLoggedIn ? (

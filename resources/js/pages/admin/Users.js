@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/layout";
 import { UsersTable } from "../../components/UsersTable";
 import { PagiNext } from "../../components/PagiNext";
 import Header from "../../components/layouts/Header";
+import { Helmet } from 'react-helmet-async';
 
 const Users = () => {
     const [posts, setPosts] = useState([]);
@@ -38,6 +39,7 @@ const Users = () => {
     return (
         <>
             <Header />
+            <Helmet><title>Админ | Пользователи</title></Helmet>
             <Box mx="2%" mt={2}>
                 <UsersTable
                     users={currrentPosts}

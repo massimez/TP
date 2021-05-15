@@ -4,6 +4,7 @@ import { Box, Heading } from "@chakra-ui/layout";
 import { PagiNext } from "../../components/PagiNext";
 import { GroupsTable } from "./GroupsTable";
 import Header from "../../components/layouts/Header";
+import { Helmet } from 'react-helmet-async';
 
 const GroupAdmin = () => {
     const [group, setgroup] = useState([]);
@@ -38,6 +39,7 @@ const GroupAdmin = () => {
     return (
         <>
             <Header />
+            <Helmet><title>Админ | Группы</title></Helmet>
             <Box mx="2%" mt={2}>
                 <GroupsTable
                     groups={currrentgroup}

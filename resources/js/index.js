@@ -15,6 +15,7 @@ import { Provider } from "react-redux";
 import axios from "axios";
 import cookie from "js-cookie";
 import { Redirect } from "react-router";
+import {  HelmetProvider } from 'react-helmet-async';
 
 let token = cookie.get("token");
 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -64,7 +65,10 @@ const render = () => {
                         <ColorModeScript
                             initialColorMode={theme.config.initialColorMode}
                         />
-                        <App />
+                         <HelmetProvider>
+                            <App />
+                         </HelmetProvider>
+
                     </ThemeProvider>
                 </ChakraProvider>
             </React.StrictMode>

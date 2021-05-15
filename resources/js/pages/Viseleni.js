@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setResidents } from "../store/actions/studentAction";
 import Filtermenu from "../components/Filtermenu";
 import Header from "../components/layouts/Header";
-
+import { Helmet } from 'react-helmet-async';
 function Viseleni() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -58,6 +58,7 @@ function Viseleni() {
     return (
         <Box>
             <Header title="Выселенные студенты"/>
+            <Helmet><title>Выселенные студенты</title></Helmet>
             <Filtermenu/>
             <Students posts={currrentPosts} loading={loading} />
             <PagiNext
