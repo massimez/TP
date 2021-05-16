@@ -55,16 +55,7 @@ const Register = (props) => {
                     //props.setLogin(res.data.user);
                     setIsLoading(false);
                     setIsLoggedIn(true);
-                    setTimeout(() => {
-                        toast({
-                            title: "Аккаунт создан.",
-                            description: "Мы создали для вас вашу учетную запись. Права будут предоставлены вам после проверки администратором.",
-                            status: "success",
-                            position: "top",
-                            duration: 9000,
-                            isClosable: true,
-                          })
-                    }, 9000);
+
                     return <Redirect to="/app" />;
                 })
                 .catch((err) => {
