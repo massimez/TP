@@ -16,7 +16,9 @@ import {
     IconButton,
     FormLabel,
     Input,
-    Select,Radio,RadioGroup,
+    Select,
+    Radio,
+    RadioGroup,
 } from "@chakra-ui/react";
 
 import {
@@ -103,7 +105,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
             .post(`/api/room`, data)
             .then((res) => {
                 setChange(data);
-                setSucces(res.data.message);
+                setSucces("Успешно" + res.data.message);
                 onClose();
             })
             .catch((err) => {
@@ -179,6 +181,8 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                     <DrawerHeader>Room Informations</DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
+                        {Error && <ErrorMessage message={Error} />}
+                        {succes && <SuccesMessage message={succes} />}
                         <FormControl>
                             <FormLabel>Номер комнаты</FormLabel>
                             <Input

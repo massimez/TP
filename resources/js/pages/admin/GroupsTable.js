@@ -182,6 +182,8 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                     <DrawerHeader>Группа {groupName}</DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
+                        {Error && <ErrorMessage message={Error} />}
+                        {succes && <SuccesMessage message={succes} />}
                         <FormControl>
                             <FormLabel>Имя группа</FormLabel>
                             <Input
