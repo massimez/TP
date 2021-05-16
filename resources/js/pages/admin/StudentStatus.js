@@ -106,7 +106,7 @@ const StudentStatus = () => {
         };
 
         axios
-            .post(`/api/status/`, data)
+            .post(`/api/status`, data)
             .then((res) => {
                 setChange(data);
                 setSucces(res.data.message);

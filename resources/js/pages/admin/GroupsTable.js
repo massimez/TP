@@ -17,6 +17,8 @@ import {
     FormLabel,
     Input,
     Select,
+    Radio,
+    RadioGroup,
 } from "@chakra-ui/react";
 
 import {
@@ -49,7 +51,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
     const [groupFocus, setgroupFocus] = useState("");
     const [groupName, setGroupName] = useState("");
     const [facultyName, setFacultyName] = useState("");
-    const [formEducation, setFormEducation] = useState();
+    const [formEducation, setFormEducation] = useState("Очная");
     const [yearStudy, setYearStudy] = useState("");
     const [groupss, setgroups] = useState([]);
     const [addgroup, setAddgroup] = useState(false);
@@ -70,12 +72,12 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
             .catch((err) => {
                 setError(err.message);
             });
-            setChange("");
+        setChange("");
     };
     function handleUpdate() {
         //
         const data = {
-            group_name: parseInt(groupName) ,
+            group_name: parseInt(groupName),
             faculty: facultyName,
             course_of_study: yearStudy,
             form_of_education: formEducation,
@@ -103,7 +105,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
         };
 
         axios
-            .post('/api/group', data)
+            .post("/api/group", data)
             .then((res) => {
                 setChange(data);
                 setSucces(res.data.message);
@@ -118,7 +120,8 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
     return (
         <>
             {" "}
-            <Button colorScheme="teal"
+            <Button
+                colorScheme="teal"
                 onClick={() => {
                     setAddgroup(true);
                     onOpen();
@@ -176,11 +179,11 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
             <Drawer isOpen={isOpen} onClose={onClose}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerHeader>Update group Informations</DrawerHeader>
+                    <DrawerHeader>Группа {groupName}</DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
                         <FormControl>
-                            <FormLabel>group name</FormLabel>
+                            <FormLabel>Имя группа</FormLabel>
                             <Input
                                 type="text"
                                 placeholder={groupName}
@@ -192,7 +195,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Faculty</FormLabel>
+                            <FormLabel>Факультет</FormLabel>
                             <Input
                                 type="text"
                                 value={facultyName}
@@ -203,7 +206,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Study year</FormLabel>
+                            <FormLabel>Курсь</FormLabel>
                             <Input
                                 type="text"
                                 value={yearStudy}
@@ -215,23 +218,21 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Форма обучения</FormLabel>
-
-                            <Select
-                                onChange={(event) =>
-                                    setFormEducation(event.currentTarget.value)
-                                }
-                                value={formEducation ? formEducation : "Очная"}
+                            <RadioGroup
+                                onChange={setFormEducation}
+                                value={formEducation}
                             >
-                                <option value="/" >----Форма обучения----</option>
-                                <option value="Очная" >Очная</option>
-                                <option value="Очно-заочная">
-                                    Очно-заочная
-                                </option>
-                                <option value="Заочная">Заочная</option>
-                                <option value="Дистанционное обучение">
-                                    Дистанционное обучение
-                                </option>
-                            </Select>
+                                <Stack direction="row">
+                                    <Radio value="Очная">Очная</Radio>
+                                    <Radio value="Очно-заочная">
+                                        Очно-заочная
+                                    </Radio>
+                                    <Radio value="Заочная">Заочная</Radio>
+                                    <Radio value="Дистанционное обучение">
+                                        Дистанционное обучение
+                                    </Radio>
+                                </Stack>
+                            </RadioGroup>
                         </FormControl>
                     </DrawerBody>
 

@@ -16,7 +16,7 @@ import {
     IconButton,
     FormLabel,
     Input,
-    Select,
+    Select,Radio,RadioGroup,
 } from "@chakra-ui/react";
 
 import {
@@ -49,7 +49,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
     const [roomFocus, setroomFocus] = useState("");
     const [roomID, setRoomID] = useState("");
     const [floor, setfloor] = useState("");
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState("Мужская");
     const [numberLivingMax, setnumberLivingMax] = useState("");
     const [roomss, setrooms] = useState([]);
     const [addRoom, setAddRoom] = useState(false);
@@ -72,9 +72,9 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
         const data = {
             room_id: roomID,
             floor: floor,
-            max_living : numberLivingMax,
+            max_living: numberLivingMax,
             status: status,
-            number_living : "0",
+            number_living: "0",
         };
 
         axios
@@ -95,8 +95,8 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
             room_id: roomID,
             floor: floor,
             status: status,
-            max_living : numberLivingMax,
-            number_of_living : "0",
+            max_living: numberLivingMax,
+            number_of_living: "0",
         };
 
         axios
@@ -115,7 +115,8 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
     return (
         <>
             {" "}
-            <Button colorScheme="teal"
+            <Button
+                colorScheme="teal"
                 onClick={() => {
                     setAddRoom(true);
                     setRoomID("");
@@ -125,7 +126,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                     onOpen();
                 }}
             >
-               Добавить комнату
+                Добавить комнату
             </Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
@@ -140,7 +141,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                 </Thead>
                 <Tbody color="black" bg="white">
                     {rooms.map((room, index) => (
-                        <Tr key={room.room_id} >
+                        <Tr key={room.room_id}>
                             <Th>{room.room_id} </Th>
                             <Th>
                                 {room.number_of_living}/{room.max_living}
@@ -192,26 +193,12 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Status</FormLabel>
-
-                            <Select
-                                onChange={(event) =>
-                                    setStatus(event.currentTarget.value)
-                                }
-                                value={status ? status : "Поль"}
-                            >
-                                <option
-                                    style={{ color: "blue" }}
-                                    value="Мужская"
-                                >
-                                    Мужская
-                                </option>
-                                <option
-                                    style={{ color: "red" }}
-                                    value="Женская"
-                                >
-                                    Женская
-                                </option>
-                            </Select>
+                            <RadioGroup onChange={setStatus} value={status}>
+                                <Stack direction="row">
+                                    <Radio value="Мужская">Мужская</Radio>
+                                    <Radio value="2">Женская</Radio>
+                                </Stack>
+                            </RadioGroup>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Этаж</FormLabel>
