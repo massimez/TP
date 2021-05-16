@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import {
-    Box,
     Button,
     Flex,
     FormControl,
@@ -45,7 +44,6 @@ const FreeroomDialog = (props) => {
     const [freeRooms, setFreeRooms] = useState([]);
     const [selectedToView, setSelectedToView] = useState('');
     const [selectedToViewID, setSelectedToViewID] = useState('');
-    let maxliving = 4;
     const [floorPage, setFloorPage] = useState(1);
     useEffect(() => {
         const fetchRooms = async () => {

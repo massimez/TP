@@ -17,7 +17,6 @@ const SquareRoom = (props) => {
     const [roomFocus, setRoomFocus] = useState("");
 
     const handleclickroom = (id) => {
-        console.log("worked");
         setRoomFocus(id.toString());
         onOpen();
     };

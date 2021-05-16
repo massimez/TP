@@ -70,7 +70,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                 setSucces(res.data.message);
             })
             .catch((err) => {
-                setError(err.message);
+                setError(err.message + " ");
             });
         setChange("");
     };
@@ -91,7 +91,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                 onClose();
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     }
@@ -113,7 +113,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                 setAddgroup(false);
             })
             .catch((err) => {
-                setError("Error, Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     };
@@ -121,7 +121,6 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
         <>
             {" "}
             <Button
-                colorScheme="teal"
                 onClick={() => {
                     setAddgroup(true);
                     onOpen();

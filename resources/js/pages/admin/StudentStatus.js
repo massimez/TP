@@ -94,7 +94,7 @@ const StudentStatus = () => {
                 onClose();
             })
             .catch((err) => {
-                setError("Error Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     }
@@ -113,7 +113,7 @@ const StudentStatus = () => {
                 onClose();
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     };

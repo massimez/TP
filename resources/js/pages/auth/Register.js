@@ -16,19 +16,13 @@ import {
     InputRightElement,
     CircularProgress,
 } from "@chakra-ui/react";
-import {
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-} from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react"
 
 import ErrorMessage from "../../components/ErrorMessage";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Header from "../../components/layouts/Header";
 
 import { Redirect } from "react-router";
-import { connect } from "react-redux";
 
 const Register = (props) => {
     const [email, setEmail] = useState("");
@@ -42,7 +36,7 @@ const Register = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        const toast = useToast()
         setIsLoading(true);
         //
         const data = {
@@ -59,13 +53,22 @@ const Register = (props) => {
                     // cookie.set("token",res.data.access_token);
                     //cookie.set("user", res.data.user);
                     //props.setLogin(res.data.user);
-                    console.log(res);
                     setIsLoading(false);
                     setIsLoggedIn(true);
+                    setTimeout(() => {
+                        toast({
+                            title: "Аккаунт создан.",
+                            description: "Мы создали для вас вашу учетную запись. Права будут предоставлены вам после проверки администратором.",
+                            status: "success",
+                            position: "top",
+                            duration: 9000,
+                            isClosable: true,
+                          })
+                    }, 9000);
                     return <Redirect to="/app" />;
                 })
                 .catch((err) => {
-                    setError("Invalid email or password");
+                    setError("Неверный адрес электронной почты или пароль");
                     setIsLoading(false);
 
                     setShowPassword(false);

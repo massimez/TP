@@ -6,6 +6,7 @@ export default function ErrorMessage({ message }) {
       <Alert status="error" borderRadius={4}>
         <AlertIcon />
         <AlertDescription maxWidth="500">{message}</AlertDescription>
+        <CloseButton position="absolute" right="8px" top="8px" />
       </Alert>
     </Box>
   );

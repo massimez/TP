@@ -15,7 +15,6 @@ import {
 import axios from 'axios'
 
 const ResidentProfile = (props) => {
-    console.log(props.residentFocus);
     const resident = props.residentFocus;
     const [name, setName] = useState(resident.name);
     const [surname, setSurname] = useState(resident.surname);
@@ -68,10 +67,9 @@ const ResidentProfile = (props) => {
             axios
                 .put(`/api/student/${resident.student_id}`, data)
                 .then((res) => {
-                    console.log(res);
                     props.setRerenderChange(res);
                     toast({
-                        title: `success `,
+                        title: `Успешно `,
                         position:"top",
                         status: "success",
                         isClosable: true,
@@ -82,7 +80,7 @@ const ResidentProfile = (props) => {
                 })
                 .catch((err) => {
                     toast({
-                        title: `Error`,
+                        title: `Произошла ошибка, пожалуйста, проверьте данные еще раз`,
                         position:"top",
                         status: "error",
                         isClosable: true,

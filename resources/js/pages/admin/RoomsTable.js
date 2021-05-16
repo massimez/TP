@@ -87,7 +87,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                 onClose();
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     }
@@ -109,7 +109,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                 onClose();
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
         setAddRoom(true);
