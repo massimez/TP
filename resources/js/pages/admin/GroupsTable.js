@@ -96,7 +96,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
     const AddgroupHandler = () => {
         //
         const data = {
-            group_name: parseInt(groupName),
+            group_name: groupName,
             faculty: facultyName,
             course_of_study: yearStudy,
             form_of_education: formEducation,
