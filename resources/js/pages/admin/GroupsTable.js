@@ -96,14 +96,14 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
     const AddgroupHandler = () => {
         //
         const data = {
-            group_name: groupName,
+            group_name: parseInt(groupName),
             faculty: facultyName,
             course_of_study: yearStudy,
             form_of_education: formEducation,
         };
 
         axios
-            .post(`/api/group/`, data)
+            .post('/api/group', data)
             .then((res) => {
                 setChange(data);
                 setSucces(res.data.message);
@@ -111,7 +111,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                 setAddgroup(false);
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Error, Invalid");
                 console.log(err.response.data.errors);
             });
     };
@@ -222,7 +222,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                                 }
                                 value={formEducation ? formEducation : "Очная"}
                             >
-                                <option value="" >----Форма обучения----</option>
+                                <option value="/" >----Форма обучения----</option>
                                 <option value="Очная" >Очная</option>
                                 <option value="Очно-заочная">
                                     Очно-заочная
