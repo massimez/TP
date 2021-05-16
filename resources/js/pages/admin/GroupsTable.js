@@ -118,23 +118,23 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
     return (
         <>
             {" "}
-            <Button
+            <Button colorScheme="teal"
                 onClick={() => {
                     setAddgroup(true);
                     onOpen();
                 }}
             >
-                Add group
+                Добавить группу
             </Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
             <Table variant="striped" mt={2}>
                 <Thead bg="blue.300" color="white">
                     <Tr>
-                        <Th color="white">ID</Th>
-                        <Th color="white">ФИО</Th>
-                        <Th color="white">Floor</Th>
-                        <Th color="white">Floor</Th>
+                        <Th color="white">Группа</Th>
+                        <Th color="white">Факультет</Th>
+                        <Th color="white">Курсь</Th>
+                        <Th color="white">Форма обучения</Th>
                         <Th color="white"></Th>
                     </Tr>
                 </Thead>

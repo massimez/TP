@@ -100,7 +100,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
         };
 
         axios
-            .post(`/api/room/`, data)
+            .post(`/api/room`, data)
             .then((res) => {
                 setChange(data);
                 setSucces(res.data.message);
@@ -115,7 +115,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
     return (
         <>
             {" "}
-            <Button
+            <Button colorScheme="teal"
                 onClick={() => {
                     setAddRoom(true);
                     setRoomID("");
@@ -125,16 +125,16 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                     onOpen();
                 }}
             >
-                Add room
+               Добавить комнату
             </Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
             <Table variant="striped" mt={2}>
                 <Thead bg="blue.300" color="white">
                     <Tr>
-                        <Th color="white">ID</Th>
-                        <Th color="white">ФИО</Th>
-                        <Th color="white">Floor</Th>
+                        <Th color="white">Номер комнаты</Th>
+                        <Th color="white">Cтуденты</Th>
+                        <Th color="white">Этаж</Th>
                         <Th color="white"></Th>
                     </Tr>
                 </Thead>
@@ -175,11 +175,11 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
             <Drawer isOpen={isOpen} onClose={onClose}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerHeader>Update room Informations</DrawerHeader>
+                    <DrawerHeader>Room Informations</DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
                         <FormControl>
-                            <FormLabel>Room ID</FormLabel>
+                            <FormLabel>Номер комнаты</FormLabel>
                             <Input
                                 type="text"
                                 placeholder={roomID}
@@ -214,7 +214,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                             </Select>
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Floor</FormLabel>
+                            <FormLabel>Этаж</FormLabel>
                             <Input
                                 type="text"
                                 value={floor}
@@ -225,7 +225,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>numberLivingMax</FormLabel>
+                            <FormLabel>Макс в комнате</FormLabel>
                             <Input
                                 type="text"
                                 value={numberLivingMax}
