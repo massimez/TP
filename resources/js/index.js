@@ -1,23 +1,61 @@
-// import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { ColorModeScript } from "@chakra-ui/react";
+import App from "./App";
+import {
+    ChakraProvider,
+    CSSReset,
+    extendTheme,
+    ThemeProvider,
+} from "@chakra-ui/react";
+import "@fontsource/montserrat/cyrillic-ext-900.css";
+import { theme, config } from "./theme/theme.js";
+import store from "./store/index";
+import { Provider } from "react-redux";
+import axios from "axios";
+import cookie from "js-cookie";
+import { Redirect } from "react-router";
+import {  HelmetProvider } from 'react-helmet-async';
 
-// export default class Test extends Component{
-//     return (
-//         <div className="container">
-//             <div className="row justify-content-center">
-//                 <div className="col-md-8">
-//                     <div className="card">
-//                         <div className="card-header">Index Component</div>
+let token = cookie.get("token");
+axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+axios.defaults.baseURL = "";
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
-//                         <div className="card-body">I'm an Index component!</div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
+const render = () => {
+    ReactDOM.render(
+        <Provider store={store}>
+            <React.StrictMode>
+                <ChakraProvider>
+                    <ThemeProvider theme={theme}>
+                        <CSSReset config={config} />
+                        <ColorModeScript
+                            initialColorMode={theme.config.initialColorMode}
+                        />
+                         <HelmetProvider>
+                            <App />
+                         </HelmetProvider>
 
+                    </ThemeProvider>
+                </ChakraProvider>
+            </React.StrictMode>
+        </Provider>,
+        document.getElementById("root")
+    );
+};
 
-// if (document.getElementById('test')) {
-//     ReactDOM.render(<Test />, document.getElementById('test'));
-// }
+if (token) {
+    axios
+        .post("/api/auth/me")
+        .then((res) => {
+            store.dispatch({ type: "SET_LOGIN", payload: res.data });
+            render();;
+        })
+        .catch((err) => {
+            render();
+        })
+
+} else {
+    render();
+}
+

@@ -1,14 +1,16 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-       <h1>Welcome to the Dashboard</h1>
-       <div>@if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-        @endif</div>
-    </div>
-</div>
-@endsection
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+</head>
+
+<body style="background-color: #005AAE">
+    <div id="root"></div>
+    <script type="text/javascript" src="/js/index.js"></script>
+</body>
+
+</html>
