@@ -191,6 +191,7 @@ const Register = (props) => {
                                         type="submit"
                                         width="full"
                                         mt={4}
+                                        onClick={handleSubmit}
                                     >
                                         {isLoading ? (
                                             <CircularProgress
