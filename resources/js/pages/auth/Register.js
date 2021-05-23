@@ -36,7 +36,6 @@ const Register = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const toast = useToast()
         setIsLoading(true);
         //
         const data = {
