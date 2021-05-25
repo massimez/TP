@@ -53,7 +53,7 @@ const ForgetPassword = () => {
                     setSucces("Сообщение с новым паролем успешно отправлено на вашу эл.почту")
                 })
                 .catch((err) => {
-                    setError("Invalid email");
+                    setError("Неверный адрес электронной почты");
                     setIsLoading(false);
 
                 });

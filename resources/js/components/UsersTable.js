@@ -89,7 +89,7 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
                 onClose();
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     }

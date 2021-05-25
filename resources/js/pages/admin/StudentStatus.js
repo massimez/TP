@@ -94,7 +94,7 @@ const StudentStatus = () => {
                 onClose();
             })
             .catch((err) => {
-                setError("Error Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     }
@@ -106,14 +106,14 @@ const StudentStatus = () => {
         };
 
         axios
-            .post(`/api/status/`, data)
+            .post(`/api/status`, data)
             .then((res) => {
                 setChange(data);
                 setSucces(res.data.message);
                 onClose();
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     };

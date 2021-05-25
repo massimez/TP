@@ -19,42 +19,8 @@ import {  HelmetProvider } from 'react-helmet-async';
 
 let token = cookie.get("token");
 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-axios.defaults.baseURL = "http://apple-sundae-02076.herokuapp.com/";
+axios.defaults.baseURL = "";
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
-// const jwt_secret =
-//     "SZYN4eoLB5BigqJSzBjzefjc7eSohWd0KtgXgRvFqwyIC6LVBxdbFKTIszZYzKTJ";
-
-// const verifyTO = async () => {
-//     if (token) {
-//          console.log(token);
-//         const { payload, protectedHeader } = await jwtVerify(
-//             jwt_secret,
-//             token,
-//             {
-//                 issuer: "urn:example:issuer",
-//                 audience: "urn:example:audience",
-//             }
-//         );
-//     }
-//     console.log(protectedHeader);
-//     console.log(payload);
-
-// };
-
-// if (token) {
-//     jwt.verify(token, jwt_secret, (err, decoded) => {
-//       if (err) {
-//         cookie.remove("token");
-//         token = null;
-//       } else {
-//         if (decoded.iss !== "/api/auth/login") {
-//           cookie.remove("token");
-//           token = null;
-//         }
-//       }
-//     });
-//   }
 
 const render = () => {
     ReactDOM.render(

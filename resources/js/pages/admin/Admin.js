@@ -21,16 +21,6 @@ const Admin = () => {
     const bg = useColorModeValue("white", "blue.300");
     const color = useColorModeValue("bluet.900", "gray.800");
     return (
-        //  <>
-        //  <Header />
-        //  <Button onClick={() => {SetShowUsers(!showUsers)} }>{showUsers ? ("Hide users"):("Show Users")}</Button>
-        //   {showUsers && <Box mt={4}><Users /></Box>}
-        //   <Button onClick={() => {setShowRooms(!showRooms)} }>{showRooms ? ("Hide rooms"):("Show rooms")}</Button>
-        //   {showRooms && <Box mt={4}> <RoomsAdmin/></Box>}
-        //   <Button onClick={() => {setShowGroups(!showGroups)} }>{showGroups ? ("Hide groups"):("Show groups")}</Button>
-        //   {showGroups && <Box mt={4}> <GroupAdmin/></Box>}
-
-        // </>
         <>
         <Box>
         <Helmet><title>Меню администратора</title></Helmet>
@@ -83,7 +73,7 @@ const Admin = () => {
                             htmlHeight="167px"
                             borderRadius="5%"
                         />
-                        <Heading as="h3">Группи</Heading>
+                        <Heading as="h3">Группы</Heading>
                     </Box>
                 </Link>
             </Box>

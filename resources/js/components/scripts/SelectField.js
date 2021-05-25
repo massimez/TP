@@ -7,6 +7,7 @@ function SelectField({ setSex, ...props }) {
     return (
         <Select
             textAlign="center"
+            style={{textAlignLast:"center"}}
             {...props}
             {...field}
             width="450px"
@@ -15,6 +16,9 @@ function SelectField({ setSex, ...props }) {
             backgroundColor="rgba(0,90,174,0.2)"
             color="white"
             onChange={(event) => setSex(event.currentTarget.value)}
+            _focus={{color:"black"}}
+             _visited={{color:"black"}}
+             _checked={{color:"black"}}
         >
             <option style={{ color: "blue" }} value="МУЖСКОЙ">
                 МУЖСКОЙ

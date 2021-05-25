@@ -14,19 +14,8 @@ import {
     Box,
     Button,
     Flex,
-    FormControl,
-    Inputcontrol,
     Select,
     Input,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Radio,
-    AdaptedRadioGroup,
 } from "@chakra-ui/react";
 import FreeroomDialog from "./FreeroomDialog";
 import ErrorMessage from "./ErrorMessage";
@@ -137,7 +126,6 @@ function FormResident() {
                     note: "default",
                 }}
                 onSubmit={(values, actions) => {
-                    console.log("handle On submit");
                     values.room_id = SelectedRoom;
                     values.sex = sex;
                     values.info_passport =
@@ -160,15 +148,14 @@ function FormResident() {
                                 console.log(err.response.status);
                                 console.log(err.response.headers);
                             }
-                            console.log(err);
                             let toStringgg =
-                                "Error " +
+                                "Произошла ошибка, пожалуйста, проверьте данные еще раз " +
                                 err.response.status +
                                 " " +
                                 JSON.stringify(err.response.data.message);
                             setError(toStringgg);
                         });
-                    alert(JSON.stringify(values, null, 2));
+                    //alert(JSON.stringify(values, null, 2));
                     actions.setSubmitting(false);
                 }}
                 validationSchema={validationSchema}
@@ -217,7 +204,6 @@ function FormResident() {
                                     <Textfield
                                         type="date"
                                         name="birthday"
-
                                         placeholder="Дата рождения  ГГГГ-ММ-ДД"
                                     />
                                     <SelectField

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import {
-    Box,
     Button,
     Flex,
     FormControl,
@@ -45,7 +44,6 @@ const FreeroomDialog = (props) => {
     const [freeRooms, setFreeRooms] = useState([]);
     const [selectedToView, setSelectedToView] = useState('');
     const [selectedToViewID, setSelectedToViewID] = useState('');
-    let maxliving = 4;
     const [floorPage, setFloorPage] = useState(1);
     useEffect(() => {
         const fetchRooms = async () => {
@@ -153,7 +151,7 @@ const FreeroomDialog = (props) => {
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
                         <Table variant="simple">
-                            <TableCaption>{props.sex}</TableCaption>
+                            <TableCaption>{props.sex?props.sex:"Вы должны сначала выбрать пол"}</TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>
@@ -171,7 +169,8 @@ const FreeroomDialog = (props) => {
                                     .filter(
                                         (opt) =>
                                             opt.number_of_living < opt.max_living &&
-                                            opt.floor === floorPage
+                                            opt.floor === floorPage &&
+                                           ( props.sex?opt.status === (props.sex === "ЖЕНСКИЙ"? "Женская" : "Мужская"):true)
                                     )
                                     .map((room ,index) => (
                                         <Tr key={room.room_id}>

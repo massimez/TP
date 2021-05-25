@@ -17,6 +17,8 @@ import {
     FormLabel,
     Input,
     Select,
+    Radio,
+    RadioGroup,
 } from "@chakra-ui/react";
 
 import {
@@ -49,7 +51,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
     const [groupFocus, setgroupFocus] = useState("");
     const [groupName, setGroupName] = useState("");
     const [facultyName, setFacultyName] = useState("");
-    const [formEducation, setFormEducation] = useState();
+    const [formEducation, setFormEducation] = useState("Очная");
     const [yearStudy, setYearStudy] = useState("");
     const [groupss, setgroups] = useState([]);
     const [addgroup, setAddgroup] = useState(false);
@@ -68,14 +70,14 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                 setSucces(res.data.message);
             })
             .catch((err) => {
-                setError(err.message);
+                setError(err.message + " ");
             });
-            setChange("");
+        setChange("");
     };
     function handleUpdate() {
         //
         const data = {
-            group_name: parseInt(groupName) ,
+            group_name: parseInt(groupName),
             faculty: facultyName,
             course_of_study: yearStudy,
             form_of_education: formEducation,
@@ -89,7 +91,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                 onClose();
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     }
@@ -103,7 +105,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
         };
 
         axios
-            .post(`/api/group/`, data)
+            .post("/api/group", data)
             .then((res) => {
                 setChange(data);
                 setSucces(res.data.message);
@@ -111,7 +113,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                 setAddgroup(false);
             })
             .catch((err) => {
-                setError("Invalid");
+                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
                 console.log(err.response.data.errors);
             });
     };
@@ -124,17 +126,17 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                     onOpen();
                 }}
             >
-                Add group
+                Добавить группу
             </Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
             <Table variant="striped" mt={2}>
                 <Thead bg="blue.300" color="white">
                     <Tr>
-                        <Th color="white">ID</Th>
-                        <Th color="white">ФИО</Th>
-                        <Th color="white">Floor</Th>
-                        <Th color="white">Floor</Th>
+                        <Th color="white">Группа</Th>
+                        <Th color="white">Факультет</Th>
+                        <Th color="white">Курсь</Th>
+                        <Th color="white">Форма обучения</Th>
                         <Th color="white"></Th>
                     </Tr>
                 </Thead>
@@ -176,11 +178,13 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
             <Drawer isOpen={isOpen} onClose={onClose}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerHeader>Update group Informations</DrawerHeader>
+                    <DrawerHeader>Группа {groupName}</DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
+                        {Error && <ErrorMessage message={Error} />}
+                        {succes && <SuccesMessage message={succes} />}
                         <FormControl>
-                            <FormLabel>group name</FormLabel>
+                            <FormLabel>Имя группа</FormLabel>
                             <Input
                                 type="text"
                                 placeholder={groupName}
@@ -192,7 +196,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Faculty</FormLabel>
+                            <FormLabel>Факультет</FormLabel>
                             <Input
                                 type="text"
                                 value={facultyName}
@@ -203,7 +207,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Study year</FormLabel>
+                            <FormLabel>Курсь</FormLabel>
                             <Input
                                 type="text"
                                 value={yearStudy}
@@ -215,23 +219,21 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Форма обучения</FormLabel>
-
-                            <Select
-                                onChange={(event) =>
-                                    setFormEducation(event.currentTarget.value)
-                                }
-                                value={formEducation ? formEducation : "Очная"}
+                            <RadioGroup
+                                onChange={setFormEducation}
+                                value={formEducation}
                             >
-                                <option value="" >----Форма обучения----</option>
-                                <option value="Очная" >Очная</option>
-                                <option value="Очно-заочная">
-                                    Очно-заочная
-                                </option>
-                                <option value="Заочная">Заочная</option>
-                                <option value="Дистанционное обучение">
-                                    Дистанционное обучение
-                                </option>
-                            </Select>
+                                <Stack direction="row">
+                                    <Radio value="Очная">Очная</Radio>
+                                    <Radio value="Очно-заочная">
+                                        Очно-заочная
+                                    </Radio>
+                                    <Radio value="Заочная">Заочная</Radio>
+                                    <Radio value="Дистанционное обучение">
+                                        Дистанционное обучение
+                                    </Radio>
+                                </Stack>
+                            </RadioGroup>
                         </FormControl>
                     </DrawerBody>
 
