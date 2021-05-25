@@ -14,7 +14,7 @@ class RoomsController extends Controller
     public function __construct()
     {
         $this->middleware('admin',['expect'=>'index','show']);
-
+        $this->middleware('permission',['expect'=>'index','show']);
     }
 
     /**
