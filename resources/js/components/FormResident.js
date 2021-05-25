@@ -204,7 +204,6 @@ function FormResident() {
                                     <Textfield
                                         type="date"
                                         name="birthday"
-
                                         placeholder="Дата рождения  ГГГГ-ММ-ДД"
                                     />
                                     <SelectField

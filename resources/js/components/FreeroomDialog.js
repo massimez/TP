@@ -151,7 +151,7 @@ const FreeroomDialog = (props) => {
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
                         <Table variant="simple">
-                            <TableCaption>{props.sex}</TableCaption>
+                            <TableCaption>{props.sex?props.sex:"Вы должны сначала выбрать пол"}</TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>
@@ -169,7 +169,8 @@ const FreeroomDialog = (props) => {
                                     .filter(
                                         (opt) =>
                                             opt.number_of_living < opt.max_living &&
-                                            opt.floor === floorPage
+                                            opt.floor === floorPage &&
+                                           ( props.sex?opt.status === (props.sex === "ЖЕНСКИЙ"? "Женская" : "Мужская"):true)
                                     )
                                     .map((room ,index) => (
                                         <Tr key={room.room_id}>

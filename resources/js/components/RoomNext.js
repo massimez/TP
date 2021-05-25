@@ -1,8 +1,9 @@
 import { Button } from "@chakra-ui/button";
 import { Flex } from "@chakra-ui/layout";
-import React from "react";
+import React,{useState} from "react";
 
 const RoomNext = (props) => {
+    const [showEtage, setShowEtage] = useState(true)
     let maxValue = Math.max.apply(
         null,
         props.rooms.map(function (o) {
@@ -45,7 +46,19 @@ const RoomNext = (props) => {
             borderBottom="1px"
             borderColor="whiteAlpha.400"
         >
-            {toloop()}
+        <Button
+            _focus={{
+                        bg: "teal.600",
+                        color: "white",
+                        borderColor: "teal.600",
+                        boxShadow: "outline",
+                    }}
+                    colorScheme="blue"
+                    size={props.size}
+            onClick={()=>{
+            setShowEtage(!showEtage)
+        }}>Этажи</Button>
+            {showEtage?toloop():null}
         </Flex>
     );
 };
