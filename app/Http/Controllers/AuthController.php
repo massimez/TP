@@ -20,12 +20,12 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','forgetPassword']]);
     }
 
     public function register(Request $request)
     {
-        $request->validate([
+        $this->validate($request,[
             'email'    => 'required|unique:users|email',
             'password' => 'required|confirmed|min:8',
             'name'     => 'required',
@@ -46,7 +46,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
+        $this->validate($request,[
             'email'    => 'required|email',
             'password' => 'required',
         ]);
@@ -80,22 +80,24 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function forgetPassword()
+    public function forgetPassword(Request $request)
     {
-        $email = auth()->user()['email'];
-        $id = auth()->user()->getAuthIdentifier();
-        Mail::to($email)->send(new ForgetPassword($id));
+        $email = $request->email;
+        Mail::to($email)->send(new ForgetPassword($email));
         return response()->json(['message' => "Сообщение с новым паролем успешно отправлено на вашу эл.почту"]);
     }
 
     public function updatePassword(Request $request)
     {
         $request->validate([
+            'old_password' => 'required',
             'new_password' => 'required|min:8|confirmed'
         ]);
-        $user = \auth()->user();
-        if (Hash::check($request->old_password, $user['password'])) {
-            User::find($user['id'])->update([
+        $user_id = \auth()->user()->getAuthIdentifier();
+        $user = User::find($user_id);
+        $user_password = $user->password;
+        if (Hash::check($request->old_password, $user_password)) {
+            $user->update([
                 'password' => Hash::make($request->new_password)
             ]);
             return response()->json(['message' => 'Password updated!'], 200);

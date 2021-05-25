@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Hash;
 class ForgetPassword extends Mailable
 {
     use Queueable, SerializesModels;
-    private $id;
+    private $email;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($id)
+    public function __construct($email)
     {
-        $this->id=$id;
+        $this->email=$email;
     }
 
     public function generateNewPassword($length = 8){
@@ -37,8 +37,9 @@ class ForgetPassword extends Mailable
     public function build()
     {
         $password = $this->generateNewPassword();
-        User::find($this->id)->update([
-            'password' => Hash::make($password)
+        $password_hash = Hash::make($password);
+        User::query()->where('email','=',$this->email)->update([
+            'password' => $password_hash
         ]);
         return $this->view('password',['password'=>$password]);
     }
