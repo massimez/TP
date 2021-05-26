@@ -20,19 +20,19 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register','forgetPassword']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgetPassword']]);
     }
 
     public function register(Request $request)
     {
-        $this->validate($request,[
-            'email'    => 'required|unique:users|email',
+        $this->validate($request, [
+            'email' => 'required|unique:users|email',
             'password' => 'required|confirmed|min:8',
-            'name'     => 'required',
+            'name' => 'required',
         ]);
         User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
             //для безопасности хэшируем пароль
         ]);
@@ -46,13 +46,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $this->validate($request,[
-            'email'    => 'required|email',
+        $this->validate($request, [
+            'email' => 'required|email',
             'password' => 'required',
         ]);
-        $role = User::where('email','=',$request->email)->get('role')[0]['role'];
+        $role = User::where('email', '=', $request->email)->get('role')[0]['role'];
         $credentials = $request->only('email', 'password');
-        if ((!$token = auth()->attempt($credentials)) || $role=='Не подтверждена') {
+        if ((!$token = auth()->attempt($credentials)) || $role == 'Не подтверждена') {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
@@ -84,54 +84,51 @@ class AuthController extends Controller
     {
         $email = $request->email;
         Mail::to($email)->send(new ForgetPassword($email));
-        return response()->json(['message' => "Сообщение с новым паролем успешно отправлено на вашу эл.почту"]);
+        return response()->json(['message' => "Сообщение с новым паролем успешно отправлено на вашу эл.почту", 200]);
     }
 
     public function updatePassword(Request $request)
     {
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|min:8|confirmed'
+            'new_password' => 'required|min:8|confirmed',
         ]);
         $user_id = \auth()->user()->getAuthIdentifier();
         $user = User::find($user_id);
         $user_password = $user->password;
         if (Hash::check($request->old_password, $user_password)) {
             $user->update([
-                'password' => Hash::make($request->new_password)
+                'password' => Hash::make($request->new_password),
             ]);
             return response()->json(['message' => 'Password updated!'], 200);
         }
         return response()->json(['message' => 'Password wrong!'], 405);
     }
 
-
-        /**
-         * Refresh a token.
-         *
-         * @return \Illuminate\Http\JsonResponse
-         */
-        public
-        function refresh()
-        {
-            return $this->respondWithToken(auth()->refresh());
-        }
-
-        /**
-         * Get the token array structure.
-         *
-         * @param  string  $token
-         *
-         * @return \Illuminate\Http\JsonResponse
-         */
-        protected
-        function respondWithToken($token)
-        {
-            return response()->json([
-                'access_token' => $token,
-                'token_type'   => 'bearer',
-                'expires_in'   => auth()->factory()->getTTL() * 60,
-                'user'         => auth()->user(),
-            ]);
-        }
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
     }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string  $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user(),
+        ]);
+    }
+}

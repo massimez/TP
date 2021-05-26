@@ -23,6 +23,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Header from "../../components/layouts/Header";
 
 import { Redirect } from "react-router";
+import SuccesMessage from "../../components/SuccesMessage";
 
 const Register = (props) => {
     const [email, setEmail] = useState("");
@@ -30,6 +31,7 @@ const Register = (props) => {
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [error, setError] = useState("");
+    const [succes, setSucces] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -52,10 +54,13 @@ const Register = (props) => {
                     // cookie.set("token",res.data.access_token);
                     //cookie.set("user", res.data.user);
                     //props.setLogin(res.data.user);
+                    setSucces("Успешно");
                     setIsLoading(false);
                     setIsLoggedIn(true);
+                    setTimeout(() => {
+                        return <Redirect to="/app" />;
+                    }, 5000);
 
-                    return <Redirect to="/app" />;
                 })
                 .catch((err) => {
                     setError("Неверный адрес электронной почты или пароль");
@@ -100,6 +105,7 @@ const Register = (props) => {
                             <Box my={4} textAlign="left">
                                 <form onSubmit={handleSubmit}>
                                     {error && <ErrorMessage message={error} />}
+                                    {succes && <SuccesMessage message={succes} />}
                                     <FormControl isRequired>
                                         <input
                                             className="login-input "
