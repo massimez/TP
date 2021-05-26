@@ -298,6 +298,8 @@ function FormResident() {
                                         SelectedRoom={SelectedRoom}
                                         formik={formik.handleSubmit}
                                         sex={sex}
+                                        w={"450px"}
+                                        h={"60px"}
                                     />
                                 </Box>
                                 {/* <Box py="2" justify="center" align="center">

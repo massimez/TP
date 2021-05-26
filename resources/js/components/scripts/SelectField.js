@@ -6,6 +6,7 @@ function SelectField({ setSex, ...props }) {
     const [field, meta] = useField(props);
     return (
         <Select
+            id="myselect"
             textAlign="center"
             style={{textAlignLast:"center"}}
             {...props}
@@ -15,10 +16,8 @@ function SelectField({ setSex, ...props }) {
             height="60px"
             backgroundColor="rgba(0,90,174,0.2)"
             color="white"
-            onChange={(event) => setSex(event.currentTarget.value)}
-            _focus={{color:"black"}}
-             _visited={{color:"black"}}
-             _checked={{color:"black"}}
+            onChange={(event) => {setSex(event.currentTarget.value)
+                document.getElementById('myselect').style.color='black';   }}
         >
             <option style={{ color: "blue" }} value="МУЖСКОЙ">
                 МУЖСКОЙ

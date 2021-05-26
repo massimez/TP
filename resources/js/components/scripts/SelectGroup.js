@@ -8,6 +8,7 @@ function SelectGroup(props) {
     return (
         <div>
             <Select
+                id={props.name}
                 textAlign="center"
                 style={{textAlignLast:"center"}}
                 placeholder={props.placeholder}
@@ -19,8 +20,8 @@ function SelectGroup(props) {
                 height="60px"
                 backgroundColor="rgba(0,90,174,0.2)"
                 color="white"
-                _focus={{color:"black"}}
-                _visited={{color:"black"}}
+                onClick={() => {
+                document.getElementById(props.name).style.color='black';   }}
             >
                  { props.groups.map(group => (
             <option   style={{color: "black"}} key={group.id} value={group.group_name?group.group_name:group.status_student} >{group.group_name?group.group_name:group.status_student}</option>

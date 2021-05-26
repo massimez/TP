@@ -13,6 +13,7 @@ export const Textfield = ({  ...props }) => {
             <InputGroup>
                 <Input name={props.name} isRequired={props.isRequired} width="450px" height="60px"
                 fontWeight="600"
+
                 backgroundColor="rgba(0,90,174,0.2)"
                 borderRadius="6%"
                 type={props.type}

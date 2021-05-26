@@ -136,12 +136,14 @@ const FreeroomDialog = (props) => {
             <Button
                 type="button"
                 color="whiteAlpha.900"
-                width="450px"
-                height="60px"
+                width={props.w}
+                height={props.h}
+                size={props.size}
                 bg="bluet.900"
                 onClick={oonClick}
+
             >
-                Добавить и выбрать комнату
+                {props.name?props.name:"Добавить и выбрать комнату"}
             </Button>
 
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose}>
@@ -170,7 +172,7 @@ const FreeroomDialog = (props) => {
                                         (opt) =>
                                             opt.number_of_living < opt.max_living &&
                                             opt.floor === floorPage &&
-                                           ( props.sex?opt.status === (props.sex === "ЖЕНСКИЙ"? "Женская" : "Мужская"):true)
+                                           ( props.sex?opt.status === (props.sex.toString().toLowerCase() === "женский"? "Женская" : "Мужская"):true)
                                     )
                                     .map((room ,index) => (
                                         <Tr key={room.room_id}>
@@ -216,14 +218,21 @@ const FreeroomDialog = (props) => {
                         setFloorPage={setFloorPage}
                     />
                     <ModalFooter>
-                        <Button
+                       {props.formik?<Button
                             colorScheme="blue"
                             mr={3}
                             onClick={submitClose}
                             type="submit"
                         >
                             Ok
-                        </Button>
+                        </Button>:<Button
+                            colorScheme="blue"
+                            mr={3}
+                            onClick={onClose}
+                            type="submit"
+                        >
+                            Ok
+                        </Button>}
                         <Button onClick={cancelClose}>Отменить</Button>
                     </ModalFooter>
                 </DrawerContent>

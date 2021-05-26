@@ -46,7 +46,7 @@ const ForgetPassword = () => {
         };
         setTimeout(() => {
             axios
-                .get("/api/auth/forget_password", data)
+                .post("/api/auth/forget_password", data)
                 .then((res) => {
                     setIsLoading(false);
                     setIsLoggedIn(true);

@@ -13,6 +13,8 @@ import {
     Button,Wrap, useToast
 } from "@chakra-ui/react";
 import axios from 'axios'
+import FreeroomDialog from "./FreeroomDialog";
+import AlertDel from "./AlertDel";
 
 const ResidentProfile = (props) => {
     const resident = props.residentFocus;
@@ -89,6 +91,39 @@ const ResidentProfile = (props) => {
                 });
         }, 1000);
     };
+    const handleVesli = (event) => {
+        event.preventDefault();
+        const data = {
+            room_id: room,
+            status_accommodation: "Выселен",
+        }
+        setTimeout(() => {
+            axios
+                .put(`/api/student/${resident.student_id}`, data)
+                .then((res) => {
+                    props.setRerenderChange(res);
+                    toast({
+                        title: `Успешно `,
+                        position:"top",
+                        status: "success",
+                        isClosable: true,
+                      })
+                    props.setEditMode(!editmode)
+                    props.onClose()
+
+                })
+                .catch((err) => {
+                    toast({
+                        title: `Произошла ошибка, пожалуйста, проверьте данные еще раз`,
+                        position:"top",
+                        status: "error",
+                        isClosable: true,
+                      })
+                    console.log(err.response.data.errors);
+                });
+        }, 1000);
+
+    }
 
     return (
         <div>
@@ -211,6 +246,15 @@ const ResidentProfile = (props) => {
                                     }
                                     isDisabled={editmode}
                                 />
+                               {!editmode?<FreeroomDialog
+                                        setSelectedRoom={setRoom}
+                                        SelectedRoom={room}
+                                        sex={sex}
+                                        size={"sm"}
+                                        w={"200px"}
+                                        h={"40px"}
+                                        name={"Выбрать комнату"}
+                                    />:null}
                             </HStack>
                         </FormControl>
                     </TabPanel>
@@ -353,7 +397,7 @@ const ResidentProfile = (props) => {
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-            {!editmode && <Button css={{float:"right"}}  onClick={handleSubmit} colorScheme="blue">Подтвердить и сохранить</Button>}
+            {!editmode &&<> <AlertDel css={{float:"right"}}  handleVesli={handleVesli} btnmsg={"Выселить"} msg={"Are sure ?"}/> <Button css={{float:"right"}}  onClick={handleSubmit} colorScheme="blue">Подтвердить и сохранить</Button> </>}
         </div>
     );
 };
