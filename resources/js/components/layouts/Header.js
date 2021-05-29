@@ -11,7 +11,7 @@ import {
     Text,Tooltip
 } from "@chakra-ui/react";
 import { connect } from "react-redux";
-import { FaSun, FaMoon, FaUserCircle } from "react-icons/fa";
+import { FaSun, FaMoon, FaUserCircle,FaSignOutAlt } from "react-icons/fa";
 import { FiHelpCircle } from "react-icons/fi";
 import Colormode from "./Colormode";
 import { AiFillSetting } from "react-icons/ai";
@@ -60,8 +60,8 @@ function Header(props) {
                 alignSelf="flex-end"
                 mx="max"
                 size="sm"
-                closeOnSelect={true}
-                closeOnBlur={true}
+                closeOnSelect={false}
+                closeOnBlur={false}
                 placement="right-start"
             >
                 <MenuButton
@@ -89,19 +89,18 @@ function Header(props) {
                     {props.loggedIn ? (
                         <>
                             <MenuItem
-                                icon={<FaUserCircle />}
+                                icon={<FaSignOutAlt />}
                                 onClick={HandleLogout}
                                 command="⌘O"
                             >
                                 Выйти
                             </MenuItem>
+                            <UserProfil />
                             <Tooltip label="Если вам нужна помощь, напишите admin@admin.ru" fontSize="md">
                             <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
                                 Помощь
                             </MenuItem>
                             </Tooltip>
-
-                            <UserProfil />
                         </>
                     ) : (
                         <>
@@ -116,6 +115,11 @@ function Header(props) {
                                 <MenuItem icon={<FaUserCircle />} command="⌘O">
                                     Регистрация
                                 </MenuItem>
+                                <Tooltip label="Если вам нужна помощь, напишите admin@admin.ru" fontSize="md">
+                            <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
+                                Помощь
+                            </MenuItem>
+                            </Tooltip>
                             </Link>
                         </>
                     )}

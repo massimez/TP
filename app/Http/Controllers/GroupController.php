@@ -10,12 +10,9 @@ class GroupController extends Controller
 
     public function __construct()
     {
-<<<<<<< HEAD
-        $this->middleware('admin',['expect'=>'index','show']);
-        $this->middleware('permission',['expect'=>'index','show']);
-=======
         $this->middleware('admin', ['expect' => 'index', 'show']);
->>>>>>> 9cf469b4f70564d7428bae4800825d0ea4bfc422
+        $this->middleware('permission', ['expect' => 'index', 'show']);
+        $this->middleware('admin', ['expect' => 'index', 'show']);
 
     }
 

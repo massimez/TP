@@ -28,9 +28,14 @@ const UserProfil = () => {
     const user = useSelector(state => state.auth.user)
     return (
         <>
-        <Box onFocus={onOpen}><MenuItem  icon={<FaUserCircle />} command="⌘T">
+        {/* <Button w="100%" p="0" m="0" onClick={()=>{onOpen()
+                            console.log("Clicked")}}><MenuItem  icon={<FaUserCircle />} command="⌘T">
                         Профиль
-                    </MenuItem></Box>
+                    </MenuItem></Button> */}
+                    <div  onClick={()=>{onOpen()
+                            console.log("Clicked")}}><MenuItem  icon={<FaUserCircle />} command="⌘T">
+                        Профиль
+                    </MenuItem></div>
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -76,7 +81,7 @@ const UserProfil = () => {
           <Stack spacing={0} align={'center'} mb={5}>
             <Text color={'gray.500'}>{user.email} </Text>
           </Stack>
-            <Link to="/passwordreset/ ">Изменить пароль</Link>
+            <Link to="/passwordReset">Изменить пароль</Link>
         </Box>
       </Box>
     </Center>

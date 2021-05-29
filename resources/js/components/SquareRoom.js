@@ -38,7 +38,7 @@ const SquareRoom = (props) => {
     return (
         <>
             <RoomNext rooms={props.rooms} setFloorPage={setFloorPage} />
-            <SimpleGrid my={2} border="5px solid rgba(0, 90, 174, 1)" columns={1} spacingX="0" spacingY="0"  mx="auto" w="80%" >
+            <SimpleGrid my={2} border="5px solid rgba(0, 90, 174, 1)" columns={1} spacingX="0" spacingY="0"  mx="auto" w="90%" >
                 <Flex
                     alignItems="center"
                     justify="center"
@@ -49,11 +49,12 @@ const SquareRoom = (props) => {
                     <SquareFree ass={MdAccessibility} />
                     {props.rooms
                         .filter((opt) => opt.floor === floorPage)
-                        .slice(0, 200)
+                        .slice(0, 20)
                         .map((room, index) => (
                             <Box
                                 p={0}
                                 m={0}
+                                key={index}
                                 _hover={{ cursor: "pointer" }}
                                 onClick={() => {
                                     setRoomNow( room.max_living);
@@ -67,7 +68,6 @@ const SquareRoom = (props) => {
                                             ? "rgba(178, 223, 181, 1)"
                                             : "white"
                                     }
-                                    key={index}
                                     room={room}
                                 />
                             </Box>
@@ -89,7 +89,7 @@ const SquareRoom = (props) => {
                     <SquareFree ass={MdAccessibility} />
                     {props.rooms
                         .filter((opt) => opt.floor === floorPage)
-                        .slice(100, 200)
+                        .slice(20, 40)
                         .map((room,i) => (
                             <>
                                 <SquareFree
