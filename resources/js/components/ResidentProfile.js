@@ -46,32 +46,30 @@ const ResidentProfile = (props) => {
     const [groups, Setgroups] = useState([]);
     const [statusStudents, setStatusStudents] = useState([]);
 
-    if (editmode) {
-        useEffect(() => {
-            const fetchGroup = async () => {
-                await axios
-                    .get("/api/group")
-                    .then((ress) => {
-                        Setgroups(ress.data.data);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            };
-            const fetchStatus = async () => {
-                await axios
-                    .get("/api/status")
-                    .then((ress) => {
-                        setStatusStudents(ress.data.data);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            };
-            fetchStatus();
-            fetchGroup();
-        }, [editmode]);
-    }
+    useEffect(() => {
+        const fetchGroup = async () => {
+            await axios
+                .get("/api/group")
+                .then((ress) => {
+                    Setgroups(ress.data.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        const fetchStatus = async () => {
+            await axios
+                .get("/api/status")
+                .then((ress) => {
+                    setStatusStudents(ress.data.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        fetchStatus();
+        fetchGroup();
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -352,42 +350,7 @@ const ResidentProfile = (props) => {
                     </TabPanel>
                     <TabPanel>
                         {/* Third part panel */}
-                        <FormControl mt={1}>
-                            <FormLabel>Тип специальности:</FormLabel>
-                            <Input
-                                type="text"
-                                value=""
-                                size="lg"
-                                onChange={(event) =>
-                                    setBirthPlace(event.currentTarget.value)
-                                }
-                                isDisabled={true}
-                            />
-                        </FormControl>
-                        <FormControl mt={1}>
-                            <FormLabel>Факультет:</FormLabel>
-                            <Input
-                                type="text"
-                                value=""
-                                size="lg"
-                                onChange={(event) =>
-                                    setBirthPlace(event.currentTarget.value)
-                                }
-                                isDisabled={true}
-                            />
-                        </FormControl>
-                        <FormControl mt={1}>
-                            <FormLabel>Форма обучения:</FormLabel>
-                            <Input
-                                type="text"
-                                value=""
-                                size="lg"
-                                onChange={(event) =>
-                                    setBirthPlace(event.currentTarget.value)
-                                }
-                                isDisabled={true}
-                            />
-                        </FormControl>
+
                         <FormControl mt={1}>
                             <FormLabel>Группа:</FormLabel>
 
@@ -427,11 +390,10 @@ const ResidentProfile = (props) => {
                                 </option>
                                 {statusStudents.map((st, index) => (
                                     <option
-                                        style={{ color: "black" }}
                                         key={index}
-                                        value={st.group_name}
+                                        value={st.status_student}
                                     >
-                                        {st.group_name}
+                                        {st.status_student}
                                     </option>
                                 ))}
                             </Select>
