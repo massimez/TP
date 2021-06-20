@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Tabs,
     TabList,
@@ -10,9 +10,11 @@ import {
     Input,
     Select,
     HStack,
-    Button,Wrap, useToast
+    Button,
+    Wrap,
+    useToast,
 } from "@chakra-ui/react";
-import axios from 'axios'
+import axios from "axios";
 import FreeroomDialog from "./FreeroomDialog";
 import AlertDel from "./AlertDel";
 
@@ -41,6 +43,35 @@ const ResidentProfile = (props) => {
     const [group, setGroup] = useState(resident.group);
     const toast = useToast();
     const editmode = !props.editmode;
+    const [groups, Setgroups] = useState([]);
+    const [statusStudents, setStatusStudents] = useState([]);
+
+    if (editmode) {
+        useEffect(() => {
+            const fetchGroup = async () => {
+                await axios
+                    .get("/api/group")
+                    .then((ress) => {
+                        Setgroups(ress.data.data);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            };
+            const fetchStatus = async () => {
+                await axios
+                    .get("/api/status")
+                    .then((ress) => {
+                        setStatusStudents(ress.data.data);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            };
+            fetchStatus();
+            fetchGroup();
+        }, [editmode]);
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -72,21 +103,20 @@ const ResidentProfile = (props) => {
                     props.setRerenderChange(res);
                     toast({
                         title: `Успешно `,
-                        position:"top",
+                        position: "top",
                         status: "success",
                         isClosable: true,
-                      })
-                    props.setEditMode(!editmode)
-                    props.onClose()
-
+                    });
+                    props.setEditMode(!editmode);
+                    props.onClose();
                 })
                 .catch((err) => {
                     toast({
                         title: `Произошла ошибка, пожалуйста, проверьте данные еще раз`,
-                        position:"top",
+                        position: "top",
                         status: "error",
                         isClosable: true,
-                      })
+                    });
                     console.log(err.response.data.errors);
                 });
         }, 1000);
@@ -96,7 +126,7 @@ const ResidentProfile = (props) => {
         const data = {
             room_id: room,
             status_accommodation: "Выселен",
-        }
+        };
         setTimeout(() => {
             axios
                 .put(`/api/student/${resident.student_id}`, data)
@@ -104,26 +134,24 @@ const ResidentProfile = (props) => {
                     props.setRerenderChange(res);
                     toast({
                         title: `Успешно `,
-                        position:"top",
+                        position: "top",
                         status: "success",
                         isClosable: true,
-                      })
-                    props.setEditMode(!editmode)
-                    props.onClose()
-
+                    });
+                    props.setEditMode(!editmode);
+                    props.onClose();
                 })
                 .catch((err) => {
                     toast({
                         title: `Произошла ошибка, пожалуйста, проверьте данные еще раз`,
-                        position:"top",
+                        position: "top",
                         status: "error",
                         isClosable: true,
-                      })
+                    });
                     console.log(err.response.data.errors);
                 });
         }, 1000);
-
-    }
+    };
 
     return (
         <div>
@@ -246,7 +274,8 @@ const ResidentProfile = (props) => {
                                     }
                                     isDisabled={editmode}
                                 />
-                               {!editmode?<FreeroomDialog
+                                {!editmode ? (
+                                    <FreeroomDialog
                                         setSelectedRoom={setRoom}
                                         SelectedRoom={room}
                                         sex={sex}
@@ -254,7 +283,8 @@ const ResidentProfile = (props) => {
                                         w={"200px"}
                                         h={"40px"}
                                         name={"Выбрать комнату"}
-                                    />:null}
+                                    />
+                                ) : null}
                             </HStack>
                         </FormControl>
                     </TabPanel>
@@ -331,7 +361,7 @@ const ResidentProfile = (props) => {
                                 onChange={(event) =>
                                     setBirthPlace(event.currentTarget.value)
                                 }
-                                isDisabled={editmode}
+                                isDisabled={true}
                             />
                         </FormControl>
                         <FormControl mt={1}>
@@ -343,7 +373,7 @@ const ResidentProfile = (props) => {
                                 onChange={(event) =>
                                     setBirthPlace(event.currentTarget.value)
                                 }
-                                isDisabled={editmode}
+                                isDisabled={true}
                             />
                         </FormControl>
                         <FormControl mt={1}>
@@ -355,49 +385,115 @@ const ResidentProfile = (props) => {
                                 onChange={(event) =>
                                     setBirthPlace(event.currentTarget.value)
                                 }
-                                isDisabled={editmode}
+                                isDisabled={true}
                             />
                         </FormControl>
                         <FormControl mt={1}>
                             <FormLabel>Группа:</FormLabel>
-                            <Input
-                                type="text"
+
+                            <Select
                                 value={group}
                                 size="lg"
                                 onChange={(event) =>
                                     setGroup(event.currentTarget.value)
                                 }
-                                isDisabled={editmode}
-                            />
+                            >
+                                <option value={group} disabled selected>
+                                    {group}
+                                </option>
+                                {groups.map((groupp) => (
+                                    <option
+                                        style={{ color: "black" }}
+                                        key={groupp.id}
+                                        value={groupp.group_name}
+                                    >
+                                        {groupp.group_name}
+                                    </option>
+                                ))}
+                            </Select>
                         </FormControl>
                         <FormControl mt={1}>
                             <FormLabel>Статус студента:</FormLabel>
-                            <Input
-                                type="text"
+
+                            <Select
                                 value={statusStudent}
                                 size="lg"
                                 onChange={(event) =>
                                     setStatusStudent(event.currentTarget.value)
                                 }
-                                isDisabled={editmode}
-                            />
+                            >
+                                <option value={statusStudent} disabled selected>
+                                    {statusStudent}
+                                </option>
+                                {statusStudents.map((st, index) => (
+                                    <option
+                                        style={{ color: "black" }}
+                                        key={index}
+                                        value={st.group_name}
+                                    >
+                                        {st.group_name}
+                                    </option>
+                                ))}
+                            </Select>
                         </FormControl>
                         <FormControl mt={1}>
                             <FormLabel>Статус проживания:</FormLabel>
-                            <Input
-                                type="text"
+
+                            <Select
                                 value={statusAccommodation}
                                 size="lg"
                                 onChange={(event) =>
                                     setAccommodation(event.currentTarget.value)
                                 }
-                                isDisabled={editmode}
-                            />
+                            >
+                                <option
+                                    value={statusAccommodation}
+                                    disabled
+                                    selected
+                                >
+                                    {statusAccommodation}
+                                </option>
+                                <option
+                                    style={{ color: "blue" }}
+                                    value="Проживает"
+                                >
+                                    Проживает
+                                </option>
+                                <option
+                                    style={{ color: "orange" }}
+                                    value="Процесс оформления документов"
+                                >
+                                    Процесс оформления документов
+                                </option>
+                                <option
+                                    style={{ color: "red" }}
+                                    value="Выселен"
+                                >
+                                    Выселен
+                                </option>
+                            </Select>
                         </FormControl>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-            {!editmode &&<> <AlertDel css={{float:"right"}}  handleVesli={handleVesli} btnmsg={"Выселить"} msg={"Are sure ?"}/> <Button css={{float:"right"}}  onClick={handleSubmit} colorScheme="blue">Подтвердить и сохранить</Button> </>}
+            {!editmode && (
+                <>
+                    {" "}
+                    <AlertDel
+                        css={{ float: "right" }}
+                        handleVesli={handleVesli}
+                        btnmsg={"Выселить"}
+                        msg={"Подтвердить ?"}
+                    />{" "}
+                    <Button
+                        css={{ float: "right" }}
+                        onClick={handleSubmit}
+                        colorScheme="blue"
+                    >
+                        Подтвердить и сохранить
+                    </Button>{" "}
+                </>
+            )}
         </div>
     );
 };
