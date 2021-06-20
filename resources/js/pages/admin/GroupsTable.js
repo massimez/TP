@@ -135,7 +135,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                     <Tr>
                         <Th color="white">Группа</Th>
                         <Th color="white">Факультет</Th>
-                        <Th color="white">Курсь</Th>
+                        <Th color="white">Курс</Th>
                         <Th color="white">Форма обучения</Th>
                         <Th color="white"></Th>
                     </Tr>
@@ -168,7 +168,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                                         setgroupFocus(group.id);
                                     }}
                                 >
-                                    Edit
+                                    Редактировать
                                 </Button>
                             </Th>
                         </Tr>
@@ -252,7 +252,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                                 colorScheme="blue"
                                 mr={3}
                             >
-                                Update
+                                Обновлять
                             </Button>
                         )}
 
@@ -267,7 +267,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                                 onClose();
                             }}
                         >
-                            Cancel
+                            Отменить
                         </Button>
                     </ModalFooter>
                 </DrawerContent>

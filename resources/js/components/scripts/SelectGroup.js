@@ -15,7 +15,7 @@ function SelectGroup(props) {
                 type={props.type}
                 name={props.name}
                 {...field}
-                width="450px"
+                width={[250, 400, 450]}
                 fontWeight="600"
                 height="60px"
                 backgroundColor="rgba(0,90,174,0.2)"

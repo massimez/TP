@@ -11,7 +11,7 @@ export const Textfield = ({  ...props }) => {
     return (
         <Box>
             <InputGroup>
-                <Input name={props.name} isRequired={props.isRequired} width="450px" height="60px"
+                <Input name={props.name} isRequired={props.isRequired} width={[250, 400, 450]} height="60px"
                 fontWeight="600"
 
                 backgroundColor="rgba(0,90,174,0.2)"

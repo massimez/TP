@@ -126,7 +126,7 @@ const StudentStatus = () => {
                 setStatusName("");
                 setNeighbors("");
                 onOpen();
-            }}>Add new status</Button>
+            }}>Добавить новый статус</Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
             <Table variant="striped" mt={2}>
@@ -159,7 +159,7 @@ const StudentStatus = () => {
                                         setstatusFocus(stat.id)
                                     }}
                                 >
-                                    Edit
+                                    Редактировать
                                 </Button>
                             </Th>
                         </Tr>

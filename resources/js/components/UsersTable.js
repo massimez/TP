@@ -148,14 +148,14 @@ export const UsersTable = ({ users, loading, setChange }, props) => {
                                         setUserFocus(user.id);
                                     }}
                                 >
-                                    Edit
+                                    Редактировать
                                 </Button>
                                 <AlertDel
                                     handleVesli={() => {
                                         handleDelete(user.id);
                                     }}
-                                    btnmsg={"Delete"}
-                                    msg={"Are sure ?"}
+                                    btnmsg={"Удалить"}
+                                    msg={"Уверены ли вы?"}
                                 />
                             </Th>
                         </Tr>

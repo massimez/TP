@@ -49,7 +49,7 @@ const SquareFree = (props) => {
                     </Text>
                     <Flex mx="auto" alignItems="center">
                         <Text fontWeight="bold" fontSize="lg">
-                            {props.room.number_of_living}/4
+                            {props.room.number_of_living}/{props.room.max_living}
                         </Text>
                         {props.room.number_of_living === 4 ? <FcLock /> : null}
                     </Flex>

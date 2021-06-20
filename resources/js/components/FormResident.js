@@ -298,7 +298,7 @@ function FormResident() {
                                         SelectedRoom={SelectedRoom}
                                         formik={formik.handleSubmit}
                                         sex={sex}
-                                        w={"450px"}
+                                        w={[250, 400, 450]}
                                         h={"60px"}
                                     />
                                 </Box>
