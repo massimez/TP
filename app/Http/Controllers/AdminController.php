@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountAccept;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -22,7 +24,11 @@ class AdminController extends Controller
     }
 
     public function update(Request $request,$id){
-        User::find($id)->update($request->input());
+        $user = User::find($id);
+        $user->update($request->input());
+        if ($request->role && $request->role!='Не подтверждена'){
+            Mail::to($user->email)->send(new AccountAccept($user->role));
+        }
         return response()->json(['message'=>'updated!'],200);
     }
 

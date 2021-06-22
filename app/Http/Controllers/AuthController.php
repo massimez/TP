@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ForgetPassword;
+use App\Mail\NewUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             //для безопасности хэшируем пароль
         ]);
+        $admin = User::query()->where('role','=','admin')->first();
+        Mail::to($admin->email)->send(new NewUser($request->email));
         return response()->json(['message' => 'Registered!'], 201);
     }
 
