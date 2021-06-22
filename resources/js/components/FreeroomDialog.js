@@ -18,7 +18,7 @@ import {
     VStack,
     ModalCloseButton,
     Radio,
-    AdaptedRadioGroup,Tooltip,Drawer,
+    AdaptedRadioGroup, Tooltip, Drawer,
     DrawerBody,
     DrawerFooter,
     DrawerHeader,
@@ -85,51 +85,52 @@ const FreeroomDialog = (props) => {
     const CustomDrawer = (props) => {
         const { isOpen, onOpen, onClose } = useDisclosure();
         return (
-          <>
-            <Tooltip
-                                                    label="Просмотр соседей"
-                                                    fontSize="md"
-                                                >
-                                                     <ViewIcon w={6} h={6} onClick={() => {
-                                                         onOpen() }} />
-                                                </Tooltip>
-            <Drawer isOpen={isOpen} onClose={onClose} placement="top">
-              <DrawerOverlay />
-              <DrawerContent>
-                <DrawerHeader>Комната №{props.id}</DrawerHeader>
-                <DrawerCloseButton />
-                <DrawerBody>
-                <Table variant="striped" colorScheme="teal" border="1px  solid">
-                            <Thead bg="blue.300" border="1px  solid" borderColor="blue.300" borderRadius="md" >
-                                <Tr>
-                                    <Th>ФИО</Th>
-                                    <Th>Факультет</Th>
-                                    <Th>Курс</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {selectedToView &&
-                                    selectedToView.map((rm, index) => (
-                                        <Tr key={index}>
-                                            <Th>
-                                                {rm.name} {rm.surname}
-                                            </Th>
-                                            <Th>{rm.faculty}</Th>
-                                            <Th>{rm.course_of_study}</Th>
-                                        </Tr>
-                                    ))}
-                            </Tbody>
-                        </Table>
-                </DrawerBody>
+            <>
+                <Tooltip
+                    label="Просмотр соседей"
+                    fontSize="md"
+                >
+                    <ViewIcon w={6} h={6} onClick={() => {
+                        onOpen()
+                    }} />
+                </Tooltip>
+                <Drawer isOpen={isOpen} onClose={onClose} placement="top">
+                    <DrawerOverlay />
+                    <DrawerContent>
+                        <DrawerHeader>Комната №{props.id}</DrawerHeader>
+                        <DrawerCloseButton />
+                        <DrawerBody>
+                            <Table variant="striped" colorScheme="teal" border="1px  solid">
+                                <Thead bg="blue.300" border="1px  solid" borderColor="blue.300" borderRadius="md" >
+                                    <Tr>
+                                        <Th>ФИО</Th>
+                                        <Th>Факультет</Th>
+                                        <Th>Курс</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {selectedToView &&
+                                        selectedToView.map((rm, index) => (
+                                            <Tr key={index}>
+                                                <Th>
+                                                    {rm.name} {rm.surname}
+                                                </Th>
+                                                <Th>{rm.faculty}</Th>
+                                                <Th>{rm.course_of_study}</Th>
+                                            </Tr>
+                                        ))}
+                                </Tbody>
+                            </Table>
+                        </DrawerBody>
 
-                <DrawerFooter>
+                        <DrawerFooter>
 
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          </>
+                        </DrawerFooter>
+                    </DrawerContent>
+                </Drawer>
+            </>
         );
-      };
+    };
 
     return (
         <>
@@ -143,7 +144,7 @@ const FreeroomDialog = (props) => {
                 onClick={oonClick}
 
             >
-                {props.name?props.name:"Добавить и выбрать комнату"}
+                {props.name ? props.name : "Добавить и выбрать комнату"}
             </Button>
 
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose}>
@@ -153,7 +154,7 @@ const FreeroomDialog = (props) => {
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
                         <Table variant="simple">
-                            <TableCaption>{props.sex?props.sex:"Вы должны сначала выбрать пол"}</TableCaption>
+                            <TableCaption>{props.sex ? props.sex : "Вы должны сначала выбрать пол"}</TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>
@@ -172,9 +173,9 @@ const FreeroomDialog = (props) => {
                                         (opt) =>
                                             opt.number_of_living < opt.max_living &&
                                             opt.floor === floorPage &&
-                                           ( props.sex?opt.status === (props.sex.toString().toLowerCase() === "женский"? "Женская" : "Мужская"):true)
+                                            (props.sex ? opt.status === (props.sex.toString().toLowerCase() === "женский" ? "Женская" : "Мужская") : opt.status === "2")
                                     )
-                                    .map((room ,index) => (
+                                    .map((room, index) => (
                                         <Tr key={room.room_id}>
                                             <Th>
                                                 <Radio
@@ -203,9 +204,9 @@ const FreeroomDialog = (props) => {
                                                 {room.max_living}
                                             </Th>
                                             <Th>{room.status}</Th>
-                                            <Th _hover={{ cursor: "pointer" }} onClick ={ () => {setSelectedToViewID(room.room_id)}}>
+                                            <Th _hover={{ cursor: "pointer" }} onClick={() => { setSelectedToViewID(room.room_id) }}>
 
-                                                <CustomDrawer roomIndex={index} id={room.room_id}   />
+                                                <CustomDrawer roomIndex={index} id={room.room_id} />
                                             </Th>
                                         </Tr>
                                     ))}
@@ -218,14 +219,14 @@ const FreeroomDialog = (props) => {
                         setFloorPage={setFloorPage}
                     />
                     <ModalFooter>
-                       {props.formik?<Button
+                        {props.formik ? <Button
                             colorScheme="blue"
                             mr={3}
                             onClick={submitClose}
                             type="submit"
                         >
                             Ok
-                        </Button>:<Button
+                        </Button> : <Button
                             colorScheme="blue"
                             mr={3}
                             onClick={onClose}
