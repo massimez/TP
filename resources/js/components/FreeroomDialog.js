@@ -168,7 +168,6 @@ const FreeroomDialog = (props) => {
 
                             <Tbody>
                                 {freeRooms
-                                    .slice(0, 20)
                                     .filter(
                                         (opt) =>
                                             opt.number_of_living < opt.max_living &&
