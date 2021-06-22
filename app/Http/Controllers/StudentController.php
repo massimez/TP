@@ -11,7 +11,7 @@ class StudentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission',['expect'=>'index','show']);
+        $this->middleware('permission')->except('index','show');
     }
     /**
      * Display a listing of the resource.
