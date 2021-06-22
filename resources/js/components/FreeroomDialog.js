@@ -173,7 +173,7 @@ const FreeroomDialog = (props) => {
                                         (opt) =>
                                             opt.number_of_living < opt.max_living &&
                                             opt.floor === floorPage &&
-                                            (props.sex ? opt.status === (props.sex.toString().toLowerCase() === "женский" ? "Женская" : "Мужская") : opt.status === "2")
+                                            (props.sex ? opt.status === (props.sex.toString().toLowerCase() === "женский" ? "Женская" : "Мужская") : true)
                                     )
                                     .map((room, index) => (
                                         <Tr key={room.room_id}>
