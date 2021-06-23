@@ -50,8 +50,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|max:255',
+            'password' => 'required||regex:/^([a-zA-Z0-9]+)$/u}',
         ]);
         $role = User::where('email', '=', $request->email)->get('role')[0]['role'];
         $credentials = $request->only('email', 'password');

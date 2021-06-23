@@ -26,10 +26,10 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'group_name' => 'required|string|unique:groups',
-            'faculty' => 'required|string',
-            'course_of_study' => 'required|string',
-            'form_of_education' => 'required|string',
+            'group_name' => 'required|string|unique:groups||regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
+            'faculty' => 'required|string|start_with:РТФ,РКФ,ФВС,ФСУ,ФЭТ,ЭФ,ФИТ,ГФ,ЮФ,ФБ,заочный',
+            'course_of_study' => 'required|string|min:1|max:1',
+            'form_of_education' => 'required|string|start_with:бакалавриат,специалитет,магистратура',
         ]);
         $group = Group::create($request->input());
         return response()->json(['data' => $group, 'message' => 'created!'], 201);
@@ -51,10 +51,10 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'group_name' => 'required|string',
-            'faculty' => 'required|string',
-            'course_of_study' => 'required|string',
-            'form_of_education' => 'required|string',
+            'group_name' => 'string|unique:groups||regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
+            'faculty' => 'string|start_with:РТФ,РКФ,ФВС,ФСУ,ФЭТ,ЭФ,ФИТ,ГФ,ЮФ,ФБ,заочный',
+            'course_of_study' => 'string|min:1|max:1',
+            'form_of_education' => 'string|start_with:бакалавриат,специалитет,магистратура',
         ]);
         Group::find($id)->update($request->input());
         return response()->json(['message' => 'updated!'], 200);

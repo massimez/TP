@@ -64,9 +64,9 @@ class RoomsController extends Controller
     {
         $request->validate([
             'room_id' => 'required|string|unique:rooms',
-            'status' => 'required|string',
-            'max_living' => 'required|integer|max:4',
-            'floor' => 'required|integer',
+            'status' => 'required|string|max:4|regex:/^([а-яА-ЯЁёa-zA-Z0-9]+)$/u}',
+            'max_living' => 'required|integer|min:1|max:4',
+            'floor' => 'required|integer|min:1|max:10',
         ]);
         $room = Room::create($request->input());
         event(new CountRoomFloorEvent($request->floor));
@@ -124,11 +124,10 @@ class RoomsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'room_id' => 'required|string',
-            'status' => 'required|string',
-            'number_living' => 'required|string|min:1|max:4',
-            'floor' => 'required|integer',
-            'form_of_education' => 'required|string'
+            'room_id' => 'string|unique:rooms',
+            'status' => 'string|max:4|regex:/^([а-яА-ЯЁёa-zA-Z0-9]+)$/u}',
+            'max_living' => 'integer|min:1|max:4',
+            'floor' => 'integer|min:1|max:10',
         ]);
         $room = Room::find($id);
         if (is_null($room)) {
