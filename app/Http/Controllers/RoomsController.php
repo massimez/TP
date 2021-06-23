@@ -64,7 +64,7 @@ class RoomsController extends Controller
     {
         $request->validate([
             'room_id' => 'required|string|unique:rooms',
-            'status' => 'required|string|max:4|regex:/^([а-яА-ЯЁёa-zA-Z0-9]+)$/u}',
+            'status' => 'required|string|max:4|regex:/^([а-яА-ЯЁёa-zA-Z0-9]+)$/u',
             'max_living' => 'required|integer|min:1|max:4',
             'floor' => 'required|integer|min:1|max:10',
         ]);
@@ -125,7 +125,7 @@ class RoomsController extends Controller
     {
         $request->validate([
             'room_id' => 'string|unique:rooms',
-            'status' => 'string|max:4|regex:/^([а-яА-ЯЁёa-zA-Z0-9]+)$/u}',
+            'status' => 'string|max:4|regex:/^([а-яА-ЯЁёa-zA-Z0-9]+)$/u',
             'max_living' => 'integer|min:1|max:4',
             'floor' => 'integer|min:1|max:10',
         ]);

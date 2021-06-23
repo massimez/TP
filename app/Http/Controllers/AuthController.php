@@ -28,7 +28,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|unique:users|email',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|confirmed|min:8|regex:/^([a-zA-Z0-9]+)$/',
             'name' => 'required',
         ]);
         User::create([
@@ -51,7 +51,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email|max:255',
-            'password' => 'required||regex:/^([a-zA-Z0-9]+)$/u}',
+            'password' => 'required|regex:/^([a-zA-Z0-9]+)$/',
         ]);
         $role = User::where('email', '=', $request->email)->get('role')[0]['role'];
         $credentials = $request->only('email', 'password');

@@ -32,7 +32,7 @@ class StatusStudentsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'status_student' => 'required|string|start_with:староста этажа,актив этажа,расселитель,сотрудник СООПР,сотрудник санитарной комиссии,председатель студсовета,студент',
+            'status_student' => 'required|string|starts_with:староста этажа,актив этажа,расселитель,сотрудник СООПР,сотрудник санитарной комиссии,председатель студсовета,студент',
             'neighbors' => 'required|integer|min:1|max:4',
         ]);
         Status_student::create($request->input());
@@ -73,7 +73,7 @@ class StatusStudentsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'status_student' => 'string|start_with:староста этажа,актив этажа,расселитель,сотрудник СООПР,сотрудник санитарной комиссии,председатель студсовета,студент',
+            'status_student' => 'string|starts_with:староста этажа,актив этажа,расселитель,сотрудник СООПР,сотрудник санитарной комиссии,председатель студсовета,студент',
             'neighbors' => 'integer|min:1|max:4',
         ]);
         $update = $request->input();

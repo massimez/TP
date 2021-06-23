@@ -56,25 +56,25 @@ class StudentController extends Controller
     {
         $request->validate([
             'room_id'                    => 'required|integer|exists:rooms,room_id',
-            'name'                       => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
-            'surname'                    => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
-            'patronymic'                 => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
+            'name'                       => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'surname'                    => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'patronymic'                 => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
             'status_student'             => 'string|exists:status_students,status_student',
             'email'                      => 'required|email|unique:students',
             'phone_number'               => 'required|integer|min:11|max:11',
             'group'                      => 'required|string|exists:groups,group_name',
-            'sex'                        => 'required|string|start_with:Мужской,Женский',
+            'sex'                        => 'required|string|starts_with:Мужской,Женский',
             'number_contract'            => 'integer|max:20',
             'date_of_conclusion'         => 'date',
             'date_of_ended_registration' => 'date',
-            'citizenship'                => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
+            'citizenship'                => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'birthday'                   => 'required|date',
-            'place_of_birth'             => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
-            'number_passport'            => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
-            'info_passport'              => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
-            'registration'               => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
+            'place_of_birth'             => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'number_passport'            => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'info_passport'              => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'registration'               => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'note'                       => 'string|max:2000',
-            "status_accommodation"       => 'string|start_with:процесс оформления документов, проживает, выселен'
+            "status_accommodation"       => 'string|starts_with:процесс оформления документов, проживает, выселен'
         ]);
         $check = $this->callCheckRoom($request);
         if (!$check) {
@@ -140,25 +140,25 @@ class StudentController extends Controller
     {
         $request->validate([
             'room_id'                    => 'integer|exists:rooms,room_id',
-            'name'                       => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
-            'surname'                    => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
-            'patronymic'                 => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
+            'name'                       => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'surname'                    => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'patronymic'                 => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
             'status_student'             => 'string|exists:status_students,status_student',
             'email'                      => 'email|unique:students',
             'phone_number'               => 'integer|min:11|max:11',
             'group'                      => 'string|exists:groups,group_name',
-            'sex'                        => 'string|start_with:Мужской,Женский',
+            'sex'                        => 'string|starts_withs:Мужской,Женский',
             'number_contract'            => 'integer|max:20',
             'date_of_conclusion'         => 'date',
             'date_of_ended_registration' => 'date',
-            'citizenship'                => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
+            'citizenship'                => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'birthday'                   => 'date',
-            'place_of_birth'             => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
-            'number_passport'            => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
-            'info_passport'              => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
-            'registration'               => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u}',
+            'place_of_birth'             => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'number_passport'            => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'info_passport'              => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'registration'               => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'note'                       => 'string|max:2000',
-            "status_accommodation"       => 'string|start_with:процесс оформления документов,проживает,выселен'
+            "status_accommodation"       => 'string|starts_with:процесс оформления документов,проживает,выселен'
         ]);
         $student = Student::find("$id");
         $check = $this->callCheckRoom($request);

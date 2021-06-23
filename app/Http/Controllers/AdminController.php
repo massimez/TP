@@ -25,11 +25,11 @@ class AdminController extends Controller
 
     public function update(Request $request,$id){
         $request->validate([
-            'name'                       => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
-            'surname'                    => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
-            'patronymic'                 => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u}',
-            'position'                   => 'string|max:30',
-            'role'                       => 'string|start_with:admin,user,guest',
+            'name'                       => 'nullable|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'surname'                    => 'nullable|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'patronymic'                 => 'nullable|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'position'                   => 'nullable|string|max:30',
+            'role'                       => 'nullable|string|starts_with:admin,user,guest,Не подтверждена',
         ]);
         $user = User::find($id);
         $user->update($request->input());
