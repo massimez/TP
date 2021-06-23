@@ -200,7 +200,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                             <RadioGroup onChange={setStatus} value={status}>
                                 <Stack direction="row">
                                     <Radio value="Мужская">Мужская</Radio>
-                                    <Radio value="2">Женская</Radio>
+                                    <Radio value="Женская">Женская</Radio>
                                 </Stack>
                             </RadioGroup>
                         </FormControl>
