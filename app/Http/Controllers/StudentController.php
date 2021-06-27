@@ -61,7 +61,7 @@ class StudentController extends Controller
             'patronymic'                 => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
             'status_student'             => 'string|exists:status_students,status_student',
             'email'                      => 'required|email|unique:students',
-            'phone_number'               => 'required|integer|min:6|max:12',
+            'phone_number'               => 'required|string|min:6|max:12',
             'group'                      => 'required|string|exists:groups,group_name',
             'sex'                        => 'required|string|starts_with:МУЖСКОЙ,ЖЕНСКИЙ',
             'number_contract'            => 'integer|max:20',
