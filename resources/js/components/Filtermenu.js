@@ -35,6 +35,7 @@ const Filtermenu = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [FIO, setFIO] = useState("");
     const [citizenship, setCitizenship] = useState("");
+    const [groupe, setGroupe] = useState("");
     const [sex, setSex] = useState("");
     const [statusAccommodation, setStatusAccommodation] = useState("");
     const [isFiltred, setIsFiltred] = useState(false);
@@ -50,6 +51,7 @@ const Filtermenu = () => {
             citizenship: citizenship,
             sex: sex,
             statusAccommodation: statusAccommodation,
+            groupe:groupe,
         };
         dispatch(setResidentsFilter(Data));
     };
@@ -59,10 +61,10 @@ const Filtermenu = () => {
             <HStack>
                 <Button
                     mr={2}
-                    width="164px"
+                    width="220px"
                     height="50px"
                     onClick={onOpen}
-                    leftIcon={<Icon as={FiFilter} />}
+                    leftIcon={<Icon  as={FiFilter} />}
                 >
                     Фильтрация
                 </Button>
@@ -145,12 +147,16 @@ const Filtermenu = () => {
                                 ml="auto"
                                 height="35px"
                                 colorScheme="facebook"
-                                onClick={() => {
-                                    Promise.all([setFIO(""),
-                                    setCitizenship(""),setSex(""),
-                                    setIsFiltred(false),
-                                    handleFilter(),setStatusAccommodation(""),
-                                    onClose()])
+                                onClick={ ()  =>  {
+                                    setFIO("");
+                                    setCitizenship("");
+                                    setSex("");
+                                    setIsFiltred(false);
+                                    setGroupe("");
+                                    handleFilter();
+                                    setStatusAccommodation("");
+                                    handleFilter(),
+                                    onClose()
 
                                 }}
                             >
@@ -197,6 +203,24 @@ const Filtermenu = () => {
                                 _focus={{ opacity: "100%" }}
                                 onChange={(event) => {
                                     setCitizenship(event.currentTarget.value);
+                                    setIsFiltred(true);
+                                    handleFilter();
+                                }}
+                            />
+                        </FormControl>
+                        <FormControl mt={4}>
+                            <Input
+                                height="56px"
+                                placeholder="Группа"
+                                fontWeight="600"
+                                color="black"
+                                backgroundColor="rgba(0,90,174,0.2)"
+                                borderRadius="6%"
+                                textAlign="center"
+                                _placeholder={{ color: "#8B8B8B" }}
+                                _focus={{ opacity: "100%" }}
+                                onChange={(event) => {
+                                    setGroupe(event.currentTarget.value);
                                     setIsFiltred(true);
                                     handleFilter();
                                 }}
@@ -297,7 +321,8 @@ const Filtermenu = () => {
                                     handleFilter();
                                     onClose();
                                 }}
-                                colorScheme={isFiltred?"facebook":"teal"}
+                                color="white"
+                                bg={isFiltred?"facebook.500":"rgba(161, 161, 161, 1)"}
                             >
                                 Применить
                             </Button>
@@ -310,12 +335,14 @@ const Filtermenu = () => {
                                 colorScheme="gray.300"
                                 color="#FF0000"
                                 onClick={() => {
-                                    Promise.all([setFIO(""),
-                                    setCitizenship(""),setSex(""),
-                                    setIsFiltred(false),
-                                    handleFilter(),setStatusAccommodation(""),
-                                    onClose()])
-
+                                     setFIO("");
+                                    setCitizenship("");
+                                    setSex("");
+                                    setIsFiltred(false);
+                                    setGroupe("");
+                                    handleFilter();
+                                    setStatusAccommodation("");
+                                    onClose();
                                 }}
                             >
                                 Отмена

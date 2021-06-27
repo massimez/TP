@@ -8,10 +8,11 @@ import {
     MenuList,
     MenuItem,
     Heading,
-    Text,Tooltip
+    Text,
+    Tooltip,
 } from "@chakra-ui/react";
 import { connect } from "react-redux";
-import { FaSun, FaMoon, FaUserCircle,FaSignOutAlt } from "react-icons/fa";
+import { FaSun, FaMoon, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { FiHelpCircle } from "react-icons/fi";
 import Colormode from "./Colormode";
 import { AiFillSetting } from "react-icons/ai";
@@ -76,31 +77,37 @@ function Header(props) {
                     isRound="true"
                 />
                 <MenuList color="black">
-                    {props.role === "admin" ? (
-                        <Link to="/admin/">
-                            {" "}
-                            <MenuItem icon={<AiFillSetting />} command="⌘O">
-                                Администрация
-                            </MenuItem>
-                        </Link>
-                    ) : (
-                        <div></div>
-                    )}
                     {props.loggedIn ? (
                         <>
+                            <UserProfil />
+                            {props.role === "admin" ? (
+                                <Link to="/admin/">
+                                    {" "}
+                                    <MenuItem
+                                        icon={<AiFillSetting />}
+                                        command="⌘O"
+                                    >
+                                        Администрация
+                                    </MenuItem>
+                                </Link>
+                            ) : (
+                                <div></div>
+                            )}
+                            <Tooltip
+                                label="Если вам нужна помощь, напишите admin@admin.ru"
+                                fontSize="md"
+                            >
+                                <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
+                                    Помощь
+                                </MenuItem>
+                            </Tooltip>
                             <MenuItem
                                 icon={<FaSignOutAlt />}
                                 onClick={HandleLogout}
                                 command="⌘O"
                             >
-                                Выйти
+                                <Text color="red">Выйти</Text>
                             </MenuItem>
-                            <UserProfil />
-                            <Tooltip label="Если вам нужна помощь, напишите admin@admin.ru" fontSize="md">
-                            <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
-                                Помощь
-                            </MenuItem>
-                            </Tooltip>
                         </>
                     ) : (
                         <>
@@ -115,11 +122,17 @@ function Header(props) {
                                 <MenuItem icon={<FaUserCircle />} command="⌘O">
                                     Регистрация
                                 </MenuItem>
-                                <Tooltip label="Если вам нужна помощь, напишите admin@admin.ru" fontSize="md">
-                            <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
-                                Помощь
-                            </MenuItem>
-                            </Tooltip>
+                                <Tooltip
+                                    label="Если вам нужна помощь, напишите admin@admin.ru"
+                                    fontSize="md"
+                                >
+                                    <MenuItem
+                                        icon={<FiHelpCircle />}
+                                        command="⌘⇧N"
+                                    >
+                                        Помощь
+                                    </MenuItem>
+                                </Tooltip>
                             </Link>
                         </>
                     )}
