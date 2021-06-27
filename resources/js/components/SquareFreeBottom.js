@@ -46,7 +46,7 @@ const SquareFreeBottom = (props) => {
             {props.ass ? (
                 <Icon my="auto" mx="auto" w={8} h={8} as={props.ass} />
             ) : (
-                <Box align="center" >
+                <Box align="center"  mt={1}>
                     {props.room.status === "Женская" &&
                     props.room.number_of_living >= 1 &&
                     props.room.number_of_living <= 4 ? (

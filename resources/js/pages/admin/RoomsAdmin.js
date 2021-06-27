@@ -33,7 +33,9 @@ const RoomsAdmin = () => {
     //Get current student index
     const indexOfLast = currentPage * roomsPerPage;
     const indexOfFirstPost = indexOfLast - roomsPerPage;
-    const currrentrooms = rooms.slice(indexOfFirstPost, indexOfLast);
+    const currrentrooms = rooms.sort(function (a, b) {
+        return a.floor - b.floor;
+    }).slice(indexOfFirstPost, indexOfLast);
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
