@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use HasFactory;
-    protected $fillable = ['group_name','faculty','course_of_study','form_of_education'];
+    protected $fillable = ['group_name','faculty','course_of_study','form_of_education','specialty'];
     public function student(){
         return $this->belongsTo(Student::class,'group_name','group');
     }
