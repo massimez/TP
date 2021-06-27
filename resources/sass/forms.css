@@ -85,3 +85,7 @@
         height: 50px;
     }
 }
+
+input[type=date]:invalid::-webkit-datetime-edit {
+    color: #999;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDisclosure } from "@chakra-ui/react";
+import { ImArrowRight2 } from "react-icons/im";
 import {
     Button,
     Flex,
@@ -42,7 +43,7 @@ import {
     TableCaption,
 } from "@chakra-ui/react";
 import RoomNext from "./RoomNext";
-const FreeroomDialog = (props) => {
+const FreeRoomsDialog = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [freeRooms, setFreeRooms] = useState([]);
     const [selectedToView, setSelectedToView] = useState("");
@@ -167,41 +168,34 @@ const FreeroomDialog = (props) => {
 
     return (
         <>
-            <Button
-                type="button"
-                color="whiteAlpha.900"
-                width={props.w}
-                height={props.h}
-                size={props.size}
-                bg="bluet.900"
-                onClick={oonClick}
-            >
-                {props.name ? props.name : "Добавить и выбрать комнату"}
-            </Button>
-
+            <Button rightIcon={<ImArrowRight2 />}
+                    _focus={{
+                        bg: "teal.600",
+                        color: "white",
+                        borderColor: "teal.600",
+                        boxShadow: "outline",
+                    }}
+                    width="180px"
+                    colorScheme="facebook"
+                    mt={4}
+                    mb={1}
+                    ml="auto"
+                    pl={3}
+                    pr={3}
+                    onClick={oonClick}>
+                            Показать списком
+                </Button>
             <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>
-                        Доступные комнаты{" "}
+                        Комнаты{" "}
                         <Text fontSize="14px" fontWeight="500" color="#A1A1A1">
-                            Выберите подходящую комнату
                         </Text>
                     </ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody >
-                        <RoomNext
-                            rooms={freeRooms}
-                            size={"sm"}
-                            setFloorPage={setFloorPage}
-                            floorActive={floorPage}
-                        />
+                    <ModalBody pb={6}>
                         <Table variant="simple">
-                            <TableCaption>
-                                {props.sex
-                                    ? null
-                                    : "Вы должны сначала выбрать пол"}
-                            </TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>
@@ -214,45 +208,13 @@ const FreeroomDialog = (props) => {
                             </Thead>
 
                             <Tbody>
-                                {freeRooms
-                                    .filter(
+                                {freeRooms.filter(
                                         (opt) =>
-                                            opt.number_of_living <
-                                                opt.max_living &&
-                                            opt.floor === floorPage &&
-                                            (props.sex
-                                                ? opt.status ===
-                                                  (props.sex
-                                                      .toString()
-                                                      .toLowerCase() ===
-                                                  "женский"
-                                                      ? "Женская"
-                                                      : "Мужская")
-                                                : true)
-                                    )
+                                            opt.floor === props.floorActive)
                                     .map((room, index) => (
-                                        <Tr key={room.room_id} background="rgba(0, 90, 174, 0,1)">
+                                        <Tr key={room.room_id}>
                                             <Th>
-                                                <Radio
-                                                    key={room.room_id}
-                                                    onClick={() => {
-                                                        props.setSelectedRoom(
-                                                            room.room_id
-                                                        );
-                                                        console.log(
-                                                            room.room_id
-                                                        );
-                                                    }}
-                                                    _checked={{}}
-                                                    _focus={{
-                                                        bg: "teal.600",
-                                                        color: "white",
-                                                        borderColor: "teal.600",
-                                                        boxShadow: "outline",
-                                                    }}
-                                                >
                                                     {room.room_id}
-                                                </Radio>
                                             </Th>
                                             <Th>
                                                 {room.number_of_living} /{" "}
@@ -279,7 +241,7 @@ const FreeroomDialog = (props) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        {props.formik ? (
+
                             <Button
                                 colorScheme={
                                     props.SelectedRoom ? "facebook" : "teal"
@@ -287,23 +249,12 @@ const FreeroomDialog = (props) => {
                                 width="75%"
                                 height="50px"
                                 mx="auto"
-                                onClick={submitClose}
-                                type="submit"
-                            >
-                                Заселить
-                            </Button>
-                        ) : (
-                            <Button
-                                colorScheme="blue"
-                                mx="auto"
-                                width="75%"
-                                height="50px"
                                 onClick={onClose}
                                 type="submit"
                             >
-                                Подтвердить
+                                Ok
                             </Button>
-                        )}
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -311,4 +262,4 @@ const FreeroomDialog = (props) => {
     );
 };
 
-export default FreeroomDialog;
+export default FreeRoomsDialog;

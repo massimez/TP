@@ -357,6 +357,7 @@ const ResidentProfile = (props) => {
                             <Select
                                 value={group}
                                 size="lg"
+                                isDisabled={editmode}
                                 onChange={(event) =>
                                     setGroup(event.currentTarget.value)
                                 }
@@ -381,6 +382,7 @@ const ResidentProfile = (props) => {
                             <Select
                                 value={statusStudent}
                                 size="lg"
+                                isDisabled={editmode}
                                 onChange={(event) =>
                                     setStatusStudent(event.currentTarget.value)
                                 }
@@ -404,6 +406,7 @@ const ResidentProfile = (props) => {
                             <Select
                                 value={statusAccommodation}
                                 size="lg"
+                                isDisabled={editmode}
                                 onChange={(event) =>
                                     setAccommodation(event.currentTarget.value)
                                 }

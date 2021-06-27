@@ -143,14 +143,13 @@ const StudentStatus = () => {
                             <Th>{stat.status_student} </Th>
                             <Th>{stat.neighbors}</Th>
                             <Th>
-                                <DeleteIcon
+                                <Button
+                                colorScheme="red"
                                     _hover={{ cursor: "pointer" }}
-                                    w={6}
-                                    h={6}
                                     onClick={() => {
                                         handleDelete(stat.id);
                                     }}
-                                />
+                                >Удалить</Button>
                                 <Button
                                     onClick={() => {
                                         onOpen();
@@ -214,13 +213,13 @@ const StudentStatus = () => {
                                 colorScheme="blue"
                                 mr={3}
                             >
-                                Edit
+                                Редактировать
                             </Button>
                         )}
 
                         <Button onClick={() => {
                             setaddStatus(false);
-                            onClose();}}>Cancel</Button>
+                            onClose();}}>Отменить</Button>
                     </ModalFooter>
                 </DrawerContent>
             </Drawer>

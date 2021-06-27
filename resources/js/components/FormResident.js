@@ -15,7 +15,7 @@ import {
     Button,
     Flex,
     Select,
-    Input,
+    Input,Label
 } from "@chakra-ui/react";
 import FreeroomDialog from "./FreeroomDialog";
 import ErrorMessage from "./ErrorMessage";
@@ -38,41 +38,43 @@ function FormResident() {
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const validationSchema = Yup.object({
         name: Yup.string()
-            .max(20, "Must be 15 characters")
-            .min(2, "Too Short!")
-            .required("Required"),
+            .max(20, "Должно быть меньше 20 символов")
+            .min(2, "Слишком короткий!")
+            .required("Обязательный"),
         surname: Yup.string()
-            .max(20, "Must be 15 characters")
-            .min(2, "Too Short!")
-            .required("Required"),
+            .max(20, "Должно быть меньше 20 символов")
+            .min(2, "Слишком короткий")
+            .required("Обязательный"),
         patronymic: Yup.string()
-            .max(20, "Must be 15 characters")
-            .min(2, "Too Short!")
-            .required("Required"),
+            .max(20, "Должно быть меньше 20 символов"),
         birthday: Yup.date(
             "Format date invalid should be YYYY-MM-DD"
-        ).required(),
-        email: Yup.string().email("Email is invalid").required("Required"),
+        ).required("Обязательный"),
+        email: Yup.string().email("Email is invalid").required("Обязательный"),
         phone_number: Yup.string().matches(
             phoneRegExp,
             "Phone number is not valid"
         ),
         passportIssuer: Yup.string()
-            .max(20, "Must be 15 characters")
-            .min(2, "Too Short!")
-            .required("Required"),
+            .max(20, "Должно быть меньше 20 символов")
+            .min(2, "Слишком короткий")
+            .required("Обязательный"),
         citizenship: Yup.string()
-            .max(20, "Must be 15 characters")
-            .min(2, "Too Short!")
-            .required("Required"),
+            .max(20, "Должно быть меньше 20 символов")
+            .min(2, "Слишком короткий")
+            .required("Обязательный"),
         place_of_birth: Yup.string()
-            .max(20, "Must be 15 characters")
-            .min(2, "Too Short!")
-            .required("Required"),
+            .max(20, "Должно быть меньше 20 символов")
+            .min(2, "Слишком короткий")
+            .required("Обязательный"),
         registration: Yup.string()
-            .max(20, "Must be 15 characters")
-            .min(2, "Too Short!")
-            .required("Required"),
+            .max(20, "Должно быть меньше 20 символов")
+            .min(2, "Слишком короткий")
+            .required("Обязательный"),
+        number_passport: Yup.string()
+            .max(20, "Должно быть меньше 20 символов")
+            .min(2, "Слишком короткий")
+            .required("Обязательный"),
     });
     useEffect(() => {
         const fetchGroup = async () => {
@@ -202,9 +204,10 @@ function FormResident() {
                                         placeholder="Отчество (при наличии)"
                                     />
                                     <Textfield
-                                        type="date"
+                                        type="text"
                                         name="birthday"
-                                        placeholder="Дата рождения  ГГГГ-ММ-ДД"
+                                        showIconDate="true"
+                                        placeholder="Дата рождения"
                                     />
                                     <SelectField
                                         name="sex"
@@ -248,7 +251,8 @@ function FormResident() {
                                     <Textfield
                                         type="text"
                                         name="Dpassport"
-                                        placeholder="Дата выдачи ГГГГ-ММ-ДД"
+                                        placeholder="Дата выдачи"
+                                        showIconDate="true"
                                     />
                                     <Textfield
                                         type="text"
@@ -313,8 +317,8 @@ function FormResident() {
                                         Добавить студента
                                     </Button>
                                 </Box> */}
-                                <button type="submit">Submit</button>
-                                <Button type="reset">Reset</Button>
+                                {/* <button type="submit">Submit</button>
+                                <Button type="reset">Reset</Button> */}
                             </Box>
                         </Flex>
                     </Form>

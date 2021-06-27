@@ -124,7 +124,7 @@ function Header(props) {
                         </>
                     )}
 
-                    <Colormode />
+                    {/* <Colormode /> */}
                 </MenuList>
             </Menu>
         </Flex>

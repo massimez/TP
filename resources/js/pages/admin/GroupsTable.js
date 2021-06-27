@@ -148,14 +148,12 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                             <Th>{group.course_of_study}</Th>
                             <Th>{group.form_of_education}</Th>
                             <Th>
-                                <DeleteIcon
-                                    _hover={{ cursor: "pointer" }}
-                                    w={6}
-                                    h={6}
+                                <Button
+                                    colorScheme="red"
                                     onClick={() => {
                                         handleDelete(group.id);
                                     }}
-                                />
+                                >Удалить</Button>
                                 <Button
                                     onClick={() => {
                                         onOpen();
@@ -229,10 +227,10 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                                         Очно-заочная
                                     </Radio>
                                     <Radio value="Заочная">Заочная</Radio>
-                                    <Radio value="Дистанционное обучение">
+                                </Stack>
+                                <Radio value="Дистанционное обучение">
                                         Дистанционное обучение
                                     </Radio>
-                                </Stack>
                             </RadioGroup>
                         </FormControl>
                     </DrawerBody>
@@ -244,7 +242,7 @@ export const GroupsTable = ({ groups, loading, setChange }, props) => {
                                 colorScheme="blue"
                                 mr={3}
                             >
-                                Save
+                                Сохранить
                             </Button>
                         ) : (
                             <Button

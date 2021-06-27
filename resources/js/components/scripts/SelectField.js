@@ -15,7 +15,7 @@ function SelectField({ setSex, ...props }) {
             fontWeight="600"
             height="60px"
             backgroundColor="rgba(0,90,174,0.2)"
-            color="white"
+            color="#8B8B8B"
             onChange={(event) => {setSex(event.currentTarget.value)
                 document.getElementById('myselect').style.color='black';   }}
         >

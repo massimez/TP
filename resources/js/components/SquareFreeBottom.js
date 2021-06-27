@@ -8,13 +8,13 @@ import { FcLock } from "react-icons/fc";
 
 
 
-const SquareFree = (props) => {
+const SquareFreeBottom = (props) => {
     const divStyle = {
         color: 'black',
         position: 'absolute',
         width: props.width/2 - 13,
         height:'5px',
-        top: '115px',
+        bottom: '115px',
         background:'rgba(0, 90, 174, 0.7)'
       };
       const divStyleLeft = {
@@ -22,7 +22,7 @@ const SquareFree = (props) => {
         position: 'absolute',
         width: props.width/2 -13,
         height:'5px',
-        top: '115px',
+        bottom: '115px',
         left: props.width/2 + 5 ,
         background:'rgba(0, 90, 174, 0.7)'
       };
@@ -30,7 +30,7 @@ const SquareFree = (props) => {
         <Flex
             width={props.width+"px"}
             height="124px"
-            borderTop="4px"
+            borderBottom="4px"
             borderRight="4px"
             borderLeft="4px"
             borderColor="rgba(0, 90, 174, 0.7)"
@@ -49,12 +49,12 @@ const SquareFree = (props) => {
                 <Box align="center" >
                     {props.room.status === "Женская" &&
                     props.room.number_of_living >= 1 &&
-                    props.room.number_of_living <= props.room.max_living ? (
+                    props.room.number_of_living <= 4 ? (
                         <FaFemale color="red"/>
                     ) : null}
                     {props.room.status === "Мужская" &&
                     props.room.number_of_living >= 1 &&
-                    props.room.number_of_living <= props.room.max_living ? (
+                    props.room.number_of_living <= 4 ? (
                         <Box mt={1} color="facebook.500"><FaMale   /></Box>
                     ) : null}
 
@@ -64,7 +64,6 @@ const SquareFree = (props) => {
                            <Box  color="facebook.500" ><FaMale  /></Box>
                             <Box  ><FaFemale  color="red" /></Box>
                         </HStack>
-
                         </>
                     ) : null}
 
@@ -89,4 +88,4 @@ const SquareFree = (props) => {
     );
 };
 
-export default SquareFree;
+export default SquareFreeBottom;

@@ -15,13 +15,16 @@ import {
     leftIcon,
     useDisclosure,
     HStack,
-    Select,Drawer,
+    Select,
+    Drawer,
     DrawerBody,
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
+    Text,
+    Box,
 } from "@chakra-ui/react";
 import { FiFilter } from "react-icons/fi";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -38,18 +41,17 @@ const Filtermenu = () => {
     const dispatch = useDispatch();
 
     const handleFilter = () => {
-        const arr = FIO.split(' ')
+        const arr = FIO.split(" ");
         const Data = {
             isFiltred: isFiltred,
-            FamilyName: arr[0]? arr[0] : "" ,
-            Name:  arr[1]? arr[1] : "" ,
-            Patronymic :  arr[2]? arr[2] : "" ,
+            FamilyName: arr[0] ? arr[0] : "",
+            Name: arr[1] ? arr[1] : "",
+            Patronymic: arr[2] ? arr[2] : "",
             citizenship: citizenship,
             sex: sex,
             statusAccommodation: statusAccommodation,
         };
         dispatch(setResidentsFilter(Data));
-
     };
 
     return (
@@ -64,20 +66,21 @@ const Filtermenu = () => {
                 >
                     Фильтрация
                 </Button>
-                {isFiltred && <Button
+                {isFiltred && (
+                    <Button
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                             setIsFiltred(false)
-                            setSex("");
-                            setCitizenship("");
-                            setFIO("");
-                            setStatusAccommodation("")
-                            handleFilter();
-                        }}
-                    >
+                            Promise.all(setIsFiltred(false),
+                            setSex(""),
+                            setCitizenship(""),
+                            setFIO(""),
+                            setStatusAccommodation(""),
+                            handleFilter())
 
-                    </Button>}
+                        }}
+                    ></Button>
+                )}
                 {FIO && (
                     <Button
                         bg="rgba(255,255,255,0.1)"
@@ -95,9 +98,9 @@ const Filtermenu = () => {
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                            setCitizenship("");
-                            setTimeout(handleFilter(),1000);
-                            handleFilter();
+                            Promise.all(setCitizenship(""),
+                            handleFilter(),
+                            handleFilter())
                         }}
                     >
                         {citizenship}
@@ -108,8 +111,9 @@ const Filtermenu = () => {
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                            setSex("");
-                            handleFilter();
+                            Promise.all(setSex(""),
+                            handleFilter())
+
                         }}
                     >
                         {sex}
@@ -120,8 +124,8 @@ const Filtermenu = () => {
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                            setStatusAccommodation("");
-                            handleFilter();
+                            Promise.all(setStatusAccommodation(""),handleFilter())
+
                         }}
                     >
                         {statusAccommodation}
@@ -129,22 +133,48 @@ const Filtermenu = () => {
                 )}
             </HStack>
 
-            <Drawer placement="top" my="auto" isOpen={isOpen} onClose={onClose}>
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerHeader color={"blue.700"}>Фильтрация</DrawerHeader>
+            <Modal placement="top" my="auto" isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader color={"blue.700"}>
+                    Фильтрация{" "}
+                    <HStack>
 
-                    <DrawerBody pb={6}>
+                        {
+                            isFiltred?<Button
+                                ml="auto"
+                                height="35px"
+                                colorScheme="facebook"
+                                onClick={() => {
+                                    Promise.all([setFIO(""),
+                                    setCitizenship(""),setSex(""),
+                                    setIsFiltred(false),
+                                    handleFilter(),setStatusAccommodation(""),
+                                    onClose()])
+
+                                }}
+                            >
+                                Сбросить
+                            </Button>:null
+                        }
+
+                    </HStack>
+                        <Text fontSize="14px" fontWeight="500" color="#A1A1A1">
+                            Заполните необходимые поля
+                        </Text>
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
                         <FormControl>
-                            <FormLabel>Поиск по ФИО</FormLabel>
                             <Input
+                                height="56px"
                                 placeholder="ФИО"
                                 fontWeight="600"
                                 color="black"
                                 backgroundColor="rgba(0,90,174,0.2)"
                                 borderRadius="6%"
                                 textAlign="center"
-                                _placeholder={{ color: "white" }}
+                                _placeholder={{ color: "#8B8B8B" }}
                                 _focus={{ opacity: "100%" }}
                                 onChange={(event) => {
                                     setFIO(event.currentTarget.value);
@@ -155,15 +185,15 @@ const Filtermenu = () => {
                         </FormControl>
 
                         <FormControl mt={4}>
-                            <FormLabel>Поиск по Гражданству</FormLabel>
                             <Input
+                                height="56px"
                                 placeholder="Гражданство"
                                 fontWeight="600"
                                 color="black"
                                 backgroundColor="rgba(0,90,174,0.2)"
                                 borderRadius="6%"
                                 textAlign="center"
-                                _placeholder={{ color: "white" }}
+                                _placeholder={{ color: "#8B8B8B" }}
                                 _focus={{ opacity: "100%" }}
                                 onChange={(event) => {
                                     setCitizenship(event.currentTarget.value);
@@ -172,15 +202,17 @@ const Filtermenu = () => {
                                 }}
                             />
                         </FormControl>
-                        <HStack>
+                        <HStack mt={4}>
                             <FormControl>
-                                <FormLabel>Пол</FormLabel>
                                 <Select
+                                    id="sex"
+                                    height="56px"
                                     placeholder={sex ? sex : "Пол"}
                                     fontWeight="600"
-                                    color="black"
+                                    color="#8B8B8B"
                                     backgroundColor="rgba(0,90,174,0.2)"
                                     borderRadius="6%"
+                                    style={{ textAlignLast: "center" }}
                                     textAlign="center"
                                     _placeholder={{ color: "white" }}
                                     _focus={{ opacity: "100%" }}
@@ -188,6 +220,9 @@ const Filtermenu = () => {
                                         setSex(event.currentTarget.value);
                                         setIsFiltred(true);
                                         handleFilter();
+                                        document.getElementById(
+                                            "sex"
+                                        ).style.color = "black";
                                     }}
                                 >
                                     <option
@@ -205,15 +240,17 @@ const Filtermenu = () => {
                                 </Select>
                             </FormControl>
                             <FormControl>
-                                <FormLabel>Статус проживания</FormLabel>
                                 <Select
+                                    id="livingstatusSelect"
+                                    height="56px"
+                                    style={{ textAlignLast: "center" }}
                                     placeholder={
                                         statusAccommodation
                                             ? statusAccommodation
                                             : "Статус проживания"
                                     }
                                     fontWeight="600"
-                                    color="black"
+                                    color="#8B8B8B"
                                     backgroundColor="rgba(0,90,174,0.2)"
                                     borderRadius="6%"
                                     textAlign="center"
@@ -225,6 +262,9 @@ const Filtermenu = () => {
                                         );
                                         setIsFiltred(true);
                                         handleFilter();
+                                        document.getElementById(
+                                            "livingstatusSelect"
+                                        ).style.color = "black";
                                     }}
                                 >
                                     <option
@@ -248,29 +288,42 @@ const Filtermenu = () => {
                                 </Select>
                             </FormControl>
                         </HStack>
-                    </DrawerBody>
+                        <Box mt={4} width="100%">
+                            <Button
+                                mx="auto"
+                                height="70px"
+                                width="100%"
+                                onClick={() => {
+                                    handleFilter();
+                                    onClose();
+                                }}
+                                colorScheme={isFiltred?"facebook":"teal"}
+                            >
+                                Применить
+                            </Button>
+                        </Box>
+                        <Box width="100%">
+                            <Button
+                                mx="auto"
+                                height="70px"
+                                width="100%"
+                                colorScheme="gray.300"
+                                color="#FF0000"
+                                onClick={() => {
+                                    Promise.all([setFIO(""),
+                                    setCitizenship(""),setSex(""),
+                                    setIsFiltred(false),
+                                    handleFilter(),setStatusAccommodation(""),
+                                    onClose()])
 
-                    <ModalFooter>
-                        <Button onClick={() => {
-                            handleFilter();
-                            onClose()
-                        } } colorScheme="blue" mr={3}>
-                            Применить
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                setFIO("");
-                                setCitizenship("");
-                                setIsFiltred(false);
-                                handleFilter();
-                                onClose();
-                            }}
-                        >
-                            Отмена
-                        </Button>
-                    </ModalFooter>
-                </DrawerContent>
-            </Drawer>
+                                }}
+                            >
+                                Отмена
+                            </Button>
+                        </Box>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </>
     );
 };

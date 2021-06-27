@@ -37,9 +37,9 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [editmode, setEditMode] = useState(false);
     const [residentFocus, setResidentFocus] = useState("");
-    if (loading) {
-        return <PageLoader />;
-    }
+     if (loading) {
+         return <PageLoader />;
+     }
     const handle = (evt) => {
         setResidentFocus(evt);
     };
@@ -96,12 +96,12 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
                     ))}
                 </Tbody>
             </Table>
-            <Drawer placement="bottom" size="full" isOpen={isOpen} onClose={onClose} >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerHeader>Профиль</DrawerHeader>
-                    <DrawerCloseButton />
-                    <DrawerBody pb={3}>
+            <Modal placement="bottom" size="2xl" isOpen={isOpen} onClose={onClose} >
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Профиль</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={3}>
                         <ResidentProfile
                             residentFocus={residentFocus}
                             editmode={editmode}
@@ -110,12 +110,12 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
                             onClose={onClose}
                             onOpen={onOpen}
                         />
-                    </DrawerBody>
-                    <DrawerFooter>
+                    </ModalBody>
+                    <ModalFooter>
 
                         {!editmode && (
                             <Button colorScheme="blue" mr={3} onClick={()=> handleDownl(residentFocus.student_id) }>
-                                Скачать догвор
+                                Скачать договор
                             </Button>
                         )}
                         <Button
@@ -125,9 +125,9 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
                         >
                             {editmode ? "Отменить " : "Редактировать данные"}
                         </Button>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 };
