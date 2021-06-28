@@ -27,9 +27,12 @@ class StudentController extends Controller
             $faculty = $group_table->pluck('faculty');
             $course = $group_table->pluck('course_of_study');
             $form_education = $group_table->pluck('form_of_education');
-            $student = collect($value)->put('faculty', $faculty[0])
+            $specialty = $group_table->pluck('specialty');
+            $student = collect($value)
+                ->put('faculty', $faculty[0])
                 ->put('course_of_study', $course[0])
-                ->put('form_of_education', $form_education[0]);
+                ->put('form_of_education', $form_education[0])
+                ->put('specialty', $specialty[0]);
             $fuil_info_student[] = $student;
         }
         return response()->json($fuil_info_student, 200);
@@ -95,12 +98,16 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-        $faculty = $student->groupTable()->pluck('faculty');
-        $course = $student->groupTable()->pluck('course_of_study');
-        $form_education = $student->groupTable()->pluck('form_of_education');
-        $student = collect($student)->put('faculty', $faculty[0])
+        $group_table = $student->groupTable();
+        $faculty = $group_table->pluck('faculty');
+        $course = $group_table->pluck('course_of_study');
+        $form_education = $group_table->pluck('form_of_education');
+        $specialty = $group_table->pluck('specialty');
+        $student = collect($student)
+            ->put('faculty', $faculty[0])
             ->put('course_of_study', $course[0])
-            ->put('form_of_education', $form_education[0]);
+            ->put('form_of_education', $form_education[0])
+            ->put('specialty', $specialty[0]);
 
         if (is_null($student)) {
             return response()->json(['message' => 'student not found'], 422);
