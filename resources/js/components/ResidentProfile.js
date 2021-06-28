@@ -13,6 +13,7 @@ import {
     Button,
     Wrap,
     useToast,
+    Box,
 } from "@chakra-ui/react";
 import axios from "axios";
 import FreeroomDialog from "./FreeroomDialog";
@@ -154,59 +155,81 @@ const ResidentProfile = (props) => {
     return (
         <div>
             <Tabs variant="enclosed" colorScheme="blue" orientation="vertical">
-                <TabList>
-                    <Tab>Общая информация</Tab>
-                    <Tab>Паспортные данные</Tab>
-                    <Tab>Данные студента</Tab>
+                <TabList width="35%">
+                    <Tab _selected={{ bg: "rgba(0,90,174,0.3)" }}>
+                        Общая информация
+                    </Tab>
+                    <Tab _selected={{ bg: "rgba(0,90,174,0.3)" }}>
+                        Паспортные данные
+                    </Tab>
+                    <Tab _selected={{ bg: "rgba(0,90,174,0.3)" }}>
+                        Данные студента
+                    </Tab>
+                    <Box width="35%" mt="auto">
+                        <AlertDel
+                            css={{ float: "right" }}
+                            handleVesli={handleVesli}
+                            btnmsg={"Выселить"}
+                            msg={"Подтвердить ?"}
+                        />
+                    </Box>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
                         <FormControl>
-                            <FormLabel>Фамилия:</FormLabel>
-                            <Input
-                                type="text"
-                                value={surname}
-                                onChange={(event) =>
-                                    setSurname(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Фамилия:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={surname}
+                                    onChange={(event) =>
+                                        setSurname(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <FormLabel>Имя:</FormLabel>
-                            <Input
-                                type="text"
-                                value={name}
-                                size="md"
-                                onChange={(event) =>
-                                    setName(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Имя:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={name}
+                                    size="md"
+                                    onChange={(event) =>
+                                        setName(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <FormLabel>Отчество:</FormLabel>
-                            <Input
-                                type="text"
-                                value={patname}
-                                size="md"
-                                onChange={(event) =>
-                                    setPatname(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Отчество:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={patname}
+                                    size="md"
+                                    onChange={(event) =>
+                                        setPatname(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <FormLabel>Дата рождения:</FormLabel>
-                            <Input
-                                type="text"
-                                value={birthday}
-                                size="md"
-                                onChange={(event) =>
-                                    setBirthday(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Дата рождения:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={birthday}
+                                    size="md"
+                                    onChange={(event) =>
+                                        setBirthday(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
                         <HStack>
                             <FormLabel>Пол:</FormLabel>
@@ -235,16 +258,18 @@ const ResidentProfile = (props) => {
                         </HStack>
 
                         <FormControl mt={1}>
-                            <FormLabel>Номер телефона:</FormLabel>
-                            <Input
-                                type="tel"
-                                value={phone}
-                                size="md"
-                                onChange={(event) =>
-                                    setPhone(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Номер телефона:</FormLabel>
+                                <Input
+                                    type="tel"
+                                    value={phone}
+                                    size="md"
+                                    onChange={(event) =>
+                                        setPhone(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
                         <FormControl mt={1}>
                             <HStack>
@@ -266,6 +291,7 @@ const ResidentProfile = (props) => {
                                 <Input
                                     type="text"
                                     value={room}
+                                    width="100px"
                                     size="md"
                                     onChange={(event) =>
                                         setRoom(event.currentTarget.value)
@@ -288,175 +314,210 @@ const ResidentProfile = (props) => {
                     </TabPanel>
                     <TabPanel>
                         <FormControl>
-                            <FormLabel>Серия и номер паспорта:</FormLabel>
-                            <Input
-                                type="text"
-                                value={passportNumber}
-                                size="lg"
-                                onChange={(event) =>
-                                    setPassportNumber(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Серия и номер паспорта:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={passportNumber}
+                                    size="lg"
+                                    onChange={(event) =>
+                                        setPassportNumber(
+                                            event.currentTarget.value
+                                        )
+                                    }
+                                    isDisabled={editmode}
+                                />{" "}
+                            </HStack>
                         </FormControl>
+
                         <FormControl mt={1}>
-                            <FormLabel>Кем выдан и Дата выдачи:</FormLabel>
-                            <Input
-                                type="text"
-                                value={infoPassport}
-                                size="lg"
-                                onChange={(event) =>
-                                    setInfoPassport(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Кем выдан и Дата выдачи:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={infoPassport}
+                                    size="lg"
+                                    onChange={(event) =>
+                                        setInfoPassport(
+                                            event.currentTarget.value
+                                        )
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
+
                         <FormControl mt={1}>
-                            <FormLabel>Прописка:</FormLabel>
-                            <Input
-                                type="text"
-                                value={registration}
-                                size="lg"
-                                onChange={(event) =>
-                                    setRegistration(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Прописка:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={registration}
+                                    size="lg"
+                                    onChange={(event) =>
+                                        setRegistration(
+                                            event.currentTarget.value
+                                        )
+                                    }
+                                    isDisabled={editmode}
+                                />{" "}
+                            </HStack>
                         </FormControl>
+
                         <FormControl mt={1}>
-                            <FormLabel>Гражданство:</FormLabel>
-                            <Input
-                                type="text"
-                                value={citizenship}
-                                size="lg"
-                                onChange={(event) =>
-                                    setCitizenship(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Гражданство:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={citizenship}
+                                    size="lg"
+                                    onChange={(event) =>
+                                        setCitizenship(
+                                            event.currentTarget.value
+                                        )
+                                    }
+                                    isDisabled={editmode}
+                                />
+                            </HStack>
                         </FormControl>
+
                         <FormControl mt={1}>
-                            <FormLabel>Место рождения:</FormLabel>
-                            <Input
-                                type="text"
-                                value={birthPlace}
-                                size="lg"
-                                onChange={(event) =>
-                                    setBirthPlace(event.currentTarget.value)
-                                }
-                                isDisabled={editmode}
-                            />
+                            <HStack>
+                                <FormLabel>Место рождения:</FormLabel>
+                                <Input
+                                    type="text"
+                                    value={birthPlace}
+                                    size="lg"
+                                    onChange={(event) =>
+                                        setBirthPlace(event.currentTarget.value)
+                                    }
+                                    isDisabled={editmode}
+                                />{" "}
+                            </HStack>
                         </FormControl>
                     </TabPanel>
                     <TabPanel>
                         {/* Third part panel */}
 
                         <FormControl mt={1}>
-                            <FormLabel>Группа:</FormLabel>
+                            <HStack>
+                                <FormLabel>Группа:</FormLabel>
 
-                            <Select
-                                value={group}
-                                size="lg"
-                                isDisabled={editmode}
-                                onChange={(event) =>
-                                    setGroup(event.currentTarget.value)
-                                }
-                            >
-                                <option value={group} disabled selected>
-                                    {group}
-                                </option>
-                                {groups.map((groupp) => (
-                                    <option
-                                        style={{ color: "black" }}
-                                        key={groupp.id}
-                                        value={groupp.group_name}
-                                    >
-                                        {groupp.group_name}
+                                <Select
+                                    value={group}
+                                    size="lg"
+                                    isDisabled={editmode}
+                                    onChange={(event) =>
+                                        setGroup(event.currentTarget.value)
+                                    }
+                                >
+                                    <option value={group} disabled selected>
+                                        {group}
                                     </option>
-                                ))}
-                            </Select>
+                                    {groups.map((groupp) => (
+                                        <option
+                                            style={{ color: "black" }}
+                                            key={groupp.id}
+                                            value={groupp.group_name}
+                                        >
+                                            {groupp.group_name}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </HStack>
                         </FormControl>
-                        <FormControl mt={1}>
-                            <FormLabel>Статус студента:</FormLabel>
 
-                            <Select
-                                value={statusStudent}
-                                size="lg"
-                                isDisabled={editmode}
-                                onChange={(event) =>
-                                    setStatusStudent(event.currentTarget.value)
-                                }
-                            >
-                                <option value={statusStudent} disabled selected>
-                                    {statusStudent}
-                                </option>
-                                {statusStudents.map((st, index) => (
+                        <FormControl mt={1}>
+                            {" "}
+                            <HStack>
+                                <FormLabel>Статус студента:</FormLabel>
+
+                                <Select
+                                    value={statusStudent}
+                                    size="lg"
+                                    isDisabled={editmode}
+                                    onChange={(event) =>
+                                        setStatusStudent(
+                                            event.currentTarget.value
+                                        )
+                                    }
+                                >
                                     <option
-                                        key={index}
-                                        value={st.status_student}
+                                        value={statusStudent}
+                                        disabled
+                                        selected
                                     >
-                                        {st.status_student}
+                                        {statusStudent}
                                     </option>
-                                ))}
-                            </Select>
+                                    {statusStudents.map((st, index) => (
+                                        <option
+                                            key={index}
+                                            value={st.status_student}
+                                        >
+                                            {st.status_student}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </HStack>
                         </FormControl>
-                        <FormControl mt={1}>
-                            <FormLabel>Статус проживания:</FormLabel>
 
-                            <Select
-                                value={statusAccommodation}
-                                size="lg"
-                                isDisabled={editmode}
-                                onChange={(event) =>
-                                    setAccommodation(event.currentTarget.value)
-                                }
-                            >
-                                <option
+                        <FormControl mt={1}>
+                            {" "}
+                            <HStack>
+                                <FormLabel>Статус проживания:</FormLabel>
+
+                                <Select
                                     value={statusAccommodation}
-                                    disabled
-                                    selected
+                                    size="lg"
+                                    isDisabled={editmode}
+                                    onChange={(event) =>
+                                        setAccommodation(
+                                            event.currentTarget.value
+                                        )
+                                    }
                                 >
-                                    {statusAccommodation}
-                                </option>
-                                <option
-                                    style={{ color: "blue" }}
-                                    value="Проживает"
-                                >
-                                    Проживает
-                                </option>
-                                <option
-                                    style={{ color: "orange" }}
-                                    value="Процесс оформления документов"
-                                >
-                                    Процесс оформления документов
-                                </option>
-                                <option
-                                    style={{ color: "red" }}
-                                    value="Выселен"
-                                >
-                                    Выселен
-                                </option>
-                            </Select>
+                                    <option
+                                        value={statusAccommodation}
+                                        disabled
+                                        selected
+                                    >
+                                        {statusAccommodation}
+                                    </option>
+                                    <option
+                                        style={{ color: "blue" }}
+                                        value="Проживает"
+                                    >
+                                        Проживает
+                                    </option>
+                                    <option
+                                        style={{ color: "orange" }}
+                                        value="Процесс оформления документов"
+                                    >
+                                        Процесс оформления документов
+                                    </option>
+                                    <option
+                                        style={{ color: "red" }}
+                                        value="Выселен"
+                                    >
+                                        Выселен
+                                    </option>
+                                </Select>
+                            </HStack>
                         </FormControl>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
+
             {!editmode && (
                 <>
-                    {" "}
-                    <AlertDel
-                        css={{ float: "right" }}
-                        handleVesli={handleVesli}
-                        btnmsg={"Выселить"}
-                        msg={"Подтвердить ?"}
-                    />{" "}
                     <Button
                         css={{ float: "right" }}
                         onClick={handleSubmit}
-                        colorScheme="blue"
+                        bg="bluet.900"
+                        color="white"
                     >
                         Подтвердить и сохранить
-                    </Button>{" "}
+                    </Button>
                 </>
             )}
         </div>
