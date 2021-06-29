@@ -43,7 +43,7 @@ const ResidentProfile = (props) => {
     );
     const [group, setGroup] = useState(resident.group);
     const toast = useToast();
-    const editmode = !props.editmode;
+    const [editmode, setEditMode] = useState(true);
     const [groups, Setgroups] = useState([]);
     const [statusStudents, setStatusStudents] = useState([]);
 
@@ -151,96 +151,142 @@ const ResidentProfile = (props) => {
                 });
         }, 1000);
     };
-
+    const divStyle = {
+        borderRadius: "40px",
+    };
     return (
-        <div>
+        <Box
+            borderRadius="sm"
+            border="1px solid black"
+            style={{ borderRadius: "1em", borderColor: "#A1A1A1" }}
+        >
             <Tabs variant="enclosed" colorScheme="blue" orientation="vertical">
-                <TabList width="35%">
-                    <Tab _selected={{ bg: "rgba(0,90,174,0.3)" }}>
+                <TabList
+                    borderRight="1px"
+                    borderBottom="1px"
+                    style={{ borderColor: "#A1A1A1" }}
+                    width={["100px", "200px", "300px"]}
+                >
+                    <Tab
+                        borderBottom="1px"
+                        style={{ borderColor: "#A1A1A1" }}
+                        _selected={{ bg: "rgba(0,90,174,0.3)" }}
+                    >
                         Общая информация
                     </Tab>
-                    <Tab _selected={{ bg: "rgba(0,90,174,0.3)" }}>
+                    <Tab
+                        borderBottom="1px"
+                        style={{ borderColor: "#A1A1A1" }}
+                        _selected={{ bg: "rgba(0,90,174,0.3)" }}
+                    >
                         Паспортные данные
                     </Tab>
-                    <Tab _selected={{ bg: "rgba(0,90,174,0.3)" }}>
+                    <Tab
+                        borderBottom="1px"
+                        style={{ borderColor: "#A1A1A1" }}
+                        _selected={{ bg: "rgba(0,90,174,0.3)" }}
+                    >
                         Данные студента
                     </Tab>
-                    <Box width="35%" mt="auto">
-                        <AlertDel
-                            css={{ float: "right" }}
-                            handleVesli={handleVesli}
-                            btnmsg={"Выселить"}
-                            msg={"Подтвердить ?"}
-                        />
-                    </Box>
+                    {props.vesilit ? (
+                        <Box width="35%" mt="auto" mb="15px">
+                            <AlertDel
+                                css={{ float: "right" }}
+                                handleVesli={handleVesli}
+                                btnmsg={"Выселить"}
+                                msg={"Подтвердить ?"}
+                            />
+                        </Box>
+                    ) : null}
                 </TabList>
                 <TabPanels>
                     <TabPanel>
                         <FormControl>
                             <HStack>
-                                <FormLabel>Фамилия:</FormLabel>
+                                <Box verticalAlign="middle" width="151px" height="41px">
+                                    <p>Фамилия:</p>
+                                </Box>
                                 <Input
                                     type="text"
                                     value={surname}
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setSurname(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Имя:</FormLabel>
+                                <Box width="151px" height="41px">
+                                   <p>Имя:</p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={name}
-                                    size="md"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setName(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Отчество:</FormLabel>
+                                <Box width="151px" height="41px">
+                                   <p>Отчество:</p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={patname}
-                                    size="md"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setPatname(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Дата рождения:</FormLabel>
+                                <Box width="151px" height="41px">
+                                    <p>Дата рождения:</p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={birthday}
-                                    size="md"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setBirthday(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
                         <HStack>
-                            <FormLabel>Пол:</FormLabel>
+                            <Box width="151px" height="41px">
+                                <p>Пол:</p>
+                            </Box>{" "}
                             <Select
                                 placeholder={sex}
                                 value={sex}
-                                size="md"
+                                width="147px"
+                                height="47px"
                                 onChange={(event) =>
                                     setSex(event.currentTarget.value)
                                 }
                                 isDisabled={editmode}
+                                border={editmode ? "none" : "1px"}
                             >
                                 <option
                                     style={{ color: "blue" }}
@@ -259,44 +305,56 @@ const ResidentProfile = (props) => {
 
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Номер телефона:</FormLabel>
+                            <Box width="151px" height="41px">
+                                <p>Номер телефона:</p>
+                                </Box>
                                 <Input
                                     type="tel"
                                     value={phone}
-                                    size="md"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setPhone(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>E-mail:</FormLabel>
+                                <Box width="151px" height="41px">
+                                   <p>E-mail:</p>
+                                </Box>{" "}
                                 <Input
                                     type="email"
                                     value={email}
-                                    size="md"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setEmail(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>№ комнаты:</FormLabel>
+                                <Box width="151px" height="41px">
+                                   <p> № комнаты:</p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={room}
                                     width="100px"
-                                    size="md"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setRoom(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                                 {!editmode ? (
                                     <FreeroomDialog
@@ -311,87 +369,137 @@ const ResidentProfile = (props) => {
                                 ) : null}
                             </HStack>
                         </FormControl>
+                        <HStack justify="space-between">
+                            {editmode && (
+                                <Button
+                                    colorScheme="blue"
+                                    mr="auto"
+                                    onClick={() =>
+                                        props.handleDownl(
+                                            residentFocus.student_id
+                                        )
+                                    }
+                                >
+                                    Скачать договор
+                                </Button>
+                            )}
+                            {editmode ? (
+                                <Button
+                                    onClick={() => {
+                                        setEditMode(!editmode);
+                                    }}
+                                >
+                                    {editmode
+                                        ? "Редактировать данные"
+                                        : "Отменить "}
+                                </Button>
+                            ) : null}
+                        </HStack>
                     </TabPanel>
                     <TabPanel>
                         <FormControl>
                             <HStack>
-                                <FormLabel>Серия и номер паспорта:</FormLabel>
+                                <Box width="151px" height="41px">
+                                    <p>
+                                        Серия и номер паспорта:
+                                    </p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={passportNumber}
-                                    size="lg"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setPassportNumber(
                                             event.currentTarget.value
                                         )
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />{" "}
                             </HStack>
                         </FormControl>
 
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Кем выдан и Дата выдачи:</FormLabel>
+                                <Box width="151px" height="41px">
+                                    <p>
+                                        Кем выдан:
+                                    </p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={infoPassport}
-                                    size="lg"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setInfoPassport(
                                             event.currentTarget.value
                                         )
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
 
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Прописка:</FormLabel>
+                                <Box width="151px" height="41px">
+                                    <p>Прописка:</p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={registration}
-                                    size="lg"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setRegistration(
                                             event.currentTarget.value
                                         )
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />{" "}
                             </HStack>
                         </FormControl>
 
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Гражданство:</FormLabel>
+                                <Box width="151px" height="41px">
+                                    <p>Гражданство:</p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={citizenship}
-                                    size="lg"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setCitizenship(
                                             event.currentTarget.value
                                         )
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />
                             </HStack>
                         </FormControl>
 
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Место рождения:</FormLabel>
+                                <Box width="151px" height="41px">
+                                    <p>Место рождения:</p>
+                                </Box>{" "}
                                 <Input
                                     type="text"
                                     value={birthPlace}
-                                    size="lg"
+                                    width="147px"
+                                    height="47px"
                                     onChange={(event) =>
                                         setBirthPlace(event.currentTarget.value)
                                     }
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                 />{" "}
                             </HStack>
                         </FormControl>
@@ -401,12 +509,14 @@ const ResidentProfile = (props) => {
 
                         <FormControl mt={1}>
                             <HStack>
-                                <FormLabel>Группа:</FormLabel>
-
+                                <Box width="151px" height="41px">
+                                    <FormLabel>Группа:</FormLabel>
+                                </Box>{" "}
                                 <Select
                                     value={group}
                                     size="lg"
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                     onChange={(event) =>
                                         setGroup(event.currentTarget.value)
                                     }
@@ -430,12 +540,14 @@ const ResidentProfile = (props) => {
                         <FormControl mt={1}>
                             {" "}
                             <HStack>
-                                <FormLabel>Статус студента:</FormLabel>
-
+                                <Box width="151px" height="41px">
+                                    <FormLabel>Статус студента:</FormLabel>
+                                </Box>{" "}
                                 <Select
                                     value={statusStudent}
                                     size="lg"
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                     onChange={(event) =>
                                         setStatusStudent(
                                             event.currentTarget.value
@@ -464,12 +576,14 @@ const ResidentProfile = (props) => {
                         <FormControl mt={1}>
                             {" "}
                             <HStack>
-                                <FormLabel>Статус проживания:</FormLabel>
-
+                                <Box width="151px" height="41px">
+                                    <FormLabel>Статус проживания:</FormLabel>
+                                </Box>{" "}
                                 <Select
                                     value={statusAccommodation}
                                     size="lg"
                                     isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
                                     onChange={(event) =>
                                         setAccommodation(
                                             event.currentTarget.value
@@ -515,12 +629,13 @@ const ResidentProfile = (props) => {
                         onClick={handleSubmit}
                         bg="bluet.900"
                         color="white"
+                        m={1}
                     >
                         Подтвердить и сохранить
                     </Button>
                 </>
             )}
-        </div>
+        </Box>
     );
 };
 

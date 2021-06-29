@@ -36,7 +36,6 @@ import PageLoader from "./PageLoader";
 import axios from "axios";
 export const Students = ({ posts, loading , setRerenderChange} ) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [editmode, setEditMode] = useState(false);
     const [residentFocus, setResidentFocus] = useState("");
      if (loading) {
          return <PageLoader />;
@@ -66,7 +65,7 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
                     <Tr  align="center" alignContent="center" alignItems="center"  >
                         <Th  textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">ФИО</Th>
                         <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Пол</Th>
-                        <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Грожданство</Th>
+                        <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Гражданство</Th>
                         <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Факультет</Th>
                         <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Тип специальности</Th>
                         <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Статус студент</Th>
@@ -87,17 +86,17 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
                             <Th textAlign="center"  borderRight="1px solid rgba(161, 161, 161, 0.3)">
                                {post.surname} {post.name}  {post.patronymic}
                             </Th>
-                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.sex}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.sex.slice(0,3)}</Th>
                             <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.citizenship}</Th>
-                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.citizenship}</Th>
-                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.citizenship}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.faculty}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.specialty}</Th>
                             <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)" >{post.status_student}</Th>
                             <Th textAlign="center">{post.status_accommodation}</Th>
                         </Tr>
                     ))}
                 </Tbody>
             </Table>
-            <Modal placement="bottom" size="2xl" isOpen={isOpen} onClose={onClose} >
+            <Modal placement="bottom" size="4xl" isOpen={isOpen} onClose={onClose} >
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Профиль <Text fontSize="14px" fontWeight="500" color="#A1A1A1">
@@ -107,28 +106,12 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
                     <ModalBody pb={3}>
                         <ResidentProfile
                             residentFocus={residentFocus}
-                            editmode={editmode}
                             setRerenderChange={setRerenderChange}
-                            setEditMode={setEditMode}
                             onClose={onClose}
                             onOpen={onOpen}
+                            handleDownl={handleDownl}
                         />
                     </ModalBody>
-                    <ModalFooter>
-
-                        {!editmode && (
-                            <Button colorScheme="blue" mr={3} onClick={()=> handleDownl(residentFocus.student_id) }>
-                                Скачать договор
-                            </Button>
-                        )}
-                        <Button
-                            onClick={() => {
-                                setEditMode(!editmode);
-                            }}
-                        >
-                            {editmode ? "Отменить " : "Редактировать данные"}
-                        </Button>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </Box>

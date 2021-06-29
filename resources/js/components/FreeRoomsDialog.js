@@ -124,22 +124,23 @@ const FreeRoomsDialog = (props) => {
                                     border="1px  solid"
                                     borderColor="blue.300"
                                     borderRadius="md"
+                                    textAlign="center"
                                 >
                                     <Tr>
-                                        <Th>ФИО</Th>
-                                        <Th>Факультет</Th>
-                                        <Th>Курс</Th>
+                                        <Th textAlign="center">ФИО</Th>
+                                        <Th textAlign="center">Факультет</Th>
+                                        <Th textAlign="center">Курс</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
                                     {selectedToView &&
                                         selectedToView.map((rm, index) => (
-                                            <Tr key={index}>
-                                                <Th>
+                                            <Tr  key={index}>
+                                                <Th textAlign="center">
                                                     {rm.name} {rm.surname}
                                                 </Th>
-                                                <Th>{rm.faculty}</Th>
-                                                <Th>{rm.course_of_study}</Th>
+                                                <Th textAlign="center">{rm.faculty}</Th>
+                                                <Th textAlign="center">{rm.course_of_study}</Th>
                                             </Tr>
                                         ))}
                                 </Tbody>
@@ -198,10 +199,10 @@ const FreeRoomsDialog = (props) => {
                         <Table variant="simple">
                             <Thead>
                                 <Tr>
-                                    <Th>N°комнаты</Th>
-                                    <Th>Проживает</Th>
-                                    <Th>ПОЛ</Th>
-                                    <Th>Соседи</Th>
+                                    <Th textAlign="center">N°комнаты</Th>
+                                    <Th textAlign="center">Проживает</Th>
+                                    <Th textAlign="center">ПОЛ</Th>
+                                    <Th textAlign="center">Соседи</Th>
 
                                     <Th></Th>
                                 </Tr>
@@ -212,16 +213,17 @@ const FreeRoomsDialog = (props) => {
                                         (opt) =>
                                             opt.floor === props.floorActive)
                                     .map((room, index) => (
-                                        <Tr key={room.room_id}>
-                                            <Th>
+                                        <Tr textAlign="center" key={room.room_id}>
+                                            <Th textAlign="center">
                                                     {room.room_id}
                                             </Th>
-                                            <Th>
+                                            <Th textAlign="center">
                                                 {room.number_of_living} /{" "}
                                                 {room.max_living}
                                             </Th>
-                                            <Th>{room.status}</Th>
+                                            <Th textAlign="center">{room.status}</Th>
                                             <Th
+                                                textAlign="center"
                                                 _hover={{ cursor: "pointer" }}
                                                 onClick={() => {
                                                     setSelectedToViewID(

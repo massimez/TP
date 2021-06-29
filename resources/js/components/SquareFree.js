@@ -49,16 +49,16 @@ const SquareFree = (props) => {
                 <Box align="center" >
                     {props.room.status === "Женская" &&
                     props.room.number_of_living >= 1 &&
-                    props.room.number_of_living <= props.room.max_living ? (
+                    props.room.number_of_living < props.room.max_living ? (
                         <FaFemale color="red"/>
                     ) : null}
                     {props.room.status === "Мужская" &&
                     props.room.number_of_living >= 1 &&
-                    props.room.number_of_living <= props.room.max_living ? (
+                    props.room.number_of_living <props.room.max_living ? (
                         <Box mt={1} color="facebook.500"><FaMale   /></Box>
                     ) : null}
 
-                    {props.room.number_of_living === 0 ? (
+                    {props.room.number_of_living === 0 || props.room.number_of_living === props.room.max_living ? (
                         <>
                         <HStack mt={1} justifyContent="space-between">
                            <Box  color="facebook.500" ><FaMale  /></Box>

@@ -9,7 +9,7 @@ const RoomsPlan = () => {
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [width, setWidth] = useState(70);
+    const [width, setWidth] = useState(72);
 
     useEffect(() => {
         const fetchPosts = async () => {
