@@ -40,7 +40,7 @@ const SquareIcon = (props) => {
         >
             <div style={divStyle}></div>
             <div style={divStyleLeft}></div>
-            <img width="36px" height="36px" src={props.icon}  />
+            <img width="25px" height="25px" src={props.icon}  />
         </Flex>
     );
 };

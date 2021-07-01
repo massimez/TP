@@ -1,10 +1,10 @@
 import { Box, Divider, Flex, Heading, SimpleGrid } from "@chakra-ui/layout";
 import { Image, useColorModeValue, useColorMode } from "@chakra-ui/react";
 import React from "react";
-import studentsmenu from "../../svg/studentsmenu.svg";
-import rooms from "../../svg/rooms.svg";
-import newstudent from "../../svg/newstudent.svg";
-import vesili from "../../svg/vesili.svg";
+import vesilit from "../../svg/vesilit.png";
+import students from "../../svg/students.png";
+import rooms from "../../svg/rooms.png";
+import newStudent from "../../svg/newStudent.png";
 import { Link } from "react-router-dom";
 
 const MainMenu = () => {
@@ -37,10 +37,10 @@ const MainMenu = () => {
                     <Link to="/students">
                         <Box justify="center" align="center">
                             <Image
-                                src={studentsmenu}
+                                src={students}
                                 alt="Students logo"
-                                htmlWidth="357px"
-                                htmlHeight="167px"
+                                width="357px"
+                                height="167px"
                                 borderRadius="5%"
                             />
                             <Heading as="h3">Список студентов</Heading>
@@ -57,10 +57,10 @@ const MainMenu = () => {
                     <Link to="/addresident">
                         <Box justify="center" align="center">
                             <Image
-                                src={newstudent}
+                                src={newStudent}
                                 alt="Students logo"
-                                htmlWidth="357px"
-                                htmlHeight="167px"
+                                width="357px"
+                                height="167px"
                                 borderRadius="5%"
                             />
                             <Heading as="h3">Новый студент</Heading>
@@ -78,10 +78,10 @@ const MainMenu = () => {
                     <Link to="/viseleni">
                         <Box justify="center" align="center">
                             <Image
-                                src={vesili}
+                                src={vesilit}
                                 alt="Vicelinie"
-                                htmlWidth="357"
-                                htmlHeight="167"
+                                width="357"
+                                height="167"
                                 borderRadius="5%"
                             />
                             <Heading as="h3">Выселенные</Heading>

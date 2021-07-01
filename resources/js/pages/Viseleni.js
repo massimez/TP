@@ -54,7 +54,7 @@ function Viseleni() {
     return (
         <>
         <Header />
-        <Box>
+        <Box mx="2%">
             <Filtermenu/>
             <Students posts={currrentPosts} loading={loading} setRerenderChange={setRerenderChange} />
             <PagiNext

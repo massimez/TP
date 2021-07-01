@@ -57,8 +57,9 @@ const SquareRoom = (props) => {
                 columns={1}
                 spacingX="0"
                 spacingY="0"
-                width="95%"
-                overflowX="auto"
+                width="fit-content"
+                maxWidth="95%"
+                overflow="auto"
                 mx="auto"
             >
                 <Flex
@@ -84,20 +85,6 @@ const SquareRoom = (props) => {
                         })
                         .map((room, index) => (
                             <>
-                                {index === 4 ? (
-                                    <SquareIcon
-                                        width={props.width}
-                                        icon={oven}
-                                        left="true"
-                                    />
-                                ) : null}
-                                {index === 8 ? (
-                                    <SquareIcon
-                                        width={props.width}
-                                        icon={oven}
-                                        left="true"
-                                    />
-                                ) : null}
                                 <Box
                                     p={0}
                                     m={0}
@@ -148,17 +135,29 @@ const SquareRoom = (props) => {
                         })
                         .map((room, index) => (
                             <>
-                                {index === 4 ? (
+                                {index === 6 ? (
+                                    <>
                                     <SquareIcon
-                                        width={props.width}
+                                        width={props.width-24}
                                         icon={stais}
                                     />
+                                    <SquareIcon
+                                        width={props.width-12}
+                                        icon={oven}
+                                    />
+                                    </>
                                 ) : null}
-                                {index === 8 ? (
+                                {index === 14 ? (
+                                    <>
                                     <SquareIcon
-                                        width={props.width}
+                                        width={props.width-24}
                                         icon={stais}
                                     />
+                                    <SquareIcon
+                                        width={props.width-12}
+                                        icon={oven}
+                                    />
+                                    </>
                                 ) : null}
                                 <Box
                                     p={0}
