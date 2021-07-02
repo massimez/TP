@@ -24,12 +24,12 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('forget_password', [\App\Http\Controllers\AuthController::class,'forgetPassword']);
     Route::post('updatePassword', [\App\Http\Controllers\AuthController::class,'updatePassword']);
 });
-//Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('student', \App\Http\Controllers\StudentController::class);
     Route::resource('room', \App\Http\Controllers\RoomsController::class);
     Route::get('floor',[\App\Http\Controllers\RoomsController::class,'getCountRoomAllFloor']);
     Route::resource('status', \App\Http\Controllers\StatusStudentsController::class);
     Route::resource('group', \App\Http\Controllers\GroupController::class);
-//});
+});
 Route::get('createDoc/{id}',[\App\Http\Controllers\CreateDocxController::class,'getDocument']);
 Route::resource('admin',\App\Http\Controllers\AdminController::class)->middleware(['api','admin']);
