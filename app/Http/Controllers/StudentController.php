@@ -67,7 +67,7 @@ class StudentController extends Controller
             'phone_number'               => 'required|integer',
             'group'                      => 'required|string|exists:groups,group_name',
             'sex'                        => 'required|string|starts_with:МУЖСКОЙ,ЖЕНСКИЙ',
-            'number_contract'            => 'integer|max:20',
+            'number_contract'            => 'string|max:20',
             'date_of_conclusion'         => 'date',
             'date_of_ended_registration' => 'date',
             'citizenship'                => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
@@ -151,11 +151,11 @@ class StudentController extends Controller
             'surname'                    => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
             'patronymic'                 => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
             'status_student'             => 'string|exists:status_students,status_student',
-            'email'                      => 'email',
+            'email'                      => 'email|unique:students',
             'phone_number'               => 'integer',
             'group'                      => 'string|exists:groups,group_name',
             'sex'                        => 'string|starts_with:Мужской,Женский',
-            'number_contract'            => 'integer|max:20',
+            'number_contract'            => 'string|max:20',
             'date_of_conclusion'         => 'date',
             'date_of_ended_registration' => 'date',
             'citizenship'                => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
@@ -167,12 +167,19 @@ class StudentController extends Controller
             'note'                       => 'string|max:2000',
             "status_accommodation"       => 'string|starts_with:Процесс оформления документов,Проживает,Выселен'
         ]);
-        $student = Student::find("$id");
-        $check = $this->callCheckRoom($request);
-        if (is_null($student) || !$check) {
-            return response()->json(['message' => 'Студент не найдет или нет мест'],
-                405);
+
+        $student = Student::find($id);
+        $check = $this->callCheckRoom($request,$student);
+
+        if (is_null($student)) {
+            return response()->json(['message' => 'Студент не найден'],
+                400);
         }
+        if (!$check) {
+            return response()->json(['message' => 'В комнате нет свободных мест'],
+                400);
+        }
+
         $this->updateRoomID($request, $student);
         $student->update($request->all());
         return response()->json(['message' => 'updated!'], 200);
@@ -189,8 +196,12 @@ class StudentController extends Controller
         }
     }
 
-    private function callCheckRoom($request){
-        $check = (new CheckRoom($request->only('room_id')['room_id']))->getStatus();
+    private function callCheckRoom($request, $student){
+        $check = true;
+
+        if($request->only('room_id')['room_id'] != $student->room_id){
+            $check = (new CheckRoom($request->only('room_id')['room_id']))->getStatus();
+        }
         if (!$check) {
             return false;
         }
