@@ -76,26 +76,24 @@ const ResidentProfile = (props) => {
         event.preventDefault();
         //
         const data = {
-            name: name,
-            email: email,
-            birthday: birthday,
-            citizenship: citizenship,
-            email: email,
-            group: group,
-            info_passport: infoPassport,
-            name: name,
-            number_passport: passportNumber,
-            patronymic: patname,
-            phone_number: phone,
-            place_of_birth: birthPlace,
-            registration: registration,
-            room_id: room,
-            sex: sex,
-            status_student: statusStudent,
-            status_accommodation: statusAccommodation,
-            surname: surname,
+
         };
-        setTimeout(() => {
+        if(parseInt(room) != parseInt(resident.room_id)) data.room_id = room
+        if (email != resident.email ) data.email = email;
+        if ( birthday != resident.birthday) data.birthday = birthday;
+        if (citizenship != resident.citizenship) data.citizenship = citizenship;
+        if (group != resident.group) data.group = group;
+        if (infoPassport != resident.info_passport) data.info_passport = infoPassport;
+        if (name != resident.name) data.name = name;
+        if (surname != resident.surname) data.surname = surname;
+        if (passportNumber != resident.number_passport) data.number_passport = passportNumber;
+        if (phone != resident.phone_number) data.phone_number = phone;
+        if (patname != resident.patronymic) data.patronymic = patname;
+        if (birthPlace != resident.place_of_birth) data.place_of_birth = birthPlace;
+        if (registration != resident.registration) data.registration = registration;
+        if (sex != resident.sex) data.sex = sex;
+        if (statusStudent !=  resident.status_student) data.status_student = statusStudent;
+        if (statusAccommodation != resident.status_accommodation) data.status_accommodation = statusAccommodation;
             axios
                 .put(`/api/student/${resident.student_id}`, data)
                 .then((res) => {
@@ -106,7 +104,6 @@ const ResidentProfile = (props) => {
                         status: "success",
                         isClosable: true,
                     });
-                    props.setEditMode(!editmode);
                     props.onClose();
                 })
                 .catch((err) => {
@@ -116,9 +113,7 @@ const ResidentProfile = (props) => {
                         status: "error",
                         isClosable: true,
                     });
-                    console.log(err.response.data.errors);
                 });
-        }, 1000);
     };
     const handleVesli = (event) => {
         event.preventDefault();
@@ -285,6 +280,7 @@ const ResidentProfile = (props) => {
                                 onChange={(event) =>
                                     setSex(event.currentTarget.value)
                                 }
+
                                 isDisabled={editmode}
                                 border={editmode ? "none" : "1px"}
                             >
@@ -520,8 +516,9 @@ const ResidentProfile = (props) => {
                                     onChange={(event) =>
                                         setGroup(event.currentTarget.value)
                                     }
+
                                 >
-                                    <option value={group} disabled selected>
+                                    <option value={group} disabled >
                                         {group}
                                     </option>
                                     {groups.map((groupp) => (
@@ -557,7 +554,7 @@ const ResidentProfile = (props) => {
                                     <option
                                         value={statusStudent}
                                         disabled
-                                        selected
+
                                     >
                                         {statusStudent}
                                     </option>
@@ -593,7 +590,7 @@ const ResidentProfile = (props) => {
                                     <option
                                         value={statusAccommodation}
                                         disabled
-                                        selected
+
                                     >
                                         {statusAccommodation}
                                     </option>
