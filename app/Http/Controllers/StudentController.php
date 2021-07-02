@@ -196,10 +196,10 @@ class StudentController extends Controller
         }
     }
 
-    private function callCheckRoom($request, $student){
+    private function callCheckRoom($request, $student = null){
         $check = true;
 
-        if($request->only('room_id')['room_id'] != $student->room_id){
+        if($request->only('room_id')['room_id'] != $student->room_id || $student === null){
             $check = (new CheckRoom($request->only('room_id')['room_id']))->getStatus();
         }
         if (!$check) {

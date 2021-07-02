@@ -83,7 +83,7 @@ class RoomsController extends Controller
     {
         $room = Room::find($id);
         if (is_null($room)) {
-            return response()->json(['message' => 'room not found'], 404);
+            return response()->json(['message' => 'Комната не найдена'], 404);
         }
         $students = $room->studentTable()->get(       );
         foreach ($students as $key =>$student){
@@ -131,7 +131,7 @@ class RoomsController extends Controller
         ]);
         $room = Room::find($id);
         if (is_null($room)) {
-            return response()->json(['message' => 'room not found'], 404);
+            return response()->json(['message' => 'Комната не найдена!'], 404);
         }
 
         $room->update($request->input());
@@ -143,7 +143,7 @@ class RoomsController extends Controller
     {
         $room = Room::find($id);
         if (is_null($room)) {
-            return response()->json(['message' => 'room not found'], 404);
+            return response()->json(['message' => 'Комната не найдена!'], 404);
         }
         event(new CountRoomFloorEvent($room->floor,0));
         $room->delete();
