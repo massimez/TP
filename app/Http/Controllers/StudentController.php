@@ -169,13 +169,15 @@ class StudentController extends Controller
         ]);
 
         $student = Student::find($id);
-        $check = $this->callCheckRoom($request,$student);
+        if ($request->room_id){
+            $check = $this->callCheckRoom($request,$student);
+        }
 
         if (is_null($student)) {
             return response()->json(['message' => 'Студент не найден'],
                 400);
         }
-        if (!$check) {
+        if (isset($check) && !$check) {
             return response()->json(['message' => 'В комнате нет свободных мест'],
                 400);
         }
