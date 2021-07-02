@@ -77,7 +77,7 @@ class StudentController extends Controller
             'info_passport'              => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'registration'               => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'note'                       => 'string|max:2000',
-            "status_accommodation"       => 'string|starts_with:процесс оформления документов, проживает, выселен'
+            "status_accommodation"       => 'string|starts_with:Процесс оформления документов,Проживает,Выселен'
         ]);
         $check = $this->callCheckRoom($request);
         if (!$check) {
@@ -151,7 +151,7 @@ class StudentController extends Controller
             'surname'                    => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
             'patronymic'                 => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
             'status_student'             => 'string|exists:status_students,status_student',
-            'email'                      => 'email|unique:students',
+            'email'                      => 'email',
             'phone_number'               => 'integer',
             'group'                      => 'string|exists:groups,group_name',
             'sex'                        => 'string|starts_with:Мужской,Женский',
@@ -165,7 +165,7 @@ class StudentController extends Controller
             'info_passport'              => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'registration'               => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
             'note'                       => 'string|max:2000',
-            "status_accommodation"       => 'string|starts_with:процесс оформления документов,проживает,выселен'
+            "status_accommodation"       => 'string|starts_with:Процесс оформления документов,Проживает,Выселен'
         ]);
         $student = Student::find("$id");
         $check = $this->callCheckRoom($request);
