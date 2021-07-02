@@ -154,7 +154,7 @@ class StudentController extends Controller
             'email'                      => 'email|unique:students',
             'phone_number'               => 'integer',
             'group'                      => 'string|exists:groups,group_name',
-            'sex'                        => 'string|starts_withs:Мужской,Женский',
+            'sex'                        => 'string|starts_with:Мужской,Женский',
             'number_contract'            => 'integer|max:20',
             'date_of_conclusion'         => 'date',
             'date_of_ended_registration' => 'date',
