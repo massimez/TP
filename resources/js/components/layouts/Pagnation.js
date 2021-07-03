@@ -38,6 +38,9 @@ const Pagnation = () => {
         const sex = filter.sex;
         const groupe = filter.groupe;
         const status_accommodation = filter.statusAccommodation;
+        const faculty = filter.faculty;
+        const specialty = filter.specialty;
+        const statusStudent = filter.statusStudent;
         console.log(FIO)
         return residents.filter((row)=>  row.surname.toString().toLowerCase().indexOf(FIO.toLowerCase()) > -1
         && row.name.toString().toLowerCase().indexOf(name.toLowerCase()) > -1
@@ -45,6 +48,9 @@ const Pagnation = () => {
          &&  row.sex.toString().toLowerCase().indexOf(sex.toLowerCase()) > -1
          &&  row.status_accommodation.toString().toLowerCase().indexOf(status_accommodation.toLowerCase()) > -1
          && row.group.toString().toLowerCase().indexOf(groupe.toLowerCase()) > -1
+         && row.specialty.toString().toLowerCase().indexOf(specialty.toLowerCase()) > -1
+         && row.faculty.toString().toLowerCase().indexOf(faculty.toLowerCase()) > -1
+         && row.status_student.toString().toLowerCase().indexOf(statusStudent.toLowerCase()) > -1
          );}
     if(filter.isFiltred) {
          console.log(filter?filter:"Undi");

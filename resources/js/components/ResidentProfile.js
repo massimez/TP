@@ -183,8 +183,8 @@ const ResidentProfile = (props) => {
                     >
                         Данные студента
                     </Tab>
-                    {props.vesilit ? (
-                        <Box width="35%" mt="auto" mb="15px">
+
+                        <Box  mt="auto" mb="15px">
                             <AlertDel
                                 css={{ float: "right" }}
                                 handleVesli={handleVesli}
@@ -192,13 +192,12 @@ const ResidentProfile = (props) => {
                                 msg={"Подтвердить ?"}
                             />
                         </Box>
-                    ) : null}
                 </TabList>
                 <TabPanels>
                     <TabPanel>
                         <FormControl>
-                            <HStack>
-                                <Box verticalAlign="middle" width="151px" height="41px">
+                            <HStack align="center">
+                                <Box verticalAlign="middle" width="151px">
                                     <p>Фамилия:</p>
                                 </Box>
                                 <Input
@@ -215,8 +214,8 @@ const ResidentProfile = (props) => {
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                    <p>Имя:</p>
                                 </Box>{" "}
                                 <Input
@@ -233,8 +232,8 @@ const ResidentProfile = (props) => {
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                    <p>Отчество:</p>
                                 </Box>{" "}
                                 <Input
@@ -251,8 +250,8 @@ const ResidentProfile = (props) => {
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <p>Дата рождения:</p>
                                 </Box>{" "}
                                 <Input
@@ -268,8 +267,8 @@ const ResidentProfile = (props) => {
                                 />
                             </HStack>
                         </FormControl>
-                        <HStack>
-                            <Box width="151px" height="41px">
+                        <HStack  align="center">
+                            <Box width="151px" >
                                 <p>Пол:</p>
                             </Box>{" "}
                             <Select
@@ -300,8 +299,8 @@ const ResidentProfile = (props) => {
                         </HStack>
 
                         <FormControl mt={1}>
-                            <HStack>
-                            <Box width="151px" height="41px">
+                            <HStack  align="center">
+                            <Box width="151px" >
                                 <p>Номер телефона:</p>
                                 </Box>
                                 <Input
@@ -318,8 +317,8 @@ const ResidentProfile = (props) => {
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                    <p>E-mail:</p>
                                 </Box>{" "}
                                 <Input
@@ -336,8 +335,8 @@ const ResidentProfile = (props) => {
                             </HStack>
                         </FormControl>
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                    <p> № комнаты:</p>
                                 </Box>{" "}
                                 <Input
@@ -394,8 +393,8 @@ const ResidentProfile = (props) => {
                     </TabPanel>
                     <TabPanel>
                         <FormControl>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <p>
                                         Серия и номер паспорта:
                                     </p>
@@ -417,8 +416,8 @@ const ResidentProfile = (props) => {
                         </FormControl>
 
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <p>
                                         Кем выдан:
                                     </p>
@@ -440,8 +439,8 @@ const ResidentProfile = (props) => {
                         </FormControl>
 
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <p>Прописка:</p>
                                 </Box>{" "}
                                 <Input
@@ -461,8 +460,8 @@ const ResidentProfile = (props) => {
                         </FormControl>
 
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <p>Гражданство:</p>
                                 </Box>{" "}
                                 <Input
@@ -482,8 +481,8 @@ const ResidentProfile = (props) => {
                         </FormControl>
 
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <p>Место рождения:</p>
                                 </Box>{" "}
                                 <Input
@@ -502,10 +501,48 @@ const ResidentProfile = (props) => {
                     </TabPanel>
                     <TabPanel>
                         {/* Third part panel */}
-
                         <FormControl mt={1}>
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
+                                    <FormLabel>Тип специальности:</FormLabel>
+                                </Box>{" "}
+                                <Input
+                                    value={resident.specialty}
+                                    size="lg"
+                                    isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
+                                />
+                            </HStack>
+                        </FormControl>
+                        <FormControl mt={1}>
+                            <HStack  align="center">
+                                <Box width="151px" >
+                                    <FormLabel>Факультет:</FormLabel>
+                                </Box>{" "}
+                                <Input
+                                    value={resident.faculty}
+                                    size="lg"
+                                    isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
+                                />
+                            </HStack>
+                        </FormControl>
+                        <FormControl mt={1}>
+                            <HStack  align="center">
+                                <Box width="151px" >
+                                    <FormLabel>Форма обучения:</FormLabel>
+                                </Box>{" "}
+                                <Input
+                                    value={resident.form_of_education}
+                                    size="lg"
+                                    isDisabled={editmode}
+                                    border={editmode ? "none" : "1px"}
+                                />
+                            </HStack>
+                        </FormControl>
+                        <FormControl mt={1}>
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <FormLabel>Группа:</FormLabel>
                                 </Box>{" "}
                                 <Select
@@ -536,8 +573,8 @@ const ResidentProfile = (props) => {
 
                         <FormControl mt={1}>
                             {" "}
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px" >
                                     <FormLabel>Статус студента:</FormLabel>
                                 </Box>{" "}
                                 <Select
@@ -572,8 +609,8 @@ const ResidentProfile = (props) => {
 
                         <FormControl mt={1}>
                             {" "}
-                            <HStack>
-                                <Box width="151px" height="41px">
+                            <HStack  align="center">
+                                <Box width="151px">
                                     <FormLabel>Статус проживания:</FormLabel>
                                 </Box>{" "}
                                 <Select

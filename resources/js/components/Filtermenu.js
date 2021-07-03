@@ -38,6 +38,9 @@ const Filtermenu = () => {
     const [groupe, setGroupe] = useState("");
     const [sex, setSex] = useState("");
     const [statusAccommodation, setStatusAccommodation] = useState("");
+    const [faculty, setFaulty] = useState("");
+    const [specialty, setSpecialty] = useState("");
+    const [statusStudent, setStatusStudent] = useState("");
     const [isFiltred, setIsFiltred] = useState(false);
     const dispatch = useDispatch();
 
@@ -51,7 +54,10 @@ const Filtermenu = () => {
             citizenship: citizenship,
             sex: sex,
             statusAccommodation: statusAccommodation,
-            groupe:groupe,
+            groupe: groupe,
+            faculty: faculty,
+            specialty: specialty,
+            statusStudent: statusStudent,
         };
         dispatch(setResidentsFilter(Data));
     };
@@ -64,7 +70,7 @@ const Filtermenu = () => {
                     width="220px"
                     height="50px"
                     onClick={onOpen}
-                    leftIcon={<Icon  as={FiFilter} />}
+                    leftIcon={<Icon as={FiFilter} />}
                 >
                     Фильтрация
                 </Button>
@@ -73,13 +79,14 @@ const Filtermenu = () => {
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                            Promise.all(setIsFiltred(false),
-                            setSex(""),
-                            setCitizenship(""),
-                            setFIO(""),
-                            setStatusAccommodation(""),
-                            handleFilter())
-
+                            Promise.all(
+                                setIsFiltred(false),
+                                setSex(""),
+                                setCitizenship(""),
+                                setFIO(""),
+                                setStatusAccommodation(""),
+                                handleFilter()
+                            );
                         }}
                     ></Button>
                 )}
@@ -100,9 +107,11 @@ const Filtermenu = () => {
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                            Promise.all(setCitizenship(""),
-                            handleFilter(),
-                            handleFilter())
+                            Promise.all(
+                                setCitizenship(""),
+                                handleFilter(),
+                                handleFilter()
+                            );
                         }}
                     >
                         {citizenship}
@@ -113,9 +122,7 @@ const Filtermenu = () => {
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                            Promise.all(setSex(""),
-                            handleFilter())
-
+                            Promise.all(setSex(""), handleFilter());
                         }}
                     >
                         {sex}
@@ -126,8 +133,10 @@ const Filtermenu = () => {
                         bg="rgba(255,255,255,0.1)"
                         leftIcon={<CloseIcon />}
                         onClick={() => {
-                            Promise.all(setStatusAccommodation(""),handleFilter())
-
+                            Promise.all(
+                                setStatusAccommodation(""),
+                                handleFilter()
+                            );
                         }}
                     >
                         {statusAccommodation}
@@ -135,35 +144,32 @@ const Filtermenu = () => {
                 )}
             </HStack>
 
-            <Modal   size="lg" isOpen={isOpen} onClose={onClose}>
+            <Modal size="lg" isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent mt="150px">
                     <ModalHeader color={"blue.700"}>
-                    Фильтрация{" "}
-                    <HStack>
-
-                        {
-                            isFiltred?<Button
-                                ml="auto"
-                                height="35px"
-                                colorScheme="facebook"
-                                onClick={ ()  =>  {
-                                    setFIO("");
-                                    setCitizenship("");
-                                    setSex("");
-                                    setIsFiltred(false);
-                                    setGroupe("");
-                                    handleFilter();
-                                    setStatusAccommodation("");
-                                    handleFilter(),
-                                    onClose()
-
-                                }}
-                            >
-                                Сбросить
-                            </Button>:null
-                        }
-                    </HStack>
+                        Фильтрация{" "}
+                        <HStack>
+                            {isFiltred ? (
+                                <Button
+                                    ml="auto"
+                                    height="35px"
+                                    colorScheme="facebook"
+                                    onClick={() => {
+                                        setFIO("");
+                                        setCitizenship("");
+                                        setSex("");
+                                        setIsFiltred(false);
+                                        setGroupe("");
+                                        handleFilter();
+                                        setStatusAccommodation("");
+                                        handleFilter(), onClose();
+                                    }}
+                                >
+                                    Сбросить
+                                </Button>
+                            ) : null}
+                        </HStack>
                         <Text fontSize="14px" fontWeight="500" color="#A1A1A1">
                             Заполните необходимые поля
                         </Text>
@@ -245,164 +251,119 @@ const Filtermenu = () => {
                                 </Select>
                             </FormControl>
                             <FormControl>
-                                <Select
-                                    id="livingstatusSelect"
+                            <Input
+                                    id="student-status"
                                     height="56px"
-                                    style={{ textAlignLast: "center" }}
                                     placeholder="Факультет"
                                     fontWeight="600"
-                                    color="#8B8B8B"
+                                    color="black"
                                     backgroundColor="rgba(0,90,174,0.2)"
                                     borderRadius="6%"
                                     textAlign="center"
-                                    _placeholder={{ color: "white" }}
+                                    _placeholder={{ color: "#8B8B8B" }}
                                     _focus={{ opacity: "100%" }}
                                     onChange={(event) => {
-                                        setStatusAccommodation(
+                                        setFaulty(
                                             event.currentTarget.value
                                         );
                                         setIsFiltred(true);
                                         handleFilter();
-                                        document.getElementById(
-                                            "livingstatusSelect"
-                                        ).style.color = "black";
                                     }}
-                                >
-                                    <option
-                                        style={{ color: "blue" }}
-                                        value="Проживает"
-                                    >
-                                        Проживает
-                                    </option>
-                                    <option
-                                        style={{ color: "red" }}
-                                        value="Процесс оформления документов"
-                                    >
-                                        Процесс оформления документов
-                                    </option>
-                                    <option
-                                        style={{ color: "red" }}
-                                        value="Выселен"
-                                    >
-                                        Выселен
-                                    </option>
-                                </Select>
+                                />
                             </FormControl>
                         </HStack>
                         <HStack mt={4}>
                             <FormControl>
-                                <Select
-                                    id="speciality"
+                            <Input
+                                    id="student-status"
                                     height="56px"
                                     placeholder="Тип специальности"
                                     fontWeight="600"
-                                    color="#8B8B8B"
-                                    backgroundColor="rgba(0,90,174,0.2)"
-                                    borderRadius="6%"
-                                    style={{ textAlignLast: "center" }}
-                                    textAlign="center"
-                                    _placeholder={{ color: "white" }}
-                                    _focus={{ opacity: "100%" }}
-
-
-                                >
-                                    <option
-                                        style={{ color: "blue" }}
-                                        value=""
-                                    >
-
-                                    </option>
-                                    <option
-                                        style={{ color: "red" }}
-                                        value=""
-                                    >
-
-                                    </option>
-                                </Select>
-                            </FormControl>
-                            <FormControl>
-                                <Select
-                                    id="student-status"
-                                    height="56px"
-                                    style={{ textAlignLast: "center" }}
-                                    placeholder="Статус студента"
-                                    fontWeight="600"
-                                    color="#8B8B8B"
+                                    color="black"
                                     backgroundColor="rgba(0,90,174,0.2)"
                                     borderRadius="6%"
                                     textAlign="center"
-                                    _placeholder={{ color: "white" }}
-                                    _focus={{ opacity: "100%" }}
-                                >
-                                    <option
-                                        style={{ color: "blue" }}
-                                        value="Проживает"
-                                    >
-                                        Проживает
-                                    </option>
-                                    <option
-                                        style={{ color: "red" }}
-                                        value="Процесс оформления документов"
-                                    >
-                                        Процесс оформления документов
-                                    </option>
-                                    <option
-                                        style={{ color: "red" }}
-                                        value="Выселен"
-                                    >
-                                        Выселен
-                                    </option>
-                                </Select>
-                            </FormControl>
-                        </HStack>
-                        <FormControl mt={4}>
-                                <Select
-                                    id="livingstatusSelect"
-                                    height="56px"
-                                    style={{ textAlignLast: "center" }}
-                                    placeholder={
-                                        statusAccommodation
-                                            ? statusAccommodation
-                                            : "Статус проживания"
-                                    }
-                                    fontWeight="600"
-                                    color="#8B8B8B"
-                                    backgroundColor="rgba(0,90,174,0.2)"
-                                    borderRadius="6%"
-                                    textAlign="center"
-                                    _placeholder={{ color: "white" }}
+                                    _placeholder={{ color: "#8B8B8B" }}
                                     _focus={{ opacity: "100%" }}
                                     onChange={(event) => {
-                                        setStatusAccommodation(
+                                        setSpecialty(
                                             event.currentTarget.value
                                         );
                                         setIsFiltred(true);
                                         handleFilter();
-                                        document.getElementById(
-                                            "livingstatusSelect"
-                                        ).style.color = "black";
                                     }}
-                                >
-                                    <option
-                                        style={{ color: "blue" }}
-                                        value="Проживает"
-                                    >
-                                        Проживает
-                                    </option>
-                                    <option
-                                        style={{ color: "red" }}
-                                        value="Процесс оформления документов"
-                                    >
-                                        Процесс оформления документов
-                                    </option>
-                                    <option
-                                        style={{ color: "red" }}
-                                        value="Выселен"
-                                    >
-                                        Выселен
-                                    </option>
-                                </Select>
+                                />
                             </FormControl>
+                            <FormControl>
+                                <Input
+                                    id="student-status"
+                                    height="56px"
+                                    placeholder="Статус студента"
+                                    fontWeight="600"
+                                    color="black"
+                                    backgroundColor="rgba(0,90,174,0.2)"
+                                    borderRadius="6%"
+                                    textAlign="center"
+                                    _placeholder={{ color: "#8B8B8B" }}
+                                    _focus={{ opacity: "100%" }}
+                                    onChange={(event) => {
+                                        setStatusStudent(
+                                            event.currentTarget.value
+                                        );
+                                        setIsFiltred(true);
+                                        handleFilter();
+                                    }}
+                                />
+                            </FormControl>
+                        </HStack>
+                        <FormControl mt={4}>
+                            <Select
+                                id="livingstatusSelect"
+                                height="56px"
+                                style={{ textAlignLast: "center" }}
+                                placeholder={
+                                    statusAccommodation
+                                        ? statusAccommodation
+                                        : "Статус проживания"
+                                }
+                                fontWeight="600"
+                                color="#8B8B8B"
+                                backgroundColor="rgba(0,90,174,0.2)"
+                                borderRadius="6%"
+                                textAlign="center"
+                                _placeholder={{ color: "white" }}
+                                _focus={{ opacity: "100%" }}
+                                onChange={(event) => {
+                                    setStatusAccommodation(
+                                        event.currentTarget.value
+                                    );
+                                    setIsFiltred(true);
+                                    handleFilter();
+                                    document.getElementById(
+                                        "livingstatusSelect"
+                                    ).style.color = "black";
+                                }}
+                            >
+                                <option
+                                    style={{ color: "blue" }}
+                                    value="Проживает"
+                                >
+                                    Проживает
+                                </option>
+                                <option
+                                    style={{ color: "red" }}
+                                    value="Процесс оформления документов"
+                                >
+                                    Процесс оформления документов
+                                </option>
+                                <option
+                                    style={{ color: "red" }}
+                                    value="Выселен"
+                                >
+                                    Выселен
+                                </option>
+                            </Select>
+                        </FormControl>
                         <Box mt={4} width="100%">
                             <Button
                                 mx="auto"
@@ -413,7 +374,11 @@ const Filtermenu = () => {
                                     onClose();
                                 }}
                                 color="white"
-                                bg={isFiltred?"facebook.500":"rgba(161, 161, 161, 1)"}
+                                bg={
+                                    isFiltred
+                                        ? "facebook.500"
+                                        : "rgba(161, 161, 161, 1)"
+                                }
                             >
                                 Применить
                             </Button>
@@ -426,7 +391,7 @@ const Filtermenu = () => {
                                 colorScheme="gray.300"
                                 color="#FF0000"
                                 onClick={() => {
-                                     setFIO("");
+                                    setFIO("");
                                     setCitizenship("");
                                     setSex("");
                                     setIsFiltred(false);

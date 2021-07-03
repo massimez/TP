@@ -15,7 +15,7 @@ const AlertDel = (props) => {
 
     return (
       <>
-        <Button width={["100px","200px","300px"]} colorScheme="red" onClick={() => setIsOpen(true)}>
+        <Button width={["100px","150px","250px"]} mx="15px" colorScheme="red" onClick={() => setIsOpen(true)}>
           {props.btnmsg}
         </Button>
 
