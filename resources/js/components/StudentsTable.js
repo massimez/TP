@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import "./../../sass/forms.css";
 import {
     Table,
     Thead,
     Tbody,
     Tfoot,
     Tr,
-    Th,
+    Th,Text,
     Td,
     FormControl,
     FormLabel,
@@ -35,11 +36,10 @@ import PageLoader from "./PageLoader";
 import axios from "axios";
 export const Students = ({ posts, loading , setRerenderChange} ) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [editmode, setEditMode] = useState(false);
     const [residentFocus, setResidentFocus] = useState("");
-    if (loading) {
-        return <PageLoader />;
-    }
+     if (loading) {
+         return <PageLoader />;
+     }
     const handle = (evt) => {
         setResidentFocus(evt);
     };
@@ -62,14 +62,14 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
         <Box mt={2} border="1px  solid" borderColor="blue.300" borderRadius="md">
             <Table variant="striped"  >
                 <Thead bg="blue.300" color="white" >
-                    <Tr>
-                        <Th color="white">ФИО</Th>
-                        <Th color="white">Пол</Th>
-                        <Th color="white">Грожданство</Th>
-                        <Th color="white">Факультет</Th>
-                        <Th color="white">Тип специальности</Th>
-                        <Th color="white">Статус студент</Th>
-                        <Th color="white">Статус проживание</Th>
+                    <Tr  align="center" alignContent="center" alignItems="center"  >
+                        <Th  textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">ФИО</Th>
+                        <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Пол</Th>
+                        <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Гражданство</Th>
+                        <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Факультет</Th>
+                        <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Тип специальности</Th>
+                        <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.7)" color="white">Статус студент</Th>
+                        <Th textAlign="center" color="white">Статус проживание</Th>
                     </Tr>
                 </Thead>
                 <Tbody color="black" bg="white">
@@ -83,51 +83,37 @@ export const Students = ({ posts, loading , setRerenderChange} ) => {
                             _hover={{cursor:"pointer"}}
 
                         >
-                            <Th>
+                            <Th textAlign="center"  borderRight="1px solid rgba(161, 161, 161, 0.3)">
                                {post.surname} {post.name}  {post.patronymic}
                             </Th>
-                            <Th>{post.sex}</Th>
-                            <Th>{post.citizenship}</Th>
-                            <Th>{post.citizenship}</Th>
-                            <Th>{post.citizenship}</Th>
-                            <Th>{post.status_student}</Th>
-                            <Th>{post.status_accommodation}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.sex.slice(0,3)}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.citizenship}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.faculty}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)">{post.specialty}</Th>
+                            <Th textAlign="center" borderRight="1px solid rgba(161, 161, 161, 0.3)" >{post.status_student}</Th>
+                            <Th textAlign="center">{post.status_accommodation}</Th>
                         </Tr>
                     ))}
                 </Tbody>
             </Table>
-            <Drawer placement="bottom" size="full" isOpen={isOpen} onClose={onClose} >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerHeader>Профиль</DrawerHeader>
-                    <DrawerCloseButton />
-                    <DrawerBody pb={3}>
+            <Modal placement="bottom" size="4xl" isOpen={isOpen} onClose={onClose} >
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Профиль <Text fontSize="14px" fontWeight="500" color="#A1A1A1">
+                    Данные профиля может редактировать только Администратор
+                        </Text></ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={3}>
                         <ResidentProfile
                             residentFocus={residentFocus}
-                            editmode={editmode}
                             setRerenderChange={setRerenderChange}
-                            setEditMode={setEditMode}
                             onClose={onClose}
                             onOpen={onOpen}
+                            handleDownl={handleDownl}
                         />
-                    </DrawerBody>
-                    <DrawerFooter>
-
-                        {!editmode && (
-                            <Button colorScheme="blue" mr={3} onClick={()=> handleDownl(residentFocus.student_id) }>
-                                Скачать догвор
-                            </Button>
-                        )}
-                        <Button
-                            onClick={() => {
-                                setEditMode(!editmode);
-                            }}
-                        >
-                            {editmode ? "Отменить " : "Редактировать данные"}
-                        </Button>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 };

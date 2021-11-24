@@ -1,62 +1,30 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Организационно-административная система управления по расселению студентов в общежитиях
 
-## About Laravel
+### Технологии, использованные в проекте: Laravel,HTML,CSS,React/Redux/Formik/Chakra UI,PHP,MySQL.
+https://apple-sundae-02076.herokuapp.com
+Login: test@test.fr
+Password : test1234
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Описание функциональности: 
+1. Форма для заполнения данных о студенте (заполнение сущности “студент”: внесение всех данных, которые можно получить при заселении).
+2. Выбор комнаты для заселения студента (выбор комнаты облегчается функциями, описанными в пунктах 3-5).
+3. Отображение свободных комнат (благодаря этой функции при заселении студента отображаются только пустые комнаты).
+4. Отображение комнат, которые подходят для студента [парень, девушка] (благодаря этой функции в списке не будут фигурировать комнаты с жителями противоположного пола).
+5. Отображение проживающих в комнате (благодаря этой функции можно будет посмотреть будущих соседей заселяемого студента).
+6. Заселение в комнату (сущности “студент” присваивается определенный номер комнаты).
+7. Отметка статуса проживания студента [процесс оформления документов, проживает] (данная функция позволяет отслеживать на каком этапе заселения находится студент).
+8.Составление договора на проживание (данная функция позволяет подставлять данные студента в шаблон договора найма специализированного жилого помещения и отправление договора на печать).
+9. Переселение студента в другую комнату (данная функция позволяет изменять комнату у проживающего при его переселении).
+10. Выселение студента (данная функция позволяет отмечать выселенных студентов. Место, которое занимал данный студент, освобождается, сущность студента перемещается в журнал выселенных студентов).
+11. Общий журнал проживающих студентов (данная функция позволяет просматривать общий список студентов по комнатам).
+12. Общий журнал выселенных студентов (данная функция позволяет просматривать общий список выселенных студентов с указанием времени выселения).
+13 .Редактирование данных студента (данная функция позволяет изменять данные сущности “студент”).
+14. Поиск студента по базе (данная функция позволяет искать студента в журналах).
+15. Фильтрация данных (данная функция позволяет фильтровать журнал студентов по различным признакам).
+16. Формирование и печать списков проживающих [этаж, комната, общий] (данная функция позволяет формировать списки для администрации и актива общежития).
+17. Пометка семейная комната (данная функция позволяет отдельно отметить комнаты семейного фонда).
+18. Выбор количества занятых мест человеком (данная функция позволяет устанавливать различный вес у студентов разного статуса, например староста этажа занимает не одно койко-место, а четыре или три, сотрудник оперотряда или санитарной комиссии – два койко-места).
+19. Установка статуса студента [староста этажа, расселитель и тп] (данная функция позволяет отмечать студентов, имеющих особый статус).
+20. Вход в личный кабинет для каждой роли должен осуществляться через логин и пароль.
+21. Установка возможного количество проживающих человек в комнате.

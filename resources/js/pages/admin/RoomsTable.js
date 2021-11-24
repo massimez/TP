@@ -150,14 +150,12 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                             </Th>
                             <Th>{room.floor}</Th>
                             <Th>
-                                <DeleteIcon
-                                    _hover={{ cursor: "pointer" }}
-                                    w={6}
-                                    h={6}
+                                <Button
+                                    colorScheme="red"
                                     onClick={() => {
                                         handleDelete(room.room_id);
                                     }}
-                                />
+                                >Удалить</Button>
                                 <Button
                                     onClick={() => {
                                         onOpen();
@@ -168,7 +166,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                                         setroomFocus(room.room_id);
                                     }}
                                 >
-                                    Edit
+                                    Редактировать
                                 </Button>
                             </Th>
                         </Tr>
@@ -178,7 +176,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
             <Drawer isOpen={isOpen} onClose={onClose}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerHeader>Room Informations</DrawerHeader>
+                    <DrawerHeader>Информация </DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
                         {Error && <ErrorMessage message={Error} />}
@@ -200,7 +198,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                             <RadioGroup onChange={setStatus} value={status}>
                                 <Stack direction="row">
                                     <Radio value="Мужская">Мужская</Radio>
-                                    <Radio value="2">Женская</Radio>
+                                    <Radio value="Женская">Женская</Radio>
                                 </Stack>
                             </RadioGroup>
                         </FormControl>
@@ -245,7 +243,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                                 colorScheme="blue"
                                 mr={3}
                             >
-                                Save
+                                Сохранить
                             </Button>
                         )}
 
@@ -259,7 +257,7 @@ export const RoomsTable = ({ rooms, loading, setChange }, props) => {
                                 onClose();
                             }}
                         >
-                            Cancel
+                            Отменить
                         </Button>
                     </ModalFooter>
                 </DrawerContent>

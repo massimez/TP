@@ -9,8 +9,7 @@ class StatusStudentsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin',['expect'=>'index','show']);
-
+        $this->middleware('admin')->except('index','show');
     }
 
 
@@ -33,8 +32,8 @@ class StatusStudentsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'status_student' => 'required|string',
-            'neighbors' => 'required|integer',
+            'status_student' => 'required|string|starts_with:староста этажа,актив этажа,расселитель,сотрудник СООПР,сотрудник санитарной комиссии,председатель студсовета,студент',
+            'neighbors' => 'required|integer|min:1|max:4',
         ]);
         Status_student::create($request->input());
         return response()->json(['message' => 'success'], 201);
@@ -73,6 +72,10 @@ class StatusStudentsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'status_student' => 'string|starts_with:староста этажа,актив этажа,расселитель,сотрудник СООПР,сотрудник санитарной комиссии,председатель студсовета,студент',
+            'neighbors' => 'integer|min:1|max:4',
+        ]);
         $update = $request->input();
         Status_student::find($id)->update($update);
         return response()->json(['message' => 'success'], 201);

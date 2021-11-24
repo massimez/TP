@@ -10,8 +10,7 @@ class GroupController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin', ['expect' => 'index', 'show']);
-
+        $this->middleware('admin')->except('index', 'show');
     }
 
     public function index()
@@ -27,10 +26,11 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'group_name' => 'required|string|unique:groups',
-            'faculty' => 'required|string',
-            'course_of_study' => 'required|string',
-            'form_of_education' => 'required|string',
+            'group_name' => 'required|string|unique:groups|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'faculty' => 'required|string|starts_with:РТФ,РКФ,ФВС,ФСУ,ФЭТ,ЭФ,ФИТ,ГФ,ЮФ,ФБ,заочный',
+            'course_of_study' => 'required|string|min:1|max:1',
+            'form_of_education' => 'required|string|starts_with:очная,заочная',
+            'specialty' => 'required|string|starts_with:бакалавриат,специалитет,магистратура,аспирантура'
         ]);
         $group = Group::create($request->input());
         return response()->json(['data' => $group, 'message' => 'created!'], 201);
@@ -52,10 +52,11 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'group_name' => 'required|string',
-            'faculty' => 'required|string',
-            'course_of_study' => 'required|string',
-            'form_of_education' => 'required|string',
+            'group_name' => 'string|unique:groups|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'faculty' => 'string|starts_with:РТФ,РКФ,ФВС,ФСУ,ФЭТ,ЭФ,ФИТ,ГФ,ЮФ,ФБ,заочный',
+            'course_of_study' => 'string|min:1|max:1',
+            'form_of_education' => 'required|string|starts_with:очная,заочная',
+            'specialty' => 'required|string|starts_with:бакалавриат,специалитет,магистратура,аспирантура'
         ]);
         Group::find($id)->update($request->input());
         return response()->json(['message' => 'updated!'], 200);

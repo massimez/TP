@@ -154,7 +154,7 @@ const login = (props) => {
                                     </FormControl>
                                     <div>
 
-                                        <Link to="/forget">Забыли пароль?</Link>
+                                        <Link to="/forget"><Text color="white">Забыли пароль?</Text></Link>
                                     </div>
 
                                     <button
@@ -172,9 +172,7 @@ const login = (props) => {
                                         )}
                                     </button>
                                     <Flex justifyContent="space-between">
-                                        <a href="/register">
-                                            &nbsp;Регистрация
-                                        </a>
+                                        <Link to="/register"><Text color="white">&nbsp;Регистрация</Text></Link>
                                     </Flex>
                                 </form>
                             </Flex>

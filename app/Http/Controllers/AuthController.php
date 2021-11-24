@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ForgetPassword;
+use App\Mail\NewUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,22 +21,24 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgetPassword']]);
     }
 
     public function register(Request $request)
     {
-        $request->validate([
-            'email'    => 'required|unique:users|email',
-            'password' => 'required|confirmed|min:8',
-            'name'     => 'required',
+        $this->validate($request, [
+            'email' => 'required|unique:users|email',
+            'password' => 'required|confirmed|min:8|regex:/^([a-zA-Z0-9]+)$/',
+            'name' => 'required',
         ]);
         User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
             //для безопасности хэшируем пароль
         ]);
+        $admin = User::query()->where('role','=','admin')->first();
+        Mail::to($admin->email)->send(new NewUser($request->email));
         return response()->json(['message' => 'Registered!'], 201);
     }
 
@@ -46,13 +49,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
+        $this->validate($request, [
+            'email' => 'required|email|max:255',
+            'password' => 'required|regex:/^([a-zA-Z0-9]+)$/',
         ]);
-        $role = User::where('email','=',$request->email)->get('role')[0]['role'];
+        $role = User::where('email', '=', $request->email)->get('role')[0]['role'];
         $credentials = $request->only('email', 'password');
-        if ((!$token = auth()->attempt($credentials)) || $role=='Не подтверждена') {
+        if ((!$token = auth()->attempt($credentials)) || $role == 'Не подтверждена') {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
@@ -80,56 +83,55 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function forgetPassword()
+    public function forgetPassword(Request $request)
     {
-        $email = auth()->user()['email'];
-        $id = auth()->user()->getAuthIdentifier();
-        Mail::to($email)->send(new ForgetPassword($id));
-        return response()->json(['message' => "Сообщение с новым паролем успешно отправлено на вашу эл.почту"]);
+        $email = $request->email;
+        Mail::to($email)->send(new ForgetPassword($email));
+        return response()->json(['message' => "Сообщение с новым паролем успешно отправлено на вашу эл.почту", 200]);
     }
 
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'new_password' => 'required|min:8|confirmed'
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
         ]);
-        $user = \auth()->user();
-        if (Hash::check($request->old_password, $user['password'])) {
-            User::find($user['id'])->update([
-                'password' => Hash::make($request->new_password)
+        $user_id = \auth()->user()->getAuthIdentifier();
+        $user = User::find($user_id);
+        $user_password = $user->password;
+        if (Hash::check($request->old_password, $user_password)) {
+            $user->update([
+                'password' => Hash::make($request->new_password),
             ]);
             return response()->json(['message' => 'Password updated!'], 200);
         }
         return response()->json(['message' => 'Password wrong!'], 405);
     }
 
-
-        /**
-         * Refresh a token.
-         *
-         * @return \Illuminate\Http\JsonResponse
-         */
-        public
-        function refresh()
-        {
-            return $this->respondWithToken(auth()->refresh());
-        }
-
-        /**
-         * Get the token array structure.
-         *
-         * @param  string  $token
-         *
-         * @return \Illuminate\Http\JsonResponse
-         */
-        protected
-        function respondWithToken($token)
-        {
-            return response()->json([
-                'access_token' => $token,
-                'token_type'   => 'bearer',
-                'expires_in'   => auth()->factory()->getTTL() * 60,
-                'user'         => auth()->user(),
-            ]);
-        }
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
     }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string  $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user(),
+        ]);
+    }
+}

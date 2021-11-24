@@ -46,14 +46,14 @@ const ForgetPassword = () => {
         };
         setTimeout(() => {
             axios
-                .get("/api/auth/forget_password", data)
+                .post("/api/auth/forget_password", data)
                 .then((res) => {
                     setIsLoading(false);
-                    setIsLoggedIn(true);
                     setSucces("Сообщение с новым паролем успешно отправлено на вашу эл.почту")
                 })
                 .catch((err) => {
                     setError("Неверный адрес электронной почты");
+                    console.log(err)
                     setIsLoading(false);
 
                 });

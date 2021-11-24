@@ -14,7 +14,7 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    Box,
+    Box,Text
 } from "@chakra-ui/react";
 import {
     Table,
@@ -32,14 +32,15 @@ const RoomProfil = (props) => {
     let n=5;
 
     return (
-            <Drawer isOpen={props.isOpen} onClose={props.onClose}  placement="top">
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerHeader>Комната №{props.roomFocus} </DrawerHeader>
-                    <DrawerCloseButton />
-                    <DrawerBody pb={6}>
-                        <Table variant="striped" colorScheme="teal" border="1px  solid">
-                            <Thead bg="blue.300" border="1px  solid" borderColor="blue.300" borderRadius="md" >
+            <Modal isOpen={props.isOpen} onClose={props.onClose}  size="lg">
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader color="blue.800">Комната №{props.roomFocus} <Text fontSize="14px" fontWeight="500" color="#A1A1A1">В данной комнате проживают следующие студенты</Text></ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
+                    <Box  border="1px solid" borderColor="#005AAE1A" borderRadius="md">
+                    <Table variant="striped"  colorScheme="cyan" color="cyan" borderRadius="md">
+                            <Thead bg="blue.300"  >
                                 <Tr>
                                     <Th>ФИО</Th>
                                     <Th>Факультет</Th>
@@ -49,7 +50,7 @@ const RoomProfil = (props) => {
                             <Tbody>
                                 {props.rooms &&
                                     props.rooms.map((rm, index) => (
-                                        <Tr key={index}>
+                                        <Tr key={index} bg="rgba(0, 90, 174, 0.1)">
                                             <Th>
                                                 {rm.name} {rm.surname}
                                             </Th>
@@ -68,12 +69,14 @@ const RoomProfil = (props) => {
                                     })}
                             </Tbody>
                         </Table>
-                    </DrawerBody>
+                    </Box>
+
+                    </ModalBody>
                     <ModalFooter>
-                        <Button onClick={props.onClose}>Close</Button>
+                        <Button mx="auto" colorScheme="facebook" width="168px" onClick={props.onClose}>Ok</Button>
                     </ModalFooter>
-                </DrawerContent>
-            </Drawer>
+                </ModalContent>
+            </Modal>
     );
 };
 

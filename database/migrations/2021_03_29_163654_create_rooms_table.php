@@ -16,7 +16,7 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('room_id')->unique();
-            $table->string('status');
+            $table->string('status')->default('без назначения');
             $table->unsignedInteger('number_of_living')->default(0);
             $table->unsignedInteger('max_living');
             $table->unsignedInteger('floor')->nullable();

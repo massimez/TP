@@ -25,7 +25,8 @@ class GroupFactory extends Factory
             'group_name'=>$this->faker->unique()->numberBetween(1,5),
             'faculty'=>'ФВС',
             'course_of_study'=>$this->faker->numberBetween(1,4),
-            'form_of_education'=>'Очная'
+            'form_of_education'=>'Очная',
+            'specialty' => 'бакалавриат'
         ];
     }
 }

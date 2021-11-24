@@ -16,6 +16,8 @@ import {
     IconButton,
     FormLabel,
     Input,
+    Select,
+    AlertDialog,
 } from "@chakra-ui/react";
 
 import {
@@ -25,7 +27,8 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,Drawer,
+    ModalCloseButton,
+    Drawer,
     DrawerBody,
     DrawerFooter,
     DrawerHeader,
@@ -37,10 +40,12 @@ import {
 import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
 import SuccesMessage from "./SuccesMessage";
-import PageLoader from "./PageLoader"
+import PageLoader from "./PageLoader";
 import { useDisclosure } from "@chakra-ui/react";
+import { FaCriticalRole } from "react-icons/fa";
+import AlertDel from "./AlertDel";
 
-export const UsersTable = ({ users, loading ,setChange},props) => {
+export const UsersTable = ({ users, loading, setChange }, props) => {
     const { onOpen, onClose, isOpen } = useDisclosure();
     const [Error, setError] = useState("");
     const [succes, setSucces] = useState("");
@@ -65,6 +70,7 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
             .delete(`/api/admin/${id}`)
             .then((res) => {
                 setSucces(res.data.message);
+                setChange("Deleted");
             })
             .catch((err) => {
                 setError(err.message);
@@ -89,7 +95,9 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
                 onClose();
             })
             .catch((err) => {
-                setError("Произошла ошибка, пожалуйста, проверьте данные еще раз");
+                setError(
+                    "Произошла ошибка, пожалуйста, проверьте данные еще раз"
+                );
                 console.log(err.response.data.errors);
             });
     }
@@ -119,14 +127,15 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
                             <Th>{user.position}</Th>
                             <Th>{user.role}</Th>
                             <Th>
-                                <DeleteIcon
+                                {/* <DeleteIcon
                                     _hover={{ cursor: "pointer" }}
                                     w={6}
                                     h={6}
                                     onClick={() => {
                                         handleDelete(user.id);
                                     }}
-                                />
+                                /> */}
+
                                 <Button
                                     onClick={() => {
                                         onOpen();
@@ -139,8 +148,15 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
                                         setUserFocus(user.id);
                                     }}
                                 >
-                                    Edit
+                                    Редактировать
                                 </Button>
+                                <AlertDel
+                                    handleVesli={() => {
+                                        handleDelete(user.id);
+                                    }}
+                                    btnmsg={"Удалить"}
+                                    msg={"Уверены ли вы?"}
+                                />
                             </Th>
                         </Tr>
                     ))}
@@ -149,7 +165,9 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
             <Drawer isOpen={isOpen} onClose={onClose}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerHeader>Update User Informations</DrawerHeader>
+                    <DrawerHeader>
+                        Обновить информацию пользователей
+                    </DrawerHeader>
                     <DrawerCloseButton />
                     <DrawerBody pb={6}>
                         <FormControl>
@@ -199,14 +217,26 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Роль</FormLabel>
-                            <Input
-                                type="text"
+
+                            <Select
                                 value={role}
-                                size="lg"
                                 onChange={(event) =>
                                     setRole(event.currentTarget.value)
                                 }
-                            />
+                            >
+                                <option value={role} disabled selected>
+                                    {role}
+                                </option>
+                                <option style={{ color: "blue" }} value="admin">
+                                    Admin
+                                </option>
+                                <option style={{ color: "red" }} value="guest">
+                                    Guest
+                                </option>
+                                <option style={{ color: "red" }} value="user">
+                                    User
+                                </option>
+                            </Select>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Должность</FormLabel>
@@ -227,9 +257,9 @@ export const UsersTable = ({ users, loading ,setChange},props) => {
                             colorScheme="blue"
                             mr={3}
                         >
-                            Save
+                            Сохранить
                         </Button>
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onClose}>Отмена</Button>
                     </ModalFooter>
                 </DrawerContent>
             </Drawer>

@@ -19,6 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('faculty');
             $table->string('course_of_study');
             $table->string('form_of_education');
+            $table->string('specialty');
             $table->timestamps();
         });
     }

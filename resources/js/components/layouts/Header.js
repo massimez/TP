@@ -9,9 +9,10 @@ import {
     MenuItem,
     Heading,
     Text,
+    Tooltip,
 } from "@chakra-ui/react";
-import {connect} from 'react-redux'
-import { FaSun, FaMoon, FaUserCircle } from "react-icons/fa";
+import { connect } from "react-redux";
+import { FaSun, FaMoon, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { FiHelpCircle } from "react-icons/fi";
 import Colormode from "./Colormode";
 import { AiFillSetting } from "react-icons/ai";
@@ -19,17 +20,16 @@ import { Link, Redirect } from "react-router-dom";
 import logo from "../../../../public/images/logo.png";
 import cookie from "js-cookie";
 import { useState } from "react";
+import UserProfil from "../UserProfil";
 
 function Header(props) {
+    const [Logout, setLogout] = useState(props.loggedIn);
 
-    const [Logout , setLogout] = useState(props.loggedIn);
-
-const HandleLogout = (e) =>{
-    e.preventDefault();
-    cookie.remove('token');
-    props.logout();
-
-}
+    const HandleLogout = (e) => {
+        e.preventDefault();
+        cookie.remove("token");
+        props.logout();
+    };
     return (
         <Flex
             as="nav"
@@ -44,7 +44,12 @@ const HandleLogout = (e) =>{
             mb="8"
         >
             <Link to="/app/">
-                <Image src={logo} alt="Tusur logo" w={["200px", "200px", "200px", "380px", "380px"]} h="39.22px"  />
+                <Image
+                    src={logo}
+                    alt="Tusur logo"
+                    w={["200px", "200px", "200px", "380px", "380px"]}
+                    h="39.22px"
+                />
             </Link>
 
             <Heading as="h3" size="md">
@@ -56,8 +61,8 @@ const HandleLogout = (e) =>{
                 alignSelf="flex-end"
                 mx="max"
                 size="sm"
-                closeOnSelect={true}
-                closeOnBlur={true}
+                closeOnSelect={false}
+                closeOnBlur={false}
                 placement="right-start"
             >
                 <MenuButton
@@ -72,49 +77,83 @@ const HandleLogout = (e) =>{
                     isRound="true"
                 />
                 <MenuList color="black">
-                    { props.role ==="admin" ? (
-                        <Link to="/admin/"> <MenuItem icon={<AiFillSetting />} command="⌘O">
-                        Администрация
-                        </MenuItem></Link>):(<div></div>)
-                        }
-                    {props.loggedIn ? ( <>
-                        <MenuItem icon={<FaUserCircle />} command="⌘T">
-                        Профиль
-                    </MenuItem>
-                        <MenuItem icon={<FaUserCircle />} onClick={HandleLogout} command="⌘O">
-                            logout
-                        </MenuItem></>
-                    ) : (<>
-                        <Link to="/login/"> <MenuItem icon={<FaUserCircle />} command="⌘O">
-                        Авторизация
-                        </MenuItem></Link>
-                        <Link to="/register/"> <MenuItem icon={<FaUserCircle />} command="⌘O">
-                        Регистрация
-                        </MenuItem></Link>
+                    {props.loggedIn ? (
+                        <>
+                            <UserProfil />
+                            {props.role === "admin" ? (
+                                <Link to="/admin/">
+                                    {" "}
+                                    <MenuItem
+                                        icon={<AiFillSetting />}
+                                        command="⌘O"
+                                    >
+                                        Администрация
+                                    </MenuItem>
+                                </Link>
+                            ) : (
+                                <div></div>
+                            )}
+                            <Tooltip
+                                label="Если вам нужна помощь, напишите admin@admin.ru"
+                                fontSize="md"
+                            >
+                                <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
+                                    Помощь
+                                </MenuItem>
+                            </Tooltip>
+                            <MenuItem
+                                icon={<FaSignOutAlt />}
+                                onClick={HandleLogout}
+                                command="⌘O"
+                            >
+                                <Text color="red">Выйти</Text>
+                            </MenuItem>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login/">
+                                {" "}
+                                <MenuItem icon={<FaUserCircle />} command="⌘O">
+                                    Авторизация
+                                </MenuItem>
+                            </Link>
+                            <Link to="/register/">
+                                {" "}
+                                <MenuItem icon={<FaUserCircle />} command="⌘O">
+                                    Регистрация
+                                </MenuItem>
+                                <Tooltip
+                                    label="Если вам нужна помощь, напишите admin@admin.ru"
+                                    fontSize="md"
+                                >
+                                    <MenuItem
+                                        icon={<FiHelpCircle />}
+                                        command="⌘⇧N"
+                                    >
+                                        Помощь
+                                    </MenuItem>
+                                </Tooltip>
+                            </Link>
                         </>
                     )}
-                    <MenuItem icon={<FiHelpCircle />} command="⌘⇧N">
-                        Помощь
-                    </MenuItem>
-                    <Colormode />
+
+                    {/* <Colormode /> */}
                 </MenuList>
             </Menu>
         </Flex>
     );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         loggedIn: state.auth.loggedIn,
-        role : state.auth.user.role
+        role: state.auth.user.role,
     };
-  };
-  const mapDispatchToProps = dispatch => {
+};
+const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => dispatch({type:"SET_LOGOUT"})
+        logout: () => dispatch({ type: "SET_LOGOUT" }),
     };
-  };
+};
 
-  export default connect(
-    mapStateToProps,mapDispatchToProps
-  )(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

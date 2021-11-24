@@ -7,7 +7,7 @@ function Rooms() {
     return (
         <div>
             <Helmet><title>Комнаты</title></Helmet>
-            <Header title="Rooms"/>
+            <Header title="Комнаты"/>
             <RoomsPlan />
         </div>
     )

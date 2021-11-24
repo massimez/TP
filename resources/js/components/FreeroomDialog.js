@@ -18,13 +18,16 @@ import {
     VStack,
     ModalCloseButton,
     Radio,
-    AdaptedRadioGroup,Tooltip,Drawer,
+    AdaptedRadioGroup,
+    Tooltip,
+    Drawer,
     DrawerBody,
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
+    Text,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -42,14 +45,14 @@ import RoomNext from "./RoomNext";
 const FreeroomDialog = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [freeRooms, setFreeRooms] = useState([]);
-    const [selectedToView, setSelectedToView] = useState('');
-    const [selectedToViewID, setSelectedToViewID] = useState('');
+    const [selectedToView, setSelectedToView] = useState("");
+    const [selectedToViewID, setSelectedToViewID] = useState("");
     const [floorPage, setFloorPage] = useState(1);
     useEffect(() => {
         const fetchRooms = async () => {
             const res = await axios.get("/api/room");
             setFreeRooms(res.data.rooms);
-            console.log(freeRooms)
+            console.log(freeRooms);
         };
         fetchRooms();
     }, []);
@@ -85,73 +88,120 @@ const FreeroomDialog = (props) => {
     const CustomDrawer = (props) => {
         const { isOpen, onOpen, onClose } = useDisclosure();
         return (
-          <>
-            <Tooltip
-                                                    label="Просмотр соседей"
-                                                    fontSize="md"
-                                                >
-                                                     <ViewIcon w={6} h={6} onClick={() => {
-                                                         onOpen() }} />
-                                                </Tooltip>
-            <Drawer isOpen={isOpen} onClose={onClose} placement="top">
-              <DrawerOverlay />
-              <DrawerContent>
-                <DrawerHeader>Комната №{props.id}</DrawerHeader>
-                <DrawerCloseButton />
-                <DrawerBody>
-                <Table variant="striped" colorScheme="teal" border="1px  solid">
-                            <Thead bg="blue.300" border="1px  solid" borderColor="blue.300" borderRadius="md" >
-                                <Tr>
-                                    <Th>ФИО</Th>
-                                    <Th>Факультет</Th>
-                                    <Th>Курс</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {selectedToView &&
-                                    selectedToView.map((rm, index) => (
-                                        <Tr key={index}>
-                                            <Th>
-                                                {rm.name} {rm.surname}
-                                            </Th>
-                                            <Th>{rm.faculty}</Th>
-                                            <Th>{rm.course_of_study}</Th>
-                                        </Tr>
-                                    ))}
-                            </Tbody>
-                        </Table>
-                </DrawerBody>
+            <>
+                <Tooltip label="Просмотр соседей" fontSize="md">
+                    <ViewIcon
+                        w={6}
+                        h={6}
+                        onClick={() => {
+                            onOpen();
+                        }}
+                    />
+                </Tooltip>
+                <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>
+                            Комната №{props.id}
+                            <Text
+                                fontSize="14px"
+                                fontWeight="500"
+                                color="#A1A1A1"
+                            >
+                                В данной комнате проживают следующие студенты
+                            </Text>
+                        </ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <Table
+                                variant="striped"
+                                colorScheme="teal"
+                                border="1px  solid"
+                            >
+                                <Thead
+                                    bg="blue.300"
+                                    border="1px  solid"
+                                    borderColor="blue.300"
+                                    borderRadius="md"
+                                >
+                                    <Tr>
+                                        <Th>ФИО</Th>
+                                        <Th>Факультет</Th>
+                                        <Th>Курс</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {selectedToView &&
+                                        selectedToView.map((rm, index) => (
+                                            <Tr key={index}>
+                                                <Th>
+                                                    {rm.name} {rm.surname}
+                                                </Th>
+                                                <Th>{rm.faculty}</Th>
+                                                <Th>{rm.course_of_study}</Th>
+                                            </Tr>
+                                        ))}
+                                </Tbody>
+                            </Table>
+                        </ModalBody>
 
-                <DrawerFooter>
-
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          </>
+                        <ModalFooter>
+                            <Button
+                                mx="auto"
+                                height="45px"
+                                width="20%"
+                                colorScheme="facebook"
+                                color="white"
+                                onClick={() => {
+                                    onClose();
+                                }}
+                            >
+                                Ok
+                            </Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </>
         );
-      };
+    };
 
     return (
         <>
             <Button
                 type="button"
                 color="whiteAlpha.900"
-                width="450px"
-                height="60px"
+                width={props.w}
+                height={props.h}
+                size={props.size}
                 bg="bluet.900"
                 onClick={oonClick}
             >
-                Добавить и выбрать комнату
+                {props.name ? props.name : "Добавить и выбрать комнату"}
             </Button>
 
-            <Drawer placement="bottom" isOpen={isOpen} onClose={onClose}>
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerHeader>Доступные комнаты</DrawerHeader>
-                    <DrawerCloseButton />
-                    <DrawerBody pb={6}>
+            <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>
+                        Доступные комнаты{" "}
+                        <Text fontSize="14px" fontWeight="500" color="#A1A1A1">
+                            Выберите подходящую комнату
+                        </Text>
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody >
+                        <RoomNext
+                            rooms={freeRooms}
+                            size={"sm"}
+                            setFloorPage={setFloorPage}
+                            floorActive={floorPage}
+                        />
                         <Table variant="simple">
-                            <TableCaption>{props.sex}</TableCaption>
+                            <TableCaption>
+                                {props.sex
+                                    ? null
+                                    : "Вы должны сначала выбрать пол"}
+                            </TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>N°комнаты</Th>
@@ -165,14 +215,23 @@ const FreeroomDialog = (props) => {
 
                             <Tbody>
                                 {freeRooms
-                                    .slice(0, 20)
                                     .filter(
                                         (opt) =>
-                                            opt.number_of_living < opt.max_living &&
-                                            opt.floor === floorPage
+                                            opt.number_of_living <
+                                                opt.max_living &&
+                                            opt.floor === floorPage &&
+                                            (props.sex
+                                                ? opt.status ===
+                                                  (props.sex
+                                                      .toString()
+                                                      .toLowerCase() ===
+                                                  "женский"
+                                                      ? "Женская"
+                                                      : "Мужская")
+                                                : true)
                                     )
-                                    .map((room ,index) => (
-                                        <Tr key={room.room_id}>
+                                    .map((room, index) => (
+                                        <Tr key={room.room_id} background="rgba(0, 90, 174, 0,1)">
                                             <Th>
                                                 <Radio
                                                     key={room.room_id}
@@ -200,34 +259,54 @@ const FreeroomDialog = (props) => {
                                                 {room.max_living}
                                             </Th>
                                             <Th>{room.status}</Th>
-                                            <Th _hover={{ cursor: "pointer" }} onClick ={ () => {setSelectedToViewID(room.room_id)}}>
-
-                                                <CustomDrawer roomIndex={index} id={room.room_id}   />
+                                            <Th
+                                                _hover={{ cursor: "pointer" }}
+                                                onClick={() => {
+                                                    setSelectedToViewID(
+                                                        room.room_id
+                                                    );
+                                                }}
+                                            >
+                                                <CustomDrawer
+                                                    roomIndex={index}
+                                                    id={room.room_id}
+                                                />
                                             </Th>
                                         </Tr>
                                     ))}
                             </Tbody>
                         </Table>
-                    </DrawerBody>
-                    <RoomNext
-                        rooms={freeRooms}
-                        size={"sm"}
-                        setFloorPage={setFloorPage}
-                    />
-                    <ModalFooter>
-                        <Button
-                            colorScheme="blue"
-                            mr={3}
-                            onClick={submitClose}
-                            type="submit"
-                        >
-                            Ok
-                        </Button>
-                        <Button onClick={cancelClose}>Отменить</Button>
-                    </ModalFooter>
-                </DrawerContent>
-            </Drawer>
+                    </ModalBody>
 
+                    <ModalFooter>
+                        {props.formik ? (
+                            <Button
+                                colorScheme={
+                                    props.SelectedRoom ? "facebook" : "teal"
+                                }
+                                width="75%"
+                                height="50px"
+                                mx="auto"
+                                onClick={submitClose}
+                                type="submit"
+                            >
+                                Заселить
+                            </Button>
+                        ) : (
+                            <Button
+                                colorScheme="blue"
+                                mx="auto"
+                                width="75%"
+                                height="50px"
+                                onClick={onClose}
+                                type="submit"
+                            >
+                                Подтвердить
+                            </Button>
+                        )}
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </>
     );
 };

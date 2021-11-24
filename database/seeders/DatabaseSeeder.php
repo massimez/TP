@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Status::class);
         $this->call(Group::class);
         $this->call(StudentSeed::class);
+        $this->call(Admin::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

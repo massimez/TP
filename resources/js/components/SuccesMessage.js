@@ -1,12 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Box, Alert, AlertIcon, AlertDescription,CloseButton } from '@chakra-ui/react';
 export default function SuccesMessage({ message }) {
+    const [display,setDisplay] = useState(true)
   return (
-    <Box my={4}>
+    <Box my={4} display={display?"block":"none"}>
       <Alert status="success" borderRadius={4}>
         <AlertIcon />
         <AlertDescription>{message}</AlertDescription>
-        <CloseButton position="absolute" right="10px" top="8px"/>
+        <CloseButton position="absolute" onClick={()=>{setDisplay(!display)}} right="8px" top="8px" />
       </Alert>
     </Box>
   );

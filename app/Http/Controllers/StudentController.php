@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('permission')->except('index','show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +27,12 @@ class StudentController extends Controller
             $faculty = $group_table->pluck('faculty');
             $course = $group_table->pluck('course_of_study');
             $form_education = $group_table->pluck('form_of_education');
-            $student = collect($value)->put('faculty', $faculty[0])
+            $specialty = $group_table->pluck('specialty');
+            $student = collect($value)
+                ->put('faculty', $faculty[0])
                 ->put('course_of_study', $course[0])
-                ->put('form_of_education', $form_education[0]);
+                ->put('form_of_education', $form_education[0])
+                ->put('specialty', $specialty[0]);
             $fuil_info_student[] = $student;
         }
         return response()->json($fuil_info_student, 200);
@@ -51,26 +58,26 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'room_id'                    => 'required|integer',
-            'name'                       => 'required|string',
-            'surname'                    => 'required|string',
-            'patronymic'                 => 'required|string',
-            'status_student'             => 'string',
+            'room_id'                    => 'required|integer|exists:rooms,room_id',
+            'name'                       => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'surname'                    => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'patronymic'                 => 'required|string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'status_student'             => 'string|exists:status_students,status_student',
             'email'                      => 'required|email|unique:students',
             'phone_number'               => 'required|integer',
-            'group'                      => 'required|string',
-            'sex'                        => 'required|string',
-            'number_contract'            => 'integer',
-            'date_of_conclusion'         => 'string',
-            'date_of_ended_registration' => 'string',
-            'citizenship'                => 'required|string',
-            'birthday'                   => 'required',
-            'place_of_birth'             => 'required|string',
-            'number_passport'            => 'required|string',
-            'info_passport'              => 'required|string',
-            'registration'               => 'required|string',
-            'note'                       => 'string',
-            "status_accommodation"       => 'string'
+            'group'                      => 'required|string|exists:groups,group_name',
+            'sex'                        => 'required|string|starts_with:МУЖСКОЙ,ЖЕНСКИЙ',
+            'number_contract'            => 'string|max:20',
+            'date_of_conclusion'         => 'date',
+            'date_of_ended_registration' => 'date',
+            'citizenship'                => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'birthday'                   => 'required|date',
+            'place_of_birth'             => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'number_passport'            => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'info_passport'              => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'registration'               => 'required|string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'note'                       => 'string|max:2000',
+            "status_accommodation"       => 'string|starts_with:Процесс оформления документов,Проживает,Выселен'
         ]);
         $check = $this->callCheckRoom($request);
         if (!$check) {
@@ -91,12 +98,16 @@ class StudentController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-        $faculty = $student->groupTable()->pluck('faculty');
-        $course = $student->groupTable()->pluck('course_of_study');
-        $form_education = $student->groupTable()->pluck('form_of_education');
-        $student = collect($student)->put('faculty', $faculty[0])
+        $group_table = $student->groupTable();
+        $faculty = $group_table->pluck('faculty');
+        $course = $group_table->pluck('course_of_study');
+        $form_education = $group_table->pluck('form_of_education');
+        $specialty = $group_table->pluck('specialty');
+        $student = collect($student)
+            ->put('faculty', $faculty[0])
             ->put('course_of_study', $course[0])
-            ->put('form_of_education', $form_education[0]);
+            ->put('form_of_education', $form_education[0])
+            ->put('specialty', $specialty[0]);
 
         if (is_null($student)) {
             return response()->json(['message' => 'student not found'], 422);
@@ -134,12 +145,43 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::find("$id");
-        $check = $this->callCheckRoom($request);
-        if (is_null($student) || !$check) {
-            return response()->json(['message' => 'Студент не найдет или нет мест'],
-                405);
+        $request->validate([
+            'room_id'                    => 'integer|exists:rooms,room_id',
+            'name'                       => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'surname'                    => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'patronymic'                 => 'string|min:1|max:20|regex:/^([а-яА-ЯЁёa-zA-Z \-\']+)$/u',
+            'status_student'             => 'string|exists:status_students,status_student',
+            'email'                      => 'email|unique:students',
+            'phone_number'               => 'integer',
+            'group'                      => 'string|exists:groups,group_name',
+            'sex'                        => 'string|starts_with:Мужской,Женский',
+            'number_contract'            => 'string|max:20',
+            'date_of_conclusion'         => 'date',
+            'date_of_ended_registration' => 'date',
+            'citizenship'                => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'birthday'                   => 'date',
+            'place_of_birth'             => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'number_passport'            => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'info_passport'              => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'registration'               => 'string|min:1|max:200|regex:/^([а-яА-ЯЁёa-zA-Z0-9 \-\']+)$/u',
+            'note'                       => 'string|max:2000',
+            "status_accommodation"       => 'string|starts_with:Процесс оформления документов,Проживает,Выселен'
+        ]);
+
+        $student = Student::find($id);
+        if ($request->room_id){
+            $check = $this->callCheckRoom($request,$student);
         }
+
+        if (is_null($student)) {
+            return response()->json(['message' => 'Студент не найден'],
+                400);
+        }
+        if (isset($check) && !$check) {
+            return response()->json(['message' => 'В комнате нет свободных мест'],
+                400);
+        }
+
         $this->updateRoomID($request, $student);
         $student->update($request->all());
         return response()->json(['message' => 'updated!'], 200);
@@ -156,8 +198,12 @@ class StudentController extends Controller
         }
     }
 
-    private function callCheckRoom($request){
-        $check = (new CheckRoom($request->only('room_id')['room_id']))->getStatus();
+    private function callCheckRoom($request, $student = null){
+        $check = true;
+
+        if($request->only('room_id')['room_id'] != $student->room_id || $student === null){
+            $check = (new CheckRoom($request->only('room_id')['room_id']))->getStatus();
+        }
         if (!$check) {
             return false;
         }

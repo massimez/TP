@@ -85,3 +85,17 @@
         height: 50px;
     }
 }
+
+input[type=date]:invalid::-webkit-datetime-edit {
+    color: #999;
+}
+
+tr:nth-child(even) {
+    background-color:#005AAE1A;
+    opacity: 0,1;
+
+  }
+
+  td {
+    text-align: center;
+  }

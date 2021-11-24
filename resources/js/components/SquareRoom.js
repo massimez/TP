@@ -4,10 +4,18 @@ import React, { useState, useEffect } from "react";
 import { MdSettings, MdAccessibility } from "react-icons/md";
 import RoomNext from "./RoomNext";
 import SquareFree from "./SquareFree";
+import SquareFreeBottom from "./SquareFreeBottom";
+import man from "../svg/man.svg";
+import women from "../svg/women.svg";
+import oven from "../svg/oven.svg";
+import stais from "../svg/stais.svg";
+import kobuvaya from "../svg/kobuvaya.png";
 
 import { useDisclosure } from "@chakra-ui/react";
 import RoomProfil from "./RoomProfil";
 import axios from "axios";
+import SquareIcon from "./SquareIcon";
+
 const SquareRoom = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [rooms, setRooms] = useState();
@@ -37,80 +45,144 @@ const SquareRoom = (props) => {
 
     return (
         <>
-            <RoomNext rooms={props.rooms} setFloorPage={setFloorPage} />
-            <SimpleGrid my={2} border="5px solid rgba(0, 90, 174, 1)" columns={1} spacingX="0" spacingY="0"  mx="auto" w="80%" >
+            <RoomNext
+                rooms={props.rooms}
+                showList={true}
+                setFloorPage={setFloorPage}
+                floorActive={floorPage}
+            />
+            <SimpleGrid
+                my={2}
+                border="5px solid rgba(0, 90, 174, 1)"
+                columns={1}
+                spacingX="0"
+                spacingY="0"
+                width="fit-content"
+                maxWidth="95%"
+                overflow="auto"
+                mx="auto"
+            >
                 <Flex
                     alignItems="center"
                     justify="center"
                     direction="row"
                     p={0}
                     m={0}
+                    mb="43px"
                 >
-                    <SquareFree ass={MdAccessibility} />
+                    <SquareIcon
+                        width={props.width}
+                        icon={kobuvaya}
+                        left="true"
+                    />
                     {props.rooms
-                        .filter((opt) => opt.floor === floorPage)
-                        .slice(0, 200)
+                        .filter(
+                            (opt) =>
+                                opt.floor === floorPage &&
+                                parseInt(opt.room_id) % 2 !== 0
+                        ).sort(function (a, b) {
+                            return parseInt(a.room_id) - parseInt(b.room_id);
+                        })
                         .map((room, index) => (
-                            <Box
-                                p={0}
-                                m={0}
-                                _hover={{ cursor: "pointer" }}
-                                onClick={() => {
-                                    setRoomNow( room.max_living);
-                                    setRoomMax(room.number_of_living);
-                                    handleclickroom(room.room_id)
-                                }}
-                            >
-                                <SquareFree
-                                    bg={
-                                        room.number_of_living < room.max_living
-                                            ? "rgba(178, 223, 181, 1)"
-                                            : "white"
-                                    }
-                                    key={index}
-                                    room={room}
-                                />
-                            </Box>
+                            <>
+                                <Box
+                                    p={0}
+                                    m={0}
+                                    _hover={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                        setRoomNow(room.max_living);
+                                        setRoomMax(room.number_of_living);
+                                        handleclickroom(room.room_id);
+                                    }}
+                                >
+                                    <SquareFree
+                                        width={props.width}
+                                        bg={
+                                            room.number_of_living <
+                                            room.max_living
+                                                ? "rgba(178, 223, 181, 1)"
+                                                : "white"
+                                        }
+                                        room={room}
+                                    />
+                                </Box>
+                            </>
                         ))}
-                    <SquareFree icon="MdAccessibility" ass={MdAccessibility} />
+                    <SquareIcon
+                        width={props.width}
+                        icon={kobuvaya}
+                        left="true"
+                    />
                 </Flex>
-                <Flex
+                {/* <Flex
                     border="5px solid rgba(0, 90, 174, 0.7)"
                     alignItems="center"
                     justify="center"
                     direction="row"
                     height="38px"
-                ></Flex>
-                <Flex
-                    alignItems="center"
-                    justify="center"
-                    direction="row"
-                >
-                    <SquareFree ass={MdAccessibility} />
+                ></Flex> */}
+                <Flex alignItems="center" justify="center" direction="row">
+                    <SquareIcon width={props.width} icon={women} />
+
                     {props.rooms
-                        .filter((opt) => opt.floor === floorPage)
-                        .slice(100, 200)
-                        .map((room,i) => (
+                        .filter(
+                            (opt) =>
+                                opt.floor === floorPage &&
+                                parseInt(opt.room_id) % 2 == 0
+                        )
+                        .sort(function (a, b) {
+                            return parseInt(a.room_id) - parseInt(b.room_id);
+                        })
+                        .map((room, index) => (
                             <>
-                                <SquareFree
-                                    bg={
-                                        room.number_of_living < room.max_living
-                                            ? "rgba(178, 223, 181, 1)"
-                                            : "white"
-                                    }
-                                    key={i}
-                                    room={room}
-                                    onClick={() =>  {
-                                        setRoomNow( room.max_living);
-                                        console.log(room.max_living)
+                                {index === 6 ? (
+                                    <>
+                                    <SquareIcon
+                                        width={props.width-24}
+                                        icon={stais}
+                                    />
+                                    <SquareIcon
+                                        width={props.width-12}
+                                        icon={oven}
+                                    />
+                                    </>
+                                ) : null}
+                                {index === 14 ? (
+                                    <>
+                                    <SquareIcon
+                                        width={props.width-24}
+                                        icon={stais}
+                                    />
+                                    <SquareIcon
+                                        width={props.width-12}
+                                        icon={oven}
+                                    />
+                                    </>
+                                ) : null}
+                                <Box
+                                    p={0}
+                                    m={0}
+                                    _hover={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                        setRoomNow(room.max_living);
                                         setRoomMax(room.number_of_living);
                                         handleclickroom(room.room_id);
-                                    }
-                                    }
-                                />
+                                    }}
+                                >
+                                    <SquareFreeBottom
+                                        width={props.width}
+                                        bg={
+                                            room.number_of_living <
+                                            room.max_living
+                                                ? "rgba(178, 223, 181, 1)"
+                                                : "white"
+                                        }
+                                        room={room}
+                                    />
+                                </Box>
                             </>
                         ))}
-                    <SquareFree ass={MdAccessibility} />
+                    <SquareIcon width={props.width} icon={man} />
                 </Flex>
             </SimpleGrid>
             {roomFocus && (

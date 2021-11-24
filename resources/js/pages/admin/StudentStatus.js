@@ -126,7 +126,7 @@ const StudentStatus = () => {
                 setStatusName("");
                 setNeighbors("");
                 onOpen();
-            }}>Add new status</Button>
+            }}>Добавить новый статус</Button>
             {Error && <ErrorMessage message={Error} />}
             {succes && <SuccesMessage message={succes} />}
             <Table variant="striped" mt={2}>
@@ -143,14 +143,13 @@ const StudentStatus = () => {
                             <Th>{stat.status_student} </Th>
                             <Th>{stat.neighbors}</Th>
                             <Th>
-                                <DeleteIcon
+                                <Button
+                                colorScheme="red"
                                     _hover={{ cursor: "pointer" }}
-                                    w={6}
-                                    h={6}
                                     onClick={() => {
                                         handleDelete(stat.id);
                                     }}
-                                />
+                                >Удалить</Button>
                                 <Button
                                     onClick={() => {
                                         onOpen();
@@ -159,7 +158,7 @@ const StudentStatus = () => {
                                         setstatusFocus(stat.id)
                                     }}
                                 >
-                                    Edit
+                                    Редактировать
                                 </Button>
                             </Th>
                         </Tr>
@@ -214,13 +213,13 @@ const StudentStatus = () => {
                                 colorScheme="blue"
                                 mr={3}
                             >
-                                Edit
+                                Редактировать
                             </Button>
                         )}
 
                         <Button onClick={() => {
                             setaddStatus(false);
-                            onClose();}}>Cancel</Button>
+                            onClose();}}>Отменить</Button>
                     </ModalFooter>
                 </DrawerContent>
             </Drawer>

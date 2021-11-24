@@ -29,7 +29,9 @@ class FilterStudent
     {
         if ($filer == 'filter') {
             foreach ($value as $where_filter) {
-                $this->response->where($where_filter[0], '=', $where_filter[1]);
+                $this->response->whereHas('groupTable', function ($query) use ($where_filter){
+                    $query->where($where_filter[0], '=', $where_filter[1]);
+                });
             }
         }
         if ($filer == 'order') {
